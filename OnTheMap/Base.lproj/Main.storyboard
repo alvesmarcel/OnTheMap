@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </mutableArray>
+        <mutableArray key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -15,11 +26,160 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to Udacity" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Be-9P-oTg">
+                                <rect key="frame" x="212" y="185" width="176" height="28.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="24"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LK1-uo-zUS" customClass="CustomTextField" customModule="OnTheMap" customModuleProvider="target">
+                                <rect key="frame" x="160" y="226" width="280" height="44"/>
+                                <color key="backgroundColor" red="0.92941176470588238" green="0.76470588235294112" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="7ih-lH-gHi"/>
+                                    <constraint firstAttribute="width" constant="280" id="cfb-XL-h1K"/>
+                                </constraints>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NWT-99-nid" customClass="CustomTextField" customModule="OnTheMap" customModuleProvider="target">
+                                <rect key="frame" x="160" y="278" width="280" height="44"/>
+                                <color key="backgroundColor" red="0.92941176470588238" green="0.76470588235294112" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Dfo-ms-dJr"/>
+                                    <constraint firstAttribute="width" constant="280" id="jts-8S-6KA"/>
+                                </constraints>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On The Map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hS-On-aia">
+                                <rect key="frame" x="200" y="74" width="200.5" height="62"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="38"/>
+                                <color key="textColor" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="1" green="0.27140727796052611" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w72-Cz-dOs">
+                                <rect key="frame" x="180" y="420" width="240" height="32"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                <state key="normal" title="Don't have an account? Sign up">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJj-qo-fXX">
+                                <rect key="frame" x="196" y="472" width="208" height="50"/>
+                                <state key="normal" image="login_with_fb">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FSI-cB-0nU">
+                                <rect key="frame" x="160" y="356" width="280" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="5x6-nr-TyT"/>
+                                    <constraint firstAttribute="height" constant="44" id="hZb-Vy-uGm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="17"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="FSI-cB-0nU" firstAttribute="top" secondItem="NWT-99-nid" secondAttribute="bottom" constant="34" id="Afk-Jl-Jac"/>
+                            <constraint firstAttribute="centerX" secondItem="6Be-9P-oTg" secondAttribute="centerX" id="ERF-xZ-8Sm"/>
+                            <constraint firstAttribute="centerX" secondItem="LK1-uo-zUS" secondAttribute="centerX" id="MZu-xv-7Fg"/>
+                            <constraint firstAttribute="centerX" secondItem="w72-Cz-dOs" secondAttribute="centerX" id="O1E-gt-xa5"/>
+                            <constraint firstItem="VJj-qo-fXX" firstAttribute="top" secondItem="w72-Cz-dOs" secondAttribute="bottom" constant="20" id="QZr-Kw-7MY"/>
+                            <constraint firstItem="NWT-99-nid" firstAttribute="top" secondItem="LK1-uo-zUS" secondAttribute="bottom" constant="8" id="RDc-kp-g98"/>
+                            <constraint firstAttribute="centerX" secondItem="8hS-On-aia" secondAttribute="centerX" id="VkL-8t-EL0"/>
+                            <constraint firstItem="LK1-uo-zUS" firstAttribute="top" secondItem="6Be-9P-oTg" secondAttribute="bottom" constant="12" id="Xl3-Yr-zsF"/>
+                            <constraint firstItem="w72-Cz-dOs" firstAttribute="top" secondItem="FSI-cB-0nU" secondAttribute="bottom" constant="20" id="d3l-zw-Uuu"/>
+                            <constraint firstAttribute="centerX" secondItem="VJj-qo-fXX" secondAttribute="centerX" id="et9-UK-zJO"/>
+                            <constraint firstAttribute="centerX" secondItem="NWT-99-nid" secondAttribute="centerX" id="gJh-dp-Fsd"/>
+                            <constraint firstItem="6Be-9P-oTg" firstAttribute="top" secondItem="8hS-On-aia" secondAttribute="bottom" constant="48.5" id="wH0-VY-zgG"/>
+                            <constraint firstAttribute="centerX" secondItem="FSI-cB-0nU" secondAttribute="centerX" id="x5e-vC-4on"/>
+                            <constraint firstAttribute="centerY" secondItem="NWT-99-nid" secondAttribute="centerY" id="xfw-Rb-ooW"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="createAccountButton" destination="w72-Cz-dOs" id="2uT-Xd-vb0"/>
+                        <outlet property="emailTextField" destination="LK1-uo-zUS" id="hdx-lu-LuC"/>
+                        <outlet property="loginWithFacebookButton" destination="VJj-qo-fXX" id="Sxc-xl-mso"/>
+                        <outlet property="loginWithUdacityButton" destination="FSI-cB-0nU" id="XRj-DN-vhc"/>
+                        <outlet property="passwordTextField" destination="NWT-99-nid" id="Rj0-pP-XbA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="74" y="225"/>
+        </scene>
+        <!--List-->
+        <scene sceneID="QcJ-QQ-XNl">
+            <objects>
+                <viewController id="QJx-W4-eZQ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="v6s-Z0-bzx"/>
+                        <viewControllerLayoutGuide type="bottom" id="qQz-4w-REJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VFC-FM-dmo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="List" image="list" id="qMT-2C-lVA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZeP-Kd-N0j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1586" y="556"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="29z-PD-5TV">
+            <objects>
+                <viewController id="pNW-5h-Gc7" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="o2a-Rt-1Df"/>
+                        <viewControllerLayoutGuide type="bottom" id="PPh-B1-utw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pIl-z2-QCG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Map" image="map" id="Xo8-2H-sQP"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H5y-mP-AFz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1586" y="-107"/>
+        </scene>
+        <!--OTMTabBarController-->
+        <scene sceneID="aST-c8-kpf">
+            <objects>
+                <tabBarController storyboardIdentifier="OTMTabBarController" title="OTMTabBarController" id="14T-f5-XiD" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="xB4-sh-QwZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="pNW-5h-Gc7" kind="relationship" relationship="viewControllers" id="ga6-mR-npM"/>
+                        <segue destination="QJx-W4-eZQ" kind="relationship" relationship="viewControllers" id="PRM-ai-wUQ"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JQf-pn-POI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="766" y="223"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="list" width="32" height="32"/>
+        <image name="login_with_fb" width="208" height="50"/>
+        <image name="map" width="32" height="32"/>
+    </resources>
 </document>

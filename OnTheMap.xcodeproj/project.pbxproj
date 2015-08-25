@@ -13,6 +13,14 @@
 		286F408F1B8B42D4008B012D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 286F408E1B8B42D4008B012D /* Images.xcassets */; };
 		286F40921B8B42D4008B012D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286F40901B8B42D4008B012D /* LaunchScreen.xib */; };
 		286F409E1B8B42D4008B012D /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F409D1B8B42D4008B012D /* OnTheMapTests.swift */; };
+		286F40A91B8B4822008B012D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40A81B8B4822008B012D /* LoginViewController.swift */; };
+		286F40AC1B8B5A8B008B012D /* OTMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40AB1B8B5A8B008B012D /* OTMConstants.swift */; };
+		286F40AE1B8B5B41008B012D /* OTMUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40AD1B8B5B41008B012D /* OTMUser.swift */; };
+		286F40B01B8B615D008B012D /* OTMConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40AF1B8B615D008B012D /* OTMConvenience.swift */; };
+		286F40B51B8B6CE0008B012D /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 286F40B21B8B6C85008B012D /* Roboto-Medium.ttf */; };
+		286F40B61B8B6CE0008B012D /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 286F40B31B8B6C85008B012D /* Roboto-Regular.ttf */; };
+		286F40B71B8B6CE0008B012D /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 286F40B41B8B6C85008B012D /* Roboto-Thin.ttf */; };
+		286F40C71B8BE2DD008B012D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40C61B8BE2DD008B012D /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +44,14 @@
 		286F40971B8B42D4008B012D /* OnTheMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		286F409C1B8B42D4008B012D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		286F409D1B8B42D4008B012D /* OnTheMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapTests.swift; sourceTree = "<group>"; };
+		286F40A81B8B4822008B012D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		286F40AB1B8B5A8B008B012D /* OTMConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMConstants.swift; sourceTree = "<group>"; };
+		286F40AD1B8B5B41008B012D /* OTMUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMUser.swift; sourceTree = "<group>"; };
+		286F40AF1B8B615D008B012D /* OTMConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMConvenience.swift; sourceTree = "<group>"; };
+		286F40B21B8B6C85008B012D /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		286F40B31B8B6C85008B012D /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		286F40B41B8B6C85008B012D /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		286F40C61B8BE2DD008B012D /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +93,9 @@
 		286F40841B8B42D4008B012D /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				286F40AA1B8B5A16008B012D /* Model */,
+				286F40B81B8BBD4C008B012D /* View */,
+				286F40A71B8B46F5008B012D /* Controller */,
 				286F40871B8B42D4008B012D /* AppDelegate.swift */,
 				286F40891B8B42D4008B012D /* ViewController.swift */,
 				286F408B1B8B42D4008B012D /* Main.storyboard */,
@@ -90,6 +109,7 @@
 		286F40851B8B42D4008B012D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				286F40B11B8B6C5C008B012D /* Fonts */,
 				286F40861B8B42D4008B012D /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -110,6 +130,42 @@
 				286F409C1B8B42D4008B012D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		286F40A71B8B46F5008B012D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				286F40A81B8B4822008B012D /* LoginViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		286F40AA1B8B5A16008B012D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				286F40AB1B8B5A8B008B012D /* OTMConstants.swift */,
+				286F40AD1B8B5B41008B012D /* OTMUser.swift */,
+				286F40AF1B8B615D008B012D /* OTMConvenience.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		286F40B11B8B6C5C008B012D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				286F40B21B8B6C85008B012D /* Roboto-Medium.ttf */,
+				286F40B31B8B6C85008B012D /* Roboto-Regular.ttf */,
+				286F40B41B8B6C85008B012D /* Roboto-Thin.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
+		286F40B81B8BBD4C008B012D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				286F40C61B8BE2DD008B012D /* CustomTextField.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,6 +248,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				286F40B51B8B6CE0008B012D /* Roboto-Medium.ttf in Resources */,
+				286F40B61B8B6CE0008B012D /* Roboto-Regular.ttf in Resources */,
+				286F40B71B8B6CE0008B012D /* Roboto-Thin.ttf in Resources */,
 				286F408D1B8B42D4008B012D /* Main.storyboard in Resources */,
 				286F40921B8B42D4008B012D /* LaunchScreen.xib in Resources */,
 				286F408F1B8B42D4008B012D /* Images.xcassets in Resources */,
@@ -212,7 +271,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				286F40A91B8B4822008B012D /* LoginViewController.swift in Sources */,
+				286F40AE1B8B5B41008B012D /* OTMUser.swift in Sources */,
 				286F408A1B8B42D4008B012D /* ViewController.swift in Sources */,
+				286F40AC1B8B5A8B008B012D /* OTMConstants.swift in Sources */,
+				286F40C71B8BE2DD008B012D /* CustomTextField.swift in Sources */,
+				286F40B01B8B615D008B012D /* OTMConvenience.swift in Sources */,
 				286F40881B8B42D4008B012D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,6 +359,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -332,6 +397,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -340,9 +406,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OnTheMap",
+					"/Users/alvesmarcel/Downloads/FacebookSDKs-iOS-20150813",
+				);
 				INFOPLIST_FILE = OnTheMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -350,9 +424,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OnTheMap",
+					"/Users/alvesmarcel/Downloads/FacebookSDKs-iOS-20150813",
+				);
 				INFOPLIST_FILE = OnTheMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 			};
 			name = Release;
 		};
