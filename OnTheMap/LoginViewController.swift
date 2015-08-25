@@ -12,7 +12,7 @@ class LoginViewController: UIViewController {
 
 	@IBOutlet weak var emailTextField: UITextField!
 	@IBOutlet weak var passwordTextField: UITextField!
-	@IBOutlet weak var loginWithUdacityButton: BorderedButton!
+	@IBOutlet weak var loginWithUdacityButton: UIButton!
 	@IBOutlet weak var createAccountButton: UIButton!
 	@IBOutlet weak var loginWithFacebookButton: UIButton!
 	
