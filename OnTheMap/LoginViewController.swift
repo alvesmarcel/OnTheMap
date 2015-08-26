@@ -13,8 +13,6 @@ class LoginViewController: UIViewController {
 	@IBOutlet weak var emailTextField: UITextField!
 	@IBOutlet weak var passwordTextField: UITextField!
 	@IBOutlet weak var loginWithUdacityButton: UIButton!
-	@IBOutlet weak var createAccountButton: UIButton!
-	@IBOutlet weak var loginWithFacebookButton: UIButton!
 	
 	var session: NSURLSession!
 	
@@ -39,31 +37,41 @@ class LoginViewController: UIViewController {
 	@IBAction func loginButtonTouch(sender: AnyObject) {
 		if let tag = sender.tag {
 			if tag == OTMUser.Constants.udacityLoginButtonTag {
-				OTMUser.sharedInstance().authenticateWithUdacity()
+				OTMUser.sharedInstance().authenticateWithUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
+					if success {
+						self.completeLogin()
+					} else {
+						self.displayError(errorString as? String)
+					}
+				}
 			} else if tag == OTMUser.Constants.facebookLoginButtonTag {
 				OTMUser.sharedInstance().authenticateWithFacebook()
 			} else {
 				println("Unidentified button tag")
 			}
 		}
-		
-		// TODO
-		//		TMDBClient.sharedInstance().authenticateWithViewController(self) { (success, errorString) in
-		//			if success {
-		//				self.completeLogin()
-		//			} else {
-		//				self.displayError(errorString)
-		//			}
-		//		}
 	}
 	
 	// MARK: - LoginViewController
 	
 	func completeLogin() {
 		dispatch_async(dispatch_get_main_queue(), {
-			let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OTMTabBarController") as! UINavigationController
+			println(OTMUser.sharedInstance().sessionID)
+			println(OTMUser.sharedInstance().userID)
+			let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OTMTabBarController") as! UITabBarController
 			self.presentViewController(controller, animated: true, completion: nil)
 		})
+	}
+	
+	func displayError(errorString: String?) {
+		dispatch_async(dispatch_get_main_queue()) {
+			if let errorString = errorString {
+				let alertController = UIAlertController(title: "Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
+				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+				alertController.addAction(DismissAction)
+				self.presentViewController(alertController, animated: true) {}
+			}
+		}
 	}
 	
 	func configureUI() {

@@ -87,6 +87,9 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="loginButtonTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="s7i-aO-XnM"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -108,9 +111,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="createAccountButton" destination="w72-Cz-dOs" id="2uT-Xd-vb0"/>
                         <outlet property="emailTextField" destination="LK1-uo-zUS" id="hdx-lu-LuC"/>
-                        <outlet property="loginWithFacebookButton" destination="VJj-qo-fXX" id="Sxc-xl-mso"/>
                         <outlet property="loginWithUdacityButton" destination="FSI-cB-0nU" id="XRj-DN-vhc"/>
                         <outlet property="passwordTextField" destination="NWT-99-nid" id="Rj0-pP-XbA"/>
                     </connections>

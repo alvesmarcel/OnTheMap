@@ -11,9 +11,29 @@ extension OTMUser {
 	struct Constants {
 		
 		/* Button tags */
-		static let udacityLoginButtonTag = 1
-		static let facebookLoginButtonTag = 2
+		static let udacityLoginButtonTag : Int = 1
+		static let facebookLoginButtonTag : Int = 2
 		
+		// URLs
+		static let udacityBaseUrl : String = "https://www.udacity.com/api/"
 		
+	}
+	
+	struct Methods {
+		
+		static let udacitySession : String = "session"
+	}
+	
+	struct JSONResponseKeys {
+		static let status = "status"
+		static let session = "session"
+		static let sessionID = "id"
+		static let account = "account"
+		static let key = "key"
+	}
+	
+	struct StatusResponse {
+		static let emptyField = 400
+		static let invalidField = 403
 	}
 }
