@@ -1,5 +1,5 @@
 //
-//  OTMUser.swift
+//  UdacityClient.swift
 //  OnTheMap
 //
 //  Created by Marcel Oliveira Alves on 8/24/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class OTMUser : NSObject {
+class UdacityClient : NSObject {
 	
 	/* Shared session */
 	var session: NSURLSession
@@ -29,7 +29,7 @@ class OTMUser : NSObject {
 		var mutableParameters = parameters
 		
 		/* 2/3. Build the URL and configure the request */
-		let urlString = Constants.udacityBaseUrl + method + OTMUser.escapedParameters(mutableParameters)
+		let urlString = Constants.udacityBaseUrl + method + UdacityClient.escapedParameters(mutableParameters)
 		let url = NSURL(string: urlString)!
 		let request = NSMutableURLRequest(URL: url)
 		var jsonifyError: NSError? = nil
@@ -45,7 +45,7 @@ class OTMUser : NSObject {
 			if let error = downloadError {
 				completionHandler(result: nil, error: downloadError)
 			} else {
-				OTMUser.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+				UdacityClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
 			}
 		}
 		
@@ -94,10 +94,10 @@ class OTMUser : NSObject {
 	
 	// MARK: - Shared Instance
 	
-	class func sharedInstance() -> OTMUser {
+	class func sharedInstance() -> UdacityClient {
 		
 		struct Singleton {
-			static var sharedInstance = OTMUser()
+			static var sharedInstance = UdacityClient()
 		}
 		
 		return Singleton.sharedInstance

@@ -1,5 +1,5 @@
 //
-//  OTMConvenience.swift
+//  UdacityConvenience.swift
 //  OnTheMap
 //
 //  Created by Marcel Oliveira Alves on 8/24/15.
@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-extension OTMUser {
+extension UdacityClient {
 	
 	func authenticateWithUdacity(username: String, password: String, completionHandler: (success: Bool, error: NSString?) -> Void) {
 		
@@ -40,8 +40,8 @@ extension OTMUser {
 						}
 					} else {
 						/* When there is no "status", the operation was succesful */
-						OTMUser.sharedInstance().userID = jsonData.valueForKey(JSONResponseKeys.account)?.valueForKey(JSONResponseKeys.key) as? String
-						OTMUser.sharedInstance().sessionID = jsonData.valueForKey(JSONResponseKeys.session)?.valueForKey(JSONResponseKeys.sessionID) as? String
+						UdacityClient.sharedInstance().userID = jsonData.valueForKey(JSONResponseKeys.account)?.valueForKey(JSONResponseKeys.key) as? String
+						UdacityClient.sharedInstance().sessionID = jsonData.valueForKey(JSONResponseKeys.session)?.valueForKey(JSONResponseKeys.sessionID) as? String
 						completionHandler(success: true, error: nil)
 					}
 				} else {

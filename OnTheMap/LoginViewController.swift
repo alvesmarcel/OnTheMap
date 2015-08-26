@@ -36,16 +36,16 @@ class LoginViewController: UIViewController {
 	/* Identifies which button was touched and selects the correct login method (Udacity or Facebook) */
 	@IBAction func loginButtonTouch(sender: AnyObject) {
 		if let tag = sender.tag {
-			if tag == OTMUser.Constants.udacityLoginButtonTag {
-				OTMUser.sharedInstance().authenticateWithUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
+			if tag == UdacityClient.Constants.udacityLoginButtonTag {
+				UdacityClient.sharedInstance().authenticateWithUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
 					if success {
 						self.completeLogin()
 					} else {
 						self.displayError(errorString as? String)
 					}
 				}
-			} else if tag == OTMUser.Constants.facebookLoginButtonTag {
-				OTMUser.sharedInstance().authenticateWithFacebook()
+			} else if tag == UdacityClient.Constants.facebookLoginButtonTag {
+				UdacityClient.sharedInstance().authenticateWithFacebook()
 			} else {
 				println("Unidentified button tag")
 			}
@@ -56,9 +56,9 @@ class LoginViewController: UIViewController {
 	
 	func completeLogin() {
 		dispatch_async(dispatch_get_main_queue(), {
-			println(OTMUser.sharedInstance().sessionID)
-			println(OTMUser.sharedInstance().userID)
-			let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OTMTabBarController") as! UITabBarController
+			println(UdacityClient.sharedInstance().sessionID)
+			println(UdacityClient.sharedInstance().userID)
+			let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OTMNavigationController") as! UINavigationController
 			self.presentViewController(controller, animated: true, completion: nil)
 		})
 	}
@@ -66,7 +66,7 @@ class LoginViewController: UIViewController {
 	func displayError(errorString: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
 			if let errorString = errorString {
-				let alertController = UIAlertController(title: "Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
+				let alertController = UIAlertController(title: "Login Failed", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
 				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
 				alertController.addAction(DismissAction)
 				self.presentViewController(alertController, animated: true) {}

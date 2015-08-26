@@ -14,13 +14,15 @@
 		286F40921B8B42D4008B012D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286F40901B8B42D4008B012D /* LaunchScreen.xib */; };
 		286F409E1B8B42D4008B012D /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F409D1B8B42D4008B012D /* OnTheMapTests.swift */; };
 		286F40A91B8B4822008B012D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40A81B8B4822008B012D /* LoginViewController.swift */; };
-		286F40AC1B8B5A8B008B012D /* OTMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40AB1B8B5A8B008B012D /* OTMConstants.swift */; };
-		286F40AE1B8B5B41008B012D /* OTMUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40AD1B8B5B41008B012D /* OTMUser.swift */; };
-		286F40B01B8B615D008B012D /* OTMConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40AF1B8B615D008B012D /* OTMConvenience.swift */; };
+		286F40AC1B8B5A8B008B012D /* UdacityConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40AB1B8B5A8B008B012D /* UdacityConstants.swift */; };
+		286F40AE1B8B5B41008B012D /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40AD1B8B5B41008B012D /* UdacityClient.swift */; };
+		286F40B01B8B615D008B012D /* UdacityConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40AF1B8B615D008B012D /* UdacityConvenience.swift */; };
 		286F40B51B8B6CE0008B012D /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 286F40B21B8B6C85008B012D /* Roboto-Medium.ttf */; };
 		286F40B61B8B6CE0008B012D /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 286F40B31B8B6C85008B012D /* Roboto-Regular.ttf */; };
 		286F40B71B8B6CE0008B012D /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 286F40B41B8B6C85008B012D /* Roboto-Thin.ttf */; };
 		286F40C71B8BE2DD008B012D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40C61B8BE2DD008B012D /* CustomTextField.swift */; };
+		286F40C91B8E3317008B012D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40C81B8E3317008B012D /* MapViewController.swift */; };
+		286F40CD1B8E3CD3008B012D /* OTMTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40CC1B8E3CD3008B012D /* OTMTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,13 +47,15 @@
 		286F409C1B8B42D4008B012D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		286F409D1B8B42D4008B012D /* OnTheMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapTests.swift; sourceTree = "<group>"; };
 		286F40A81B8B4822008B012D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		286F40AB1B8B5A8B008B012D /* OTMConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMConstants.swift; sourceTree = "<group>"; };
-		286F40AD1B8B5B41008B012D /* OTMUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMUser.swift; sourceTree = "<group>"; };
-		286F40AF1B8B615D008B012D /* OTMConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMConvenience.swift; sourceTree = "<group>"; };
+		286F40AB1B8B5A8B008B012D /* UdacityConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConstants.swift; sourceTree = "<group>"; };
+		286F40AD1B8B5B41008B012D /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
+		286F40AF1B8B615D008B012D /* UdacityConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConvenience.swift; sourceTree = "<group>"; };
 		286F40B21B8B6C85008B012D /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		286F40B31B8B6C85008B012D /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		286F40B41B8B6C85008B012D /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		286F40C61B8BE2DD008B012D /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		286F40C81B8E3317008B012D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		286F40CC1B8E3CD3008B012D /* OTMTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +140,8 @@
 			isa = PBXGroup;
 			children = (
 				286F40A81B8B4822008B012D /* LoginViewController.swift */,
+				286F40C81B8E3317008B012D /* MapViewController.swift */,
+				286F40CC1B8E3CD3008B012D /* OTMTabBarController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -143,9 +149,7 @@
 		286F40AA1B8B5A16008B012D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				286F40AB1B8B5A8B008B012D /* OTMConstants.swift */,
-				286F40AD1B8B5B41008B012D /* OTMUser.swift */,
-				286F40AF1B8B615D008B012D /* OTMConvenience.swift */,
+				286F40CF1B8E4943008B012D /* Clients */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -166,6 +170,24 @@
 				286F40C61B8BE2DD008B012D /* CustomTextField.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		286F40CE1B8E4919008B012D /* Udacity */ = {
+			isa = PBXGroup;
+			children = (
+				286F40AB1B8B5A8B008B012D /* UdacityConstants.swift */,
+				286F40AD1B8B5B41008B012D /* UdacityClient.swift */,
+				286F40AF1B8B615D008B012D /* UdacityConvenience.swift */,
+			);
+			name = Udacity;
+			sourceTree = "<group>";
+		};
+		286F40CF1B8E4943008B012D /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				286F40CE1B8E4919008B012D /* Udacity */,
+			);
+			name = Clients;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,12 +294,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				286F40A91B8B4822008B012D /* LoginViewController.swift in Sources */,
-				286F40AE1B8B5B41008B012D /* OTMUser.swift in Sources */,
+				286F40AE1B8B5B41008B012D /* UdacityClient.swift in Sources */,
 				286F408A1B8B42D4008B012D /* ViewController.swift in Sources */,
-				286F40AC1B8B5A8B008B012D /* OTMConstants.swift in Sources */,
+				286F40AC1B8B5A8B008B012D /* UdacityConstants.swift in Sources */,
 				286F40C71B8BE2DD008B012D /* CustomTextField.swift in Sources */,
-				286F40B01B8B615D008B012D /* OTMConvenience.swift in Sources */,
+				286F40B01B8B615D008B012D /* UdacityConvenience.swift in Sources */,
 				286F40881B8B42D4008B012D /* AppDelegate.swift in Sources */,
+				286F40C91B8E3317008B012D /* MapViewController.swift in Sources */,
+				286F40CD1B8E3CD3008B012D /* OTMTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
