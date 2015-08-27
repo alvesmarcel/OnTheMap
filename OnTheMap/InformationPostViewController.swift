@@ -96,7 +96,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		
 		map.alpha = 0.0
 		
-		submitButton.titleLabel?.text = "Find on the Map"
+		submitButton.setTitle("Find on the Map", forState: .Normal)
 		cancelButton.titleLabel?.textColor = UIColor(red: 0.0, green: 0.0, blue: 0.59, alpha: 1.0)
 		
 		self.view.backgroundColor = UIColor(red: 0.94, green: 0.94, blue: 0.95, alpha: 1.0)
@@ -114,7 +114,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		
 		map.alpha = 1.0
 		
-		submitButton.titleLabel?.text = "Submit"
+		submitButton.setTitle("Submit", forState: .Normal)
 		cancelButton.titleLabel?.textColor = UIColor.whiteColor()
 		
 		self.view.backgroundColor = UIColor(red: 0.29, green: 0.57, blue: 0.75, alpha: 1.0)
