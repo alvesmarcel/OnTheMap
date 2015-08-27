@@ -45,19 +45,23 @@ class LoginViewController: UIViewController {
 					}
 				}
 			} else if tag == UdacityClient.Constants.facebookLoginButtonTag {
-				UdacityClient.sharedInstance().authenticateWithFacebook()
+				// TODO: AUTHENTICATE WITH FACEBOOK
+				//UdacityClient.sharedInstance().authenticateWithFacebook()
 			} else {
 				println("Unidentified button tag")
 			}
 		}
 	}
 	
+	@IBAction func signUpButtonTouch(sender: AnyObject) {
+		let url = NSURL(string: UdacityClient.Constants.signUpUrl)
+		UIApplication.sharedApplication().openURL(url!)
+	}
+	
 	// MARK: - LoginViewController
 	
 	func completeLogin() {
 		dispatch_async(dispatch_get_main_queue(), {
-			println(UdacityClient.sharedInstance().sessionID)
-			println(UdacityClient.sharedInstance().userID)
 			let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OTMNavigationController") as! UINavigationController
 			self.presentViewController(controller, animated: true, completion: nil)
 		})

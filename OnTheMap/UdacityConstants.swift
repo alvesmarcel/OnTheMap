@@ -8,6 +8,13 @@
 
 extension UdacityClient {
 	
+	struct ErrorMessages {
+		static let messageForStatus = [
+			400 : "Empty Email or Password",
+			403 : "Invalid Email or Password"
+		]
+	}
+	
 	struct Constants {
 		
 		/* Button tags */
@@ -16,6 +23,7 @@ extension UdacityClient {
 		
 		// URLs
 		static let udacityBaseUrl : String = "https://www.udacity.com/api/"
+		static let signUpUrl = "https://www.udacity.com/account/auth#!/signup"
 		
 	}
 	

@@ -10,18 +10,9 @@ import Foundation
 
 class UdacityClient : NSObject {
 	
-	/* Shared session */
-	var session: NSURLSession
-	
-	/* Authentication state */
-	var sessionID : String? = nil
-	var userID : String? = nil
-	
 	override init() {
-		session = NSURLSession.sharedSession()
 		super.init()
 	}
-	
 	
 	func taskForPOSTMethod(method: String, parameters: [String : AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
 		
@@ -37,6 +28,8 @@ class UdacityClient : NSObject {
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.HTTPBody = NSJSONSerialization.dataWithJSONObject(jsonBody, options: nil, error: &jsonifyError)
+		
+		let session = NSURLSession.sharedSession()
 		
 		/* 4. Make the request */
 		let task = session.dataTaskWithRequest(request) {data, response, downloadError in

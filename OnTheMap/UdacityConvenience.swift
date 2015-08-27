@@ -19,41 +19,45 @@ extension UdacityClient {
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.HTTPBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
 		
+		let session = NSURLSession.sharedSession()
+		
 		let task = session.dataTaskWithRequest(request) { data, response, error in
 			/* Connection error */
 			if error != nil {
+				println("Connection error. \(error.localizedDescription)")
 				completionHandler(success: false, error: error.localizedDescription)
 			} else {
-				/* Treating Udacity data */
-				let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+				/* Handling Udacity data - taking a subset of the data */
+				let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
 				
 				/* Parsing JSON data and checking what kind of error has happened */
 				var parsingError: NSError? = nil
 				if let jsonData = NSJSONSerialization.JSONObjectWithData(newData, options: nil, error: &parsingError) as? NSDictionary {
 					if let status = jsonData.valueForKey(JSONResponseKeys.status) as? Int {
-						if status == StatusResponse.emptyField {
-							completionHandler(success: false, error: "Empty Email or Password")
-						} else if status == StatusResponse.invalidField {
-							completionHandler(success: false, error: "Invalid Email or Password")
+						if let errorString = ErrorMessages.messageForStatus[status] {
+							println("Status error: \(status) (\(ErrorMessages.messageForStatus[status]!))")
+							completionHandler(success: false, error: ErrorMessages.messageForStatus[status])
 						} else {
+							println("Status error: \(status) (Unknown error)")
 							completionHandler(success: false, error: "Unknown Error")
 						}
 					} else {
 						/* When there is no "status", the operation was succesful */
-						UdacityClient.sharedInstance().userID = jsonData.valueForKey(JSONResponseKeys.account)?.valueForKey(JSONResponseKeys.key) as? String
-						UdacityClient.sharedInstance().sessionID = jsonData.valueForKey(JSONResponseKeys.session)?.valueForKey(JSONResponseKeys.sessionID) as? String
-						completionHandler(success: true, error: nil)
+						if let accountKey = jsonData.valueForKey(JSONResponseKeys.account)?.valueForKey(JSONResponseKeys.key) as? String {
+							println("Conection was successful")
+							completionHandler(success: true, error: nil)
+						} else {
+							println("Could not find account key")
+							completionHandler(success: false, error: "Could not find account key (API error)")
+						}
 					}
 				} else {
 					println("Parsing JSON error.")
+					completionHandler(success: false, error: "Parsing JSON error")
 				}
 			}
 		}
 		
 		task.resume()
-	}
-	
-	func authenticateWithFacebook() {
-		
 	}
 }

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Roboto-Medium.ttf">
@@ -12,6 +13,11 @@
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+        </mutableArray>
+        <mutableArray key="Roboto-Thin.ttf">
+            <string>Roboto-Thin</string>
+            <string>Roboto-Thin</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -69,6 +75,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="signUpButtonTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Wus-Hh-yix"/>
+                                </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJj-qo-fXX">
                                 <rect key="frame" x="196" y="472" width="208" height="50"/>
@@ -131,10 +140,24 @@
                     <view key="view" contentMode="scaleToFill" id="gxj-dm-fUU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="N38-KR-uod">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="N38-KR-uod" firstAttribute="leading" secondItem="gxj-dm-fUU" secondAttribute="leadingMargin" constant="-16" id="3wY-e1-VLa"/>
+                            <constraint firstItem="N38-KR-uod" firstAttribute="bottom" secondItem="gxj-dm-fUU" secondAttribute="bottomMargin" id="4Qd-3p-Ti5"/>
+                            <constraint firstItem="N38-KR-uod" firstAttribute="top" secondItem="gxj-dm-fUU" secondAttribute="topMargin" id="Qhb-S0-xmG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="N38-KR-uod" secondAttribute="trailing" constant="-16" id="SKI-Pb-30r"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="Axr-OI-xy3"/>
                     <navigationItem key="navigationItem" id="ivc-ad-E4P"/>
+                    <connections>
+                        <outlet property="mapView" destination="N38-KR-uod" id="zOp-XU-ZGY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="55k-Qv-YQ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -199,6 +222,83 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xEs-U7-srN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1490" y="225"/>
+        </scene>
+        <!--Information Post View Controller-->
+        <scene sceneID="7AB-dB-jMW">
+            <objects>
+                <viewController storyboardIdentifier="InformationPostViewController" id="zHZ-fa-vUq" customClass="InformationPostViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9Ja-h2-wAc"/>
+                        <viewControllerLayoutGuide type="bottom" id="9t0-el-kZq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iIP-2h-uKb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmU-zH-FxJ">
+                                <rect key="frame" x="226" y="44" width="149" height="28.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="studying" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Y6-mP-1lK">
+                                <rect key="frame" x="254" y="74" width="93.5" height="28.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter Your Location Here" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FFn-Ax-5aG">
+                                <rect key="frame" x="0.0" y="156" width="600" height="275"/>
+                                <color key="backgroundColor" red="0.29411764705882354" green="0.56862745098039214" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8lp-Yw-hyl">
+                                <rect key="frame" x="200" y="510" width="200" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Gw3-uD-LG9"/>
+                                    <constraint firstAttribute="width" constant="200" id="dDe-65-17e"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Find on the Map">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="today?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GpR-gm-vuu">
+                                <rect key="frame" x="266" y="104" width="69" height="29"/>
+                                <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FFn-Ax-5aG" firstAttribute="leading" secondItem="iIP-2h-uKb" secondAttribute="leadingMargin" constant="-16" id="0ZJ-Of-370"/>
+                            <constraint firstItem="GpR-gm-vuu" firstAttribute="top" secondItem="9Y6-mP-1lK" secondAttribute="bottom" constant="1.5" id="7UV-wM-zYV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FFn-Ax-5aG" secondAttribute="trailing" constant="-16" id="7Zl-Rl-39I"/>
+                            <constraint firstAttribute="centerX" secondItem="9Y6-mP-1lK" secondAttribute="centerX" id="Agp-Y7-gxP"/>
+                            <constraint firstItem="8lp-Yw-hyl" firstAttribute="top" secondItem="FFn-Ax-5aG" secondAttribute="bottom" constant="79" id="HiW-B8-IKN"/>
+                            <constraint firstItem="rmU-zH-FxJ" firstAttribute="top" secondItem="9Ja-h2-wAc" secondAttribute="bottom" constant="24" id="ICB-8k-c6I"/>
+                            <constraint firstAttribute="centerX" secondItem="rmU-zH-FxJ" secondAttribute="centerX" constant="-0.5" id="OlR-cZ-XyQ"/>
+                            <constraint firstItem="9t0-el-kZq" firstAttribute="top" secondItem="8lp-Yw-hyl" secondAttribute="bottom" constant="50" id="RKa-XI-Kdn"/>
+                            <constraint firstItem="9Y6-mP-1lK" firstAttribute="top" secondItem="rmU-zH-FxJ" secondAttribute="bottom" constant="1.5" id="bup-2O-qBm"/>
+                            <constraint firstItem="FFn-Ax-5aG" firstAttribute="top" secondItem="GpR-gm-vuu" secondAttribute="bottom" constant="23" id="fHw-XS-feK"/>
+                            <constraint firstAttribute="centerX" secondItem="GpR-gm-vuu" secondAttribute="centerX" constant="-0.5" id="ycf-Ry-AmZ"/>
+                            <constraint firstAttribute="centerX" secondItem="8lp-Yw-hyl" secondAttribute="centerX" id="zAx-kc-LTl"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lZ9-sH-iZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1388" y="939"/>
         </scene>
     </scenes>
     <resources>
