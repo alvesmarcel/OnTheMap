@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zHZ-fa-vUq">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -255,6 +255,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter a Link to Share Here" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Gzc-gj-lQw">
+                                <rect key="frame" x="0.0" y="58" width="600" height="97"/>
+                                <color key="backgroundColor" red="0.29411764709999999" green="0.56862745100000001" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8lp-Yw-hyl">
                                 <rect key="frame" x="200" y="510" width="200" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -272,6 +279,9 @@
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="findOnTheMapButtonTouch:" destination="zHZ-fa-vUq" eventType="touchUpInside" id="uSn-ja-Nbe"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="today?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GpR-gm-vuu">
                                 <rect key="frame" x="266" y="104" width="68.5" height="28.5"/>
@@ -286,30 +296,54 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="cancelButtonTouch:" destination="zHZ-fa-vUq" eventType="touchUpInside" id="L4n-En-3Se"/>
+                                </connections>
                             </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ct3-W4-ArU">
+                                <rect key="frame" x="0.0" y="155" width="600" height="445"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="FFn-Ax-5aG" firstAttribute="leading" secondItem="iIP-2h-uKb" secondAttribute="leadingMargin" constant="-16" id="0ZJ-Of-370"/>
+                            <constraint firstItem="FFn-Ax-5aG" firstAttribute="top" secondItem="Gzc-gj-lQw" secondAttribute="bottom" id="29z-iU-hsb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Gzc-gj-lQw" secondAttribute="trailing" constant="-16" id="4D0-QC-KBj"/>
                             <constraint firstItem="GpR-gm-vuu" firstAttribute="top" secondItem="9Y6-mP-1lK" secondAttribute="bottom" constant="1.5" id="7UV-wM-zYV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FFn-Ax-5aG" secondAttribute="trailing" constant="-16" id="7Zl-Rl-39I"/>
                             <constraint firstAttribute="centerX" secondItem="9Y6-mP-1lK" secondAttribute="centerX" id="Agp-Y7-gxP"/>
                             <constraint firstItem="RJf-jn-acB" firstAttribute="top" secondItem="9Ja-h2-wAc" secondAttribute="bottom" id="FRD-el-GON"/>
                             <constraint firstItem="8lp-Yw-hyl" firstAttribute="top" secondItem="FFn-Ax-5aG" secondAttribute="bottom" constant="79" id="HiW-B8-IKN"/>
                             <constraint firstItem="rmU-zH-FxJ" firstAttribute="top" secondItem="9Ja-h2-wAc" secondAttribute="bottom" constant="24" id="ICB-8k-c6I"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ct3-W4-ArU" secondAttribute="trailing" constant="-16" id="K07-eq-lKI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RJf-jn-acB" secondAttribute="trailing" constant="-8" id="Kor-nf-uL4"/>
                             <constraint firstAttribute="centerX" secondItem="rmU-zH-FxJ" secondAttribute="centerX" constant="-0.5" id="OlR-cZ-XyQ"/>
                             <constraint firstItem="9t0-el-kZq" firstAttribute="top" secondItem="8lp-Yw-hyl" secondAttribute="bottom" constant="50" id="RKa-XI-Kdn"/>
+                            <constraint firstItem="Gzc-gj-lQw" firstAttribute="top" secondItem="RJf-jn-acB" secondAttribute="bottom" constant="8" id="ULf-zE-zlx"/>
                             <constraint firstItem="9Y6-mP-1lK" firstAttribute="top" secondItem="rmU-zH-FxJ" secondAttribute="bottom" constant="1.5" id="bup-2O-qBm"/>
+                            <constraint firstItem="9t0-el-kZq" firstAttribute="top" secondItem="Ct3-W4-ArU" secondAttribute="bottom" id="ebz-9d-lej"/>
                             <constraint firstItem="FFn-Ax-5aG" firstAttribute="top" secondItem="GpR-gm-vuu" secondAttribute="bottom" constant="23" id="fHw-XS-feK"/>
+                            <constraint firstItem="Ct3-W4-ArU" firstAttribute="top" secondItem="Gzc-gj-lQw" secondAttribute="bottom" id="gis-nu-E9v"/>
+                            <constraint firstItem="Ct3-W4-ArU" firstAttribute="leading" secondItem="iIP-2h-uKb" secondAttribute="leadingMargin" constant="-16" id="hRu-TA-mdD"/>
+                            <constraint firstItem="Gzc-gj-lQw" firstAttribute="leading" secondItem="iIP-2h-uKb" secondAttribute="leadingMargin" constant="-16" id="hUB-zy-ISk"/>
                             <constraint firstAttribute="centerX" secondItem="GpR-gm-vuu" secondAttribute="centerX" constant="-0.5" id="ycf-Ry-AmZ"/>
                             <constraint firstAttribute="centerX" secondItem="8lp-Yw-hyl" secondAttribute="centerX" id="zAx-kc-LTl"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="RJf-jn-acB" id="5bY-Cz-hPg"/>
+                        <outlet property="label1" destination="rmU-zH-FxJ" id="XIh-Ux-wNT"/>
+                        <outlet property="label2" destination="9Y6-mP-1lK" id="Ch8-RW-5sS"/>
+                        <outlet property="label3" destination="GpR-gm-vuu" id="QDd-un-HIm"/>
+                        <outlet property="linkTextField" destination="Gzc-gj-lQw" id="Of5-o2-YHR"/>
+                        <outlet property="locationTextField" destination="FFn-Ax-5aG" id="6mu-cw-t3o"/>
+                        <outlet property="map" destination="Ct3-W4-ArU" id="74I-dD-YeD"/>
+                        <outlet property="submitButton" destination="8lp-Yw-hyl" id="yr5-ZP-9jU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lZ9-sH-iZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1388" y="939"/>
+            <point key="canvasLocation" x="1490" y="937"/>
         </scene>
     </scenes>
     <resources>
