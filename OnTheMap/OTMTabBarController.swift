@@ -22,6 +22,11 @@ class OTMTabBarController: UITabBarController {
 		println("refresh")
 	}
 	
+	@IBAction func logoutTouch(sender: AnyObject) {
+		println("REALIZAR LOGOUT")
+		dismissViewControllerAnimated(true, completion: nil)
+	}
+	
 	func callInformationPostViewController(sender: AnyObject) {
 		let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostViewController") as! UIViewController
 		self.presentViewController(controller, animated: true, completion: nil)
