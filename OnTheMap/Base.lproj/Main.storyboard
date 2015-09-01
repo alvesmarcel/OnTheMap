@@ -164,10 +164,10 @@
                             <constraint firstItem="N38-KR-uod" firstAttribute="leading" secondItem="gxj-dm-fUU" secondAttribute="leadingMargin" constant="-16" id="3wY-e1-VLa"/>
                             <constraint firstItem="N38-KR-uod" firstAttribute="bottom" secondItem="gxj-dm-fUU" secondAttribute="bottomMargin" id="4Qd-3p-Ti5"/>
                             <constraint firstItem="9hm-85-2Zv" firstAttribute="leading" secondItem="gxj-dm-fUU" secondAttribute="leadingMargin" constant="-16" id="5NC-5C-kMW"/>
-                            <constraint firstItem="0r0-Hx-nix" firstAttribute="top" secondItem="9hm-85-2Zv" secondAttribute="bottom" id="BZD-Hb-dLi"/>
-                            <constraint firstItem="9hm-85-2Zv" firstAttribute="top" secondItem="L6d-8w-WxC" secondAttribute="bottom" id="H7F-jT-bFU"/>
+                            <constraint firstItem="9hm-85-2Zv" firstAttribute="top" secondItem="L6d-8w-WxC" secondAttribute="bottom" id="PL4-BA-Dhf"/>
                             <constraint firstItem="N38-KR-uod" firstAttribute="top" secondItem="gxj-dm-fUU" secondAttribute="topMargin" id="Qhb-S0-xmG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="N38-KR-uod" secondAttribute="trailing" constant="-16" id="SKI-Pb-30r"/>
+                            <constraint firstItem="0r0-Hx-nix" firstAttribute="top" secondItem="9hm-85-2Zv" secondAttribute="bottom" id="ddz-AD-rIM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9hm-85-2Zv" secondAttribute="trailing" constant="-16" id="wJl-E1-83J"/>
                         </constraints>
                     </view>
@@ -245,7 +245,7 @@
         <!--On The Map-->
         <scene sceneID="gAX-Jl-yZu">
             <objects>
-                <tabBarController storyboardIdentifier="OTMTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="nLH-Bi-Swj" customClass="OTMTabBarController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="OTMTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="nLH-Bi-Swj" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="On The Map" id="yNI-3H-cEF">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="vrp-gE-aRf">

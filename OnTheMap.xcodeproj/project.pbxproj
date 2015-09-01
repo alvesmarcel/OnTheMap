@@ -23,7 +23,6 @@
 		286F40B71B8B6CE0008B012D /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 286F40B41B8B6C85008B012D /* Roboto-Thin.ttf */; };
 		286F40C71B8BE2DD008B012D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40C61B8BE2DD008B012D /* CustomTextField.swift */; };
 		286F40C91B8E3317008B012D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40C81B8E3317008B012D /* MapViewController.swift */; };
-		286F40CD1B8E3CD3008B012D /* OTMTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40CC1B8E3CD3008B012D /* OTMTabBarController.swift */; };
 		286F40D21B8E76D8008B012D /* ParseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40D11B8E76D8008B012D /* ParseConstants.swift */; };
 		286F40D41B8E771E008B012D /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40D31B8E771E008B012D /* ParseClient.swift */; };
 		286F40D61B8E831D008B012D /* InformationPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40D51B8E831D008B012D /* InformationPostViewController.swift */; };
@@ -61,7 +60,6 @@
 		286F40B41B8B6C85008B012D /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		286F40C61B8BE2DD008B012D /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		286F40C81B8E3317008B012D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		286F40CC1B8E3CD3008B012D /* OTMTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMTabBarController.swift; sourceTree = "<group>"; };
 		286F40D11B8E76D8008B012D /* ParseConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConstants.swift; sourceTree = "<group>"; };
 		286F40D31B8E771E008B012D /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 		286F40D51B8E831D008B012D /* InformationPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostViewController.swift; sourceTree = "<group>"; };
@@ -151,7 +149,6 @@
 				286F40A81B8B4822008B012D /* LoginViewController.swift */,
 				286F40C81B8E3317008B012D /* MapViewController.swift */,
 				286F40D71B9085FE008B012D /* ListViewController.swift */,
-				286F40CC1B8E3CD3008B012D /* OTMTabBarController.swift */,
 				286F40D51B8E831D008B012D /* InformationPostViewController.swift */,
 			);
 			name = Controller;
@@ -329,7 +326,6 @@
 				286F40881B8B42D4008B012D /* AppDelegate.swift in Sources */,
 				286F40D61B8E831D008B012D /* InformationPostViewController.swift in Sources */,
 				286F40C91B8E3317008B012D /* MapViewController.swift in Sources */,
-				286F40CD1B8E3CD3008B012D /* OTMTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

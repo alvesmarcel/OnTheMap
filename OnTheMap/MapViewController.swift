@@ -15,19 +15,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	@IBOutlet weak var loadingScreenView: UIView!
 	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 	
-	var otmTabBarController: OTMTabBarController!
+	var annotations = [MKPointAnnotation]()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "initLoadScreen", name: "DataDownloadStartedNotification", object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMapView", name: "DataDownloadFinishedNotification", object: nil)
-		
-		otmTabBarController = self.tabBarController as! OTMTabBarController
-		
-		otmTabBarController.refreshLocations(self)
+		mapView.delegate = self
 		
 		activityIndicatorView.hidesWhenStopped = true
+		
+		
+		refreshLocations(self)
 		
 //		
 //		// The "locations" array is an array of dictionary objects that are similar to the JSON
@@ -71,22 +69,49 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	}
 	
 	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
 		
+		/* Adding the right bar buttons to the navigation bar */
+		let refreshBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshLocations:")
+		let pinBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "callInformationPostViewController:")
+		self.tabBarController!.navigationItem.setRightBarButtonItems([refreshBarButtonItem, pinBarButtonItem], animated: true)
+	}
+	
+	func refreshLocations(sender: AnyObject?) {
+		initLoadScreen()
+		ParseClient.sharedInstance().getStudentsLocations(100, skip: 0) { studentLocations, error in
+			if let error = error {
+				self.displayError(error.localizedDescription)
+			} else {
+				if let locations = studentLocations {
+					//self.studentLocations = locations
+					dispatch_async(dispatch_get_main_queue()) {
+						self.updateMapView()
+						self.dismissLoadScreen()
+					}
+					println("Students Locations saved")
+				} else {
+					println("Unexpected Error")
+				}
+			}
+		}
 	}
 	
 	func initLoadScreen() {
-		activityIndicatorView.startAnimating()
-		loadingScreenView.hidden = false
+		self.activityIndicatorView.startAnimating()
+		self.loadingScreenView.hidden = false
 	}
 	
 	func dismissLoadScreen() {
-		activityIndicatorView.stopAnimating()
-		loadingScreenView.hidden = true
+		self.activityIndicatorView.stopAnimating()
+		self.loadingScreenView.hidden = true
 	}
 	
 	func updateMapView() {
-		var annotations = [MKPointAnnotation]()
-		for studentLocation in otmTabBarController.studentLocations {
+		mapView.removeAnnotations(annotations)
+		annotations.removeAll(keepCapacity: false)
+		
+		for studentLocation in ParseClient.sharedInstance().studentLocations {
 			let latitude = CLLocationDegrees(studentLocation.latitude)
 			let longitude = CLLocationDegrees(studentLocation.longitude)
 			
@@ -103,8 +128,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 			
 			annotations.append(annotation)
 		}
-		
-		dismissLoadScreen()
+
 		self.mapView.addAnnotations(annotations)
 	}
 	
@@ -132,10 +156,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	// This delegate method is implemented to respond to taps. It opens the system browser
 	// to the URL specified in the annotationViews subtitle property.
 	func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-		println("teste")
+
 		if control == annotationView.rightCalloutAccessoryView {
 			let app = UIApplication.sharedApplication()
 			app.openURL(NSURL(string: annotationView.annotation.subtitle!)!)
+		}
+	}
+	
+	func displayError(errorString: String?) {
+		dispatch_async(dispatch_get_main_queue()) {
+			if let errorString = errorString {
+				let alertController = UIAlertController(title: "Get Locations Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
+				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+				alertController.addAction(DismissAction)
+				self.presentViewController(alertController, animated: true) {}
+			}
 		}
 	}
 }

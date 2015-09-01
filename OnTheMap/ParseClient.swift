@@ -10,6 +10,7 @@ import Foundation
 
 class ParseClient {
 	
+	var studentLocations: [StudentLocation] = [StudentLocation]()
 	
 	func getStudentsLocations(limit: Int, skip: Int, completionHandler: (result: [StudentLocation]?, error: NSError?) -> Void) {
 		let parameters = [
@@ -24,8 +25,8 @@ class ParseClient {
 				completionHandler(result: nil, error: error)
 			} else {
 				if let results = JSONResult.valueForKey(JSONResponseKeys.Results) as? [[String : AnyObject]] {
-					let studentLocations = StudentLocation.studentLocationsFromResults(results)
-					completionHandler(result: studentLocations, error: nil)
+					self.studentLocations = StudentLocation.studentLocationsFromResults(results)
+					completionHandler(result: self.studentLocations, error: nil)
 				} else {
 					completionHandler(result: nil, error: NSError(domain: "getStudentsLocations parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getStudentsLocations"]))
 				}
