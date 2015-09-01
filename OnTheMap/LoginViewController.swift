@@ -13,7 +13,9 @@ class LoginViewController: UIViewController {
 	@IBOutlet weak var emailTextField: UITextField!
 	@IBOutlet weak var passwordTextField: UITextField!
 	@IBOutlet weak var loginWithUdacityButton: UIButton!
-	
+	@IBOutlet weak var loadingView: UIView!
+	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+
 	var session: NSURLSession!
 	
 	// MARK: - Lifecycle
@@ -25,6 +27,9 @@ class LoginViewController: UIViewController {
 		
 		/* Configure the UI */
 		self.configureUI()
+		
+		activityIndicatorView.hidesWhenStopped = true
+		activateLoadingScreen(false)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -35,10 +40,14 @@ class LoginViewController: UIViewController {
 	
 	/* Identifies which button was touched and selects the correct login method (Udacity or Facebook) */
 	@IBAction func loginButtonTouch(sender: AnyObject) {
+		activateLoadingScreen(true)
 		if let tag = sender.tag {
 			if tag == UdacityClient.Constants.udacityLoginButtonTag {
 				UdacityClient.sharedInstance().authenticateWithUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
 					if success {
+						dispatch_async(dispatch_get_main_queue()) {
+							self.activateLoadingScreen(false)
+						}
 						self.completeLogin()
 					} else {
 						self.displayError(errorString as? String)
@@ -75,6 +84,16 @@ class LoginViewController: UIViewController {
 				alertController.addAction(DismissAction)
 				self.presentViewController(alertController, animated: true) {}
 			}
+		}
+	}
+	
+	func activateLoadingScreen(active: Bool) {
+		if active {
+			loadingView.hidden = false
+			activityIndicatorView.startAnimating()
+		} else {
+			loadingView.hidden = true
+			activityIndicatorView.stopAnimating()
 		}
 	}
 	

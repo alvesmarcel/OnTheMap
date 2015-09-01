@@ -12,7 +12,7 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate {
 
 	@IBOutlet weak var mapView: MKMapView!
-	@IBOutlet weak var loadingScreenView: UIView!
+	@IBOutlet weak var loadingView: UIView!
 	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 	
 	var annotations = [MKPointAnnotation]()
@@ -78,7 +78,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	}
 	
 	func refreshLocations(sender: AnyObject?) {
-		initLoadScreen()
+		activateLoadingScreen(true)
 		ParseClient.sharedInstance().getStudentsLocations(100, skip: 0) { studentLocations, error in
 			if let error = error {
 				self.displayError(error.localizedDescription)
@@ -87,7 +87,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 					//self.studentLocations = locations
 					dispatch_async(dispatch_get_main_queue()) {
 						self.updateMapView()
-						self.dismissLoadScreen()
+						self.activateLoadingScreen(false)
 					}
 					println("Students Locations saved")
 				} else {
@@ -97,14 +97,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		}
 	}
 	
-	func initLoadScreen() {
-		self.activityIndicatorView.startAnimating()
-		self.loadingScreenView.hidden = false
-	}
-	
-	func dismissLoadScreen() {
-		self.activityIndicatorView.stopAnimating()
-		self.loadingScreenView.hidden = true
+	func activateLoadingScreen(active: Bool) {
+		if active {
+			loadingView.hidden = false
+			activityIndicatorView.startAnimating()
+		} else {
+			loadingView.hidden = true
+			activityIndicatorView.stopAnimating()
+		}
 	}
 	
 	func updateMapView() {

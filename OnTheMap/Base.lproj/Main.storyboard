@@ -101,10 +101,26 @@
                                     <action selector="loginButtonTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="s7i-aO-XnM"/>
                                 </connections>
                             </button>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wfF-CZ-Zbv">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="XWf-dk-eRs">
+                                        <rect key="frame" x="282" y="281" width="37" height="37"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="XWf-dk-eRs" secondAttribute="centerX" id="ajS-0c-7mU"/>
+                                    <constraint firstAttribute="centerY" secondItem="XWf-dk-eRs" secondAttribute="centerY" id="nUl-58-jT5"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="wfF-CZ-Zbv" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" id="0Fn-Xe-4hd"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="wfF-CZ-Zbv" secondAttribute="bottom" id="5dv-qC-Xyf"/>
                             <constraint firstItem="FSI-cB-0nU" firstAttribute="top" secondItem="NWT-99-nid" secondAttribute="bottom" constant="34" id="Afk-Jl-Jac"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wfF-CZ-Zbv" secondAttribute="trailing" constant="-16" id="EHw-aU-DkG"/>
                             <constraint firstAttribute="centerX" secondItem="6Be-9P-oTg" secondAttribute="centerX" id="ERF-xZ-8Sm"/>
                             <constraint firstAttribute="centerX" secondItem="LK1-uo-zUS" secondAttribute="centerX" id="MZu-xv-7Fg"/>
                             <constraint firstAttribute="centerX" secondItem="w72-Cz-dOs" secondAttribute="centerX" id="O1E-gt-xa5"/>
@@ -112,6 +128,7 @@
                             <constraint firstItem="NWT-99-nid" firstAttribute="top" secondItem="LK1-uo-zUS" secondAttribute="bottom" constant="8" id="RDc-kp-g98"/>
                             <constraint firstAttribute="centerX" secondItem="8hS-On-aia" secondAttribute="centerX" id="VkL-8t-EL0"/>
                             <constraint firstItem="LK1-uo-zUS" firstAttribute="top" secondItem="6Be-9P-oTg" secondAttribute="bottom" constant="12" id="Xl3-Yr-zsF"/>
+                            <constraint firstItem="wfF-CZ-Zbv" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="YgG-t8-61t"/>
                             <constraint firstItem="w72-Cz-dOs" firstAttribute="top" secondItem="FSI-cB-0nU" secondAttribute="bottom" constant="20" id="d3l-zw-Uuu"/>
                             <constraint firstAttribute="centerX" secondItem="VJj-qo-fXX" secondAttribute="centerX" id="et9-UK-zJO"/>
                             <constraint firstAttribute="centerX" secondItem="NWT-99-nid" secondAttribute="centerX" id="gJh-dp-Fsd"/>
@@ -121,7 +138,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="XWf-dk-eRs" id="FWM-bv-IIn"/>
                         <outlet property="emailTextField" destination="LK1-uo-zUS" id="hdx-lu-LuC"/>
+                        <outlet property="loadingView" destination="wfF-CZ-Zbv" id="Wg9-Jk-eB0"/>
                         <outlet property="loginWithUdacityButton" destination="FSI-cB-0nU" id="XRj-DN-vhc"/>
                         <outlet property="passwordTextField" destination="NWT-99-nid" id="Rj0-pP-XbA"/>
                     </connections>
@@ -175,7 +194,7 @@
                     <navigationItem key="navigationItem" id="ivc-ad-E4P"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="XLU-HH-gCj" id="0dC-We-DwL"/>
-                        <outlet property="loadingScreenView" destination="9hm-85-2Zv" id="j11-8f-c1z"/>
+                        <outlet property="loadingView" destination="9hm-85-2Zv" id="Jxh-xe-gcc"/>
                         <outlet property="mapView" destination="N38-KR-uod" id="zOp-XU-ZGY"/>
                     </connections>
                 </viewController>
