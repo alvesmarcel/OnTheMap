@@ -23,8 +23,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		mapView.delegate = self
 		
 		activityIndicatorView.hidesWhenStopped = true
-		
-		
 		refreshLocations(self)
 		
 //		

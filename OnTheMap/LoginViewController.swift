@@ -6,6 +6,14 @@
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
 
+// problemas
+// - muito codigo repetido
+// - nao existe timeout para o caso de 100% packet loss
+// -- entre mapview e listview
+// -- os botoes adicionados no viewWillAppear
+// -- duvida sobre como fazer bom uso da conexao de internet (talvez usando threads)
+// - uma custom view poderia ser criada para loading screen
+
 import UIKit
 
 class LoginViewController: UIViewController {
