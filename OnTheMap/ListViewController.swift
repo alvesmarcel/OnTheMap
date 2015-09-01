@@ -11,11 +11,41 @@ import UIKit
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	
 	@IBOutlet weak var tableView: UITableView!
+	@IBOutlet weak var loadingView: UIView!
+	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+	
+	override func viewDidLoad() {
+		refreshLocations(self)
+	}
 	
 	override func viewWillAppear(animated: Bool) {
+		
 		super.viewWillAppear(animated)
 		
-		self.tableView.reloadData()
+		/* Adding the right bar buttons to the navigation bar */
+		let refreshBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshLocations:")
+		let pinBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "callInformationPostViewController:")
+		self.tabBarController!.navigationItem.setRightBarButtonItems([refreshBarButtonItem, pinBarButtonItem], animated: true)
+	}
+	
+	func refreshLocations(sender: AnyObject?) {
+		activateLoadingScreen(true)
+		ParseClient.sharedInstance().getStudentsLocations(100, skip: 0) { studentLocations, error in
+			if let error = error {
+				self.displayError(error.localizedDescription)
+			} else {
+				if let locations = studentLocations {
+					//self.studentLocations = locations
+					dispatch_async(dispatch_get_main_queue()) {
+						self.tableView.reloadData()
+						self.activateLoadingScreen(false)
+					}
+					println("Students Locations saved")
+				} else {
+					println("Unexpected Error")
+				}
+			}
+		}
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -38,5 +68,28 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		
+	}
+	
+	
+	// change to loadingScreen(setActive: Bool)
+	func activateLoadingScreen(active: Bool) {
+		if active {
+			loadingView.hidden = false
+			activityIndicatorView.startAnimating()
+		} else {
+			loadingView.hidden = true
+			activityIndicatorView.stopAnimating()
+		}
+	}
+	
+	func displayError(errorString: String?) {
+		dispatch_async(dispatch_get_main_queue()) {
+			if let errorString = errorString {
+				let alertController = UIAlertController(title: "Get Locations Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
+				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+				alertController.addAction(DismissAction)
+				self.presentViewController(alertController, animated: true) {}
+			}
+		}
 	}
 }
