@@ -33,6 +33,8 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	// MARK: - Helper variables
 	var shouldCleanTextView: Bool!
 	
+	var studentInformation = [String : AnyObject]()
+	
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -58,6 +60,10 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	}
 	
 	@IBAction func findOnTheMapButtonTouch(sender: AnyObject) {
+		studentInformation[ParseClient.JSONResponseKeys.UniqueKey] = UdacityClient.sharedInstance().accountKey
+		studentInformation[ParseClient.JSONResponseKeys.MapString] = locationTextField.text
+		studentInformation[ParseClient.JSONResponseKeys.MediaURL] = linkTextField.text
+		
 		if submitButton.titleLabel?.text == "Find on the Map" {
 			if shouldCleanTextView == true {
 				displayError("Must Enter Location")
@@ -73,10 +79,14 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 							self.configureLinkUI()
 							
 							let placemark = MKPlacemark(placemark: topResult)
-							
 							let region = MKCoordinateRegionMakeWithDistance(placemark.coordinate, 4000, 4000)
 							self.map.setRegion(region, animated: true)
 							self.map.addAnnotation(placemark)
+							
+					
+							self.studentInformation[ParseClient.JSONResponseKeys.Latitude] = placemark.coordinate.latitude as Double
+							self.studentInformation[ParseClient.JSONResponseKeys.Longitude] = placemark.coordinate.longitude as Double
+		
 						}
 					}
 				}
@@ -88,7 +98,22 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 				//loadingScreenSetActive(true)
 				
 				if checkLink(linkTextField.text) {
-					
+					UdacityClient.sharedInstance().getPublicUserData() { result, error in
+						if let dictionary = result {
+							self.studentInformation[ParseClient.JSONResponseKeys.FirstName] = dictionary[UdacityClient.JSONResponseKeys.FirstName] as! String
+							self.studentInformation[ParseClient.JSONResponseKeys.LastName] = dictionary[UdacityClient.JSONResponseKeys.LastName] as! String
+							
+							println(self.studentInformation)
+							
+							ParseClient.sharedInstance().postStudentLocation(self.studentInformation) { success in
+								if success {
+									self.dismissViewControllerAnimated(true, completion: nil)
+								} else {
+									self.displayError("Error Posting Location")
+								}
+							}
+						}
+					}
 				} else {
 					displayError("Invalid Link. Include http(s)://")
 				}
@@ -125,15 +150,18 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	
 	/* Puts the text field in the initial state */
 	func resetTextView() {
-		locationTextField.text = "Enter Your Location Here"
-		linkTextField.text = "Enter a Link to Share Here"
+		dispatch_async(dispatch_get_main_queue()) {
+			if self.linkTextField.alpha > 0 {
+				self.linkTextField.text = "Enter a Link to Share Here"
+			} else {
+				self.locationTextField.text = "Enter Your Location Here"
+			}
+		}
 		shouldCleanTextView = true
 	}
 	
 	/* Configure the UI to present the "location screen" */
 	func configureLocationUI() {
-		resetTextView()
-		
 		label1.alpha = 1.0
 		label2.alpha = 1.0
 		label3.alpha = 1.0
@@ -146,12 +174,12 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		cancelButton.titleLabel?.textColor = UIColor(red: 0.0, green: 0.0, blue: 0.59, alpha: 1.0)
 		
 		self.view.backgroundColor = UIColor(red: 0.94, green: 0.94, blue: 0.95, alpha: 1.0)
+		
+		resetTextView()
 	}
 	
 	/* Configure the UI to presente the "link screen" */
 	func configureLinkUI() {
-		resetTextView()
-		
 		label1.alpha = 0.0
 		label2.alpha = 0.0
 		label3.alpha = 0.0
@@ -164,6 +192,8 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		cancelButton.titleLabel?.textColor = UIColor.whiteColor()
 		
 		self.view.backgroundColor = UIColor(red: 0.29, green: 0.57, blue: 0.75, alpha: 1.0)
+		
+		resetTextView()
 	}
 	
 	func loadingScreenSetActive(active: Bool) {

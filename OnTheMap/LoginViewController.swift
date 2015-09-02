@@ -13,6 +13,7 @@
 // -- os botoes adicionados no viewWillAppear
 // -- duvida sobre como fazer bom uso da conexao de internet (talvez usando threads)
 // - uma custom view poderia ser criada para loading screen
+// - overwrite? no app pode fazer isso, mas nao achei nada na rubric nem na especificacao
 //
 // - ERRO: AS LOADING SCREEN DEVEM SAIR QUANDO OCORRE ALGUM ERRO
 

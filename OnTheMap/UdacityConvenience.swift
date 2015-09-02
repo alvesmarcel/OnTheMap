@@ -21,14 +21,14 @@ extension UdacityClient {
 			if let error = error {
 				completionHandler(result: nil, error: error)
 			} else {
-				if let results = JSONResult.valueForKey(JSONResponseKeys.User) as? [String : AnyObject] {
-					if let firstName = results[JSONResponseKeys.FirstName] as? String {
-						self.firstName = firstName
-					}
-					if let lastName = results[JSONResponseKeys.LastName] as? String {
-						self.lastName = lastName
-					}
-					completionHandler(result: results, error: nil)
+				if let userInfo = JSONResult.valueForKey(JSONResponseKeys.User) as? [String : AnyObject] {
+					
+					let dictionary = [
+						JSONResponseKeys.FirstName : userInfo[JSONResponseKeys.FirstName]!,
+						JSONResponseKeys.LastName : userInfo[JSONResponseKeys.LastName]!
+					]
+					
+					completionHandler(result: dictionary, error: nil)
 				} else {
 					completionHandler(result: nil, error: NSError(domain: "getPublicUserData parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getPublicUserData"]))
 				}

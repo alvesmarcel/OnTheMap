@@ -23,7 +23,7 @@ extension ParseClient {
 	
 	struct Methods {
 		
-		static let StudenteLocation : String = "StudentLocation"
+		static let StudentLocation : String = "StudentLocation"
 	}
 	
 	struct ParameterKeys {

@@ -11,8 +11,6 @@ import Foundation
 class UdacityClient : NSObject {
 	
 	var accountKey: NSString?
-	var firstName: NSString?
-	var lastName: NSString?
 	
 	override init() {
 		super.init()

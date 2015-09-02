@@ -18,7 +18,7 @@ class ParseClient {
 			ParameterKeys.Skip : skip
 		]
 		
-		taskForGETMethod(Methods.StudenteLocation, parameters: parameters) { JSONResult, error in
+		taskForGETMethod(Methods.StudentLocation, parameters: parameters) { JSONResult, error in
 		
 			/* 3. Send the desired value(s) to completion handler */
 			if let error = error {
@@ -34,21 +34,23 @@ class ParseClient {
 		}
 	}
 	
-	func postStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double) {
+	// PASSAR UM DICIONARIO TALVEZ SEJA MELHOR - MONTAR ELE LA NO INFORMATION CONTROLLER
+	func postStudentLocation(studentInformation: NSDictionary, completionHandler: (success: Bool) -> Void) {
 		let parameters = [String:AnyObject]()
 		
-		let jsonBody: [String:AnyObject] = [
-			JSONBodyKeys.UniqueKey: UdacityClient.sharedInstance().accountKey as! String,
-			JSONBodyKeys.FirstName: UdacityClient.sharedInstance().firstName as! String,
-			JSONBodyKeys.LastName: UdacityClient.sharedInstance().lastName as! String,
-			JSONBodyKeys.MapString: mapString,
-			JSONBodyKeys.MediaURL: mediaURL,
-			JSONBodyKeys.Latitude: latitude,
-			JSONBodyKeys.Longitude: longitude
-		]
+		let jsonBody = studentInformation as! [String : AnyObject]
 		
-		taskForPOSTMethod(Methods.StudenteLocation, parameters: parameters, jsonBody: jsonBody) { result, error in
-			
+		println(jsonBody)
+		
+		// VERIFICAR ERROS DE RETORNO
+		
+		taskForPOSTMethod(Methods.StudentLocation, parameters: parameters, jsonBody: jsonBody) { result, error in
+			if let error = error {
+				completionHandler(success: false)
+			} else {
+				println(result)
+				completionHandler(success: true)
+			}
 		}
 	}
 	
