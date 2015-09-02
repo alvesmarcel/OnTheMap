@@ -20,6 +20,8 @@ extension UdacityClient {
 		/* Button tags */
 		static let udacityLoginButtonTag : Int = 1
 		static let facebookLoginButtonTag : Int = 2
+		static let locationTextViewTag: Int = 3
+		static let linkTextViewTag: Int = 4
 		
 		// URLs
 		static let udacityBaseUrl : String = "https://www.udacity.com/api/"
@@ -30,6 +32,7 @@ extension UdacityClient {
 	struct Methods {
 		
 		static let udacitySession : String = "session"
+		static let UdacityUsers: String = "users"
 	}
 	
 	struct JSONResponseKeys {
@@ -38,6 +41,10 @@ extension UdacityClient {
 		static let sessionID = "id"
 		static let account = "account"
 		static let key = "key"
+		
+		static let User = "user"
+		static let FirstName = "first_name"
+		static let LastName = "last_name"
 	}
 	
 	struct StatusResponse {

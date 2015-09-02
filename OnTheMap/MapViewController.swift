@@ -76,7 +76,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	}
 	
 	func refreshLocations(sender: AnyObject?) {
-		activateLoadingScreen(true)
+		loadingScreenSetActive(true)
 		ParseClient.sharedInstance().getStudentsLocations(100, skip: 0) { studentLocations, error in
 			if let error = error {
 				self.displayError(error.localizedDescription)
@@ -85,7 +85,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 					//self.studentLocations = locations
 					dispatch_async(dispatch_get_main_queue()) {
 						self.updateMapView()
-						self.activateLoadingScreen(false)
+						self.loadingScreenSetActive(false)
 					}
 					println("Students Locations saved")
 				} else {
@@ -95,7 +95,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		}
 	}
 	
-	func activateLoadingScreen(active: Bool) {
+	func loadingScreenSetActive(active: Bool) {
 		if active {
 			loadingView.hidden = false
 			activityIndicatorView.startAnimating()
@@ -103,6 +103,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 			loadingView.hidden = true
 			activityIndicatorView.stopAnimating()
 		}
+	}
+	
+	func callInformationPostViewController(sender: AnyObject) {
+		let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostViewController") as! InformationPostViewController
+		self.presentViewController(controller, animated: true, completion: nil)
 	}
 	
 	func updateMapView() {
@@ -163,6 +168,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	
 	func displayError(errorString: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
+			self.loadingScreenSetActive(false)
 			if let errorString = errorString {
 				let alertController = UIAlertController(title: "Get Locations Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
 				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)

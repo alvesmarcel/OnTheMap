@@ -10,8 +10,42 @@ import Foundation
 
 class UdacityClient : NSObject {
 	
+	var accountKey: NSString?
+	var firstName: NSString?
+	var lastName: NSString?
+	
 	override init() {
 		super.init()
+	}
+	
+	func taskForGETMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+				
+		/* 1. Set the parameters */
+		var mutableParameters = parameters
+		
+		/* 2/3. Build the URL and configure the request */
+		let urlString = Constants.udacityBaseUrl + method + "/\(accountKey!)"
+		let url = NSURL(string: urlString)!
+		let request = NSMutableURLRequest(URL: url)
+		let session = NSURLSession.sharedSession()
+		
+		/* 4. Make the request */
+		let task = session.dataTaskWithRequest(request) {data, response, downloadError in
+			
+			let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+			
+			/* 5/6. Parse the data and use the data (happens in completion handler) */
+			if let error = downloadError {
+				completionHandler(result: nil, error: downloadError)
+			} else {
+				JSONConvenience.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
+			}
+		}
+		
+		/* 7. Start the request */
+		task.resume()
+		
+		return task
 	}
 	
 	func taskForPOSTMethod(method: String, parameters: [String : AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
@@ -34,11 +68,13 @@ class UdacityClient : NSObject {
 		/* 4. Make the request */
 		let task = session.dataTaskWithRequest(request) {data, response, downloadError in
 			
+			let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+			
 			/* 5/6. Parse the data and use the data (happens in completion handler) */
 			if let error = downloadError {
 				completionHandler(result: nil, error: downloadError)
 			} else {
-				JSONConvenience.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+				JSONConvenience.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
 			}
 		}
 		

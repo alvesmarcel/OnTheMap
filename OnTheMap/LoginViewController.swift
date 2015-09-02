@@ -13,6 +13,8 @@
 // -- os botoes adicionados no viewWillAppear
 // -- duvida sobre como fazer bom uso da conexao de internet (talvez usando threads)
 // - uma custom view poderia ser criada para loading screen
+//
+// - ERRO: AS LOADING SCREEN DEVEM SAIR QUANDO OCORRE ALGUM ERRO
 
 import UIKit
 
@@ -37,7 +39,7 @@ class LoginViewController: UIViewController {
 		self.configureUI()
 		
 		activityIndicatorView.hidesWhenStopped = true
-		activateLoadingScreen(false)
+		loadingScreenSetActive(false)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -48,13 +50,15 @@ class LoginViewController: UIViewController {
 	
 	/* Identifies which button was touched and selects the correct login method (Udacity or Facebook) */
 	@IBAction func loginButtonTouch(sender: AnyObject) {
-		activateLoadingScreen(true)
+		loadingScreenSetActive(true)
+		emailTextField.resignFirstResponder()
+		passwordTextField.resignFirstResponder()
 		if let tag = sender.tag {
 			if tag == UdacityClient.Constants.udacityLoginButtonTag {
 				UdacityClient.sharedInstance().authenticateWithUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
 					if success {
 						dispatch_async(dispatch_get_main_queue()) {
-							self.activateLoadingScreen(false)
+							self.loadingScreenSetActive(false)
 						}
 						self.completeLogin()
 					} else {
@@ -86,6 +90,7 @@ class LoginViewController: UIViewController {
 	
 	func displayError(errorString: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
+			self.loadingScreenSetActive(false)
 			if let errorString = errorString {
 				let alertController = UIAlertController(title: "Login Failed", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
 				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
@@ -95,7 +100,7 @@ class LoginViewController: UIViewController {
 		}
 	}
 	
-	func activateLoadingScreen(active: Bool) {
+	func loadingScreenSetActive(active: Bool) {
 		if active {
 			loadingView.hidden = false
 			activityIndicatorView.startAnimating()

@@ -11,6 +11,32 @@ import Foundation
 
 extension UdacityClient {
 	
+	func getPublicUserData(completionHandler: (result: [String : AnyObject]?, error: NSError?) -> Void) {
+		
+		let parameters = [String : AnyObject]()
+		
+		taskForGETMethod(Methods.UdacityUsers, parameters: parameters) { JSONResult, error in
+			
+			/* 3. Send the desired value(s) to completion handler */
+			if let error = error {
+				completionHandler(result: nil, error: error)
+			} else {
+				if let results = JSONResult.valueForKey(JSONResponseKeys.User) as? [String : AnyObject] {
+					if let firstName = results[JSONResponseKeys.FirstName] as? String {
+						self.firstName = firstName
+					}
+					if let lastName = results[JSONResponseKeys.LastName] as? String {
+						self.lastName = lastName
+					}
+					completionHandler(result: results, error: nil)
+				} else {
+					completionHandler(result: nil, error: NSError(domain: "getPublicUserData parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getPublicUserData"]))
+				}
+			}
+			
+		}
+	}
+	
 	func authenticateWithUdacity(username: String, password: String, completionHandler: (success: Bool, error: NSString?) -> Void) {
 		
 		let request = NSMutableURLRequest(URL: NSURL(string: Constants.udacityBaseUrl + Methods.udacitySession)!)
@@ -45,6 +71,7 @@ extension UdacityClient {
 						/* When there is no "status", the operation was succesful */
 						if let accountKey = jsonData.valueForKey(JSONResponseKeys.account)?.valueForKey(JSONResponseKeys.key) as? String {
 							println("Conection was successful")
+							self.accountKey = accountKey
 							completionHandler(success: true, error: nil)
 						} else {
 							println("Could not find account key")

@@ -27,6 +27,9 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	// MARK: - MKMapView
 	@IBOutlet weak var map: MKMapView!
 	
+	@IBOutlet weak var loadingView: UIView!
+	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+	
 	// MARK: - Helper variables
 	var shouldCleanTextView: Bool!
 	
@@ -35,6 +38,13 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		super.viewDidLoad()
 		locationTextField.delegate = self
 		linkTextField.delegate = self
+		
+		activityIndicatorView.hidesWhenStopped = true
+		loadingScreenSetActive(false)
+		
+		map.zoomEnabled = false
+		map.scrollEnabled = false
+		map.delegate = self
 	}
 
 	override func viewWillAppear(animated: Bool) {
@@ -48,7 +58,43 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	}
 	
 	@IBAction func findOnTheMapButtonTouch(sender: AnyObject) {
-		configureLinkUI()
+		if submitButton.titleLabel?.text == "Find on the Map" {
+			if shouldCleanTextView == true {
+				displayError("Must Enter Location")
+			} else {
+				//loadingScreenSetActive(true)
+				
+				let geocoder = CLGeocoder()
+				geocoder.geocodeAddressString(locationTextField.text) { placemarks, error in
+					if let error = error {
+						self.displayError("Could Not Geocode the String")
+					} else {
+						if let topResult = placemarks[0] as? CLPlacemark {
+							self.configureLinkUI()
+							
+							let placemark = MKPlacemark(placemark: topResult)
+							
+							let region = MKCoordinateRegionMakeWithDistance(placemark.coordinate, 4000, 4000)
+							self.map.setRegion(region, animated: true)
+							self.map.addAnnotation(placemark)
+						}
+					}
+				}
+			}
+		} else {
+			if shouldCleanTextView == true {
+				displayError("Must Enter a Link")
+			} else {
+				//loadingScreenSetActive(true)
+				
+				if checkLink(linkTextField.text) {
+					
+				} else {
+					displayError("Invalid Link. Include http(s)://")
+				}
+			}
+		}
+		
 	}
 	
 	// MARK: - UITextFieldDelegate Methods
@@ -118,5 +164,36 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		cancelButton.titleLabel?.textColor = UIColor.whiteColor()
 		
 		self.view.backgroundColor = UIColor(red: 0.29, green: 0.57, blue: 0.75, alpha: 1.0)
+	}
+	
+	func loadingScreenSetActive(active: Bool) {
+		if active {
+			loadingView.hidden = false
+			activityIndicatorView.startAnimating()
+		} else {
+			loadingView.hidden = true
+			activityIndicatorView.stopAnimating()
+		}
+	}
+	
+	func displayError(errorString: String?) {
+		dispatch_async(dispatch_get_main_queue()) {
+			self.loadingScreenSetActive(false)
+			if let errorString = errorString {
+				let alertController = UIAlertController(title: "Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
+				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+				alertController.addAction(DismissAction)
+				self.presentViewController(alertController, animated: true) {}
+			}
+		}
+	}
+	
+	func checkLink (urlString: String?) -> Bool {
+		if let urlString = urlString {
+			if let url = NSURL(string: urlString) {
+				return UIApplication.sharedApplication().canOpenURL(url)
+			}
+		}
+		return false
 	}
 }

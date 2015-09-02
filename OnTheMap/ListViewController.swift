@@ -29,16 +29,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	}
 	
 	func refreshLocations(sender: AnyObject?) {
-		activateLoadingScreen(true)
+		loadingScreenSetActive(true)
 		ParseClient.sharedInstance().getStudentsLocations(100, skip: 0) { studentLocations, error in
 			if let error = error {
 				self.displayError(error.localizedDescription)
 			} else {
 				if let locations = studentLocations {
-					//self.studentLocations = locations
 					dispatch_async(dispatch_get_main_queue()) {
 						self.tableView.reloadData()
-						self.activateLoadingScreen(false)
+						self.loadingScreenSetActive(false)
 					}
 					println("Students Locations saved")
 				} else {
@@ -72,7 +71,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	
 	// change to loadingScreen(setActive: Bool)
-	func activateLoadingScreen(active: Bool) {
+	func loadingScreenSetActive(active: Bool) {
 		if active {
 			loadingView.hidden = false
 			activityIndicatorView.startAnimating()
@@ -84,6 +83,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	func displayError(errorString: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
+			self.loadingScreenSetActive(false)
 			if let errorString = errorString {
 				let alertController = UIAlertController(title: "Get Locations Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
 				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
