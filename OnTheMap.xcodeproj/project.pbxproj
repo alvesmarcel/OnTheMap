@@ -157,6 +157,7 @@
 		286F40AA1B8B5A16008B012D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				28096DCA1B947BB00084982C /* JSONConvenience.swift */,
 				286F40CF1B8E4943008B012D /* Clients */,
 			);
 			name = Model;
@@ -193,7 +194,6 @@
 		286F40CF1B8E4943008B012D /* Clients */ = {
 			isa = PBXGroup;
 			children = (
-				28096DCA1B947BB00084982C /* JSONConvenience.swift */,
 				286F40D01B8E7683008B012D /* Parse */,
 				286F40CE1B8E4919008B012D /* Udacity */,
 			);
