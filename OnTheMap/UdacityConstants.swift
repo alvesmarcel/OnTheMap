@@ -5,50 +5,55 @@
 //  Created by Marcel Oliveira Alves on 8/24/15.
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
+//  Extension of class UdacityClient
+//  All the constants used in the API are set here
 
 extension UdacityClient {
 	
-	struct ErrorMessages {
-		static let messageForStatus = [
-			400 : "Empty Email or Password",
-			403 : "Invalid Email or Password"
-		]
-	}
-	
+	// MARK: - Constants
 	struct Constants {
 		
-		/* Button tags */
-		static let udacityLoginButtonTag : Int = 1
-		static let facebookLoginButtonTag : Int = 2
-		static let locationTextViewTag: Int = 3
-		static let linkTextViewTag: Int = 4
-		
-		// URLs
-		static let udacityBaseUrl : String = "https://www.udacity.com/api/"
-		static let signUpUrl = "https://www.udacity.com/account/auth#!/signup"
-		
+		// MARK: - URLs
+		static let UdacityBaseURL : String = "https://www.udacity.com/api/"
+		static let SignUpURL = "https://www.udacity.com/account/auth#!/signup"
 	}
 	
+	// MARK: - Methods
 	struct Methods {
 		
-		static let udacitySession : String = "session"
+		static let UdacitySession : String = "session"
 		static let UdacityUsers: String = "users"
 	}
 	
+	// MARK: - JSON Response Keys
 	struct JSONResponseKeys {
-		static let status = "status"
-		static let session = "session"
-		static let sessionID = "id"
-		static let account = "account"
-		static let key = "key"
 		
+		// MARK: - Authentication
+		static let Status = "status"
+		static let Session = "session"
+		static let SessionID = "id"
+		static let Account = "account"
+		static let Key = "key"
+		
+		// MARK: - User Public Information
 		static let User = "user"
 		static let FirstName = "first_name"
 		static let LastName = "last_name"
 	}
 	
+	// MARK: - Status Responses
 	struct StatusResponse {
-		static let emptyField = 400
-		static let invalidField = 403
+		
+		// MARK: - Authentication
+		static let EmptyField = 400
+		static let InvalidField = 403
+	}
+	
+	// MARK: - Error Messages
+	struct ErrorMessages {
+		static let MessageForStatus = [
+			400 : "Empty Email or Password",
+			403 : "Invalid Email or Password"
+		]
 	}
 }

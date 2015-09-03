@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
 //  Extension of class ParseClient
-//  The convenient methods (specific GET and POST methods provided by the API) are here
+//  The convenient methods (specific GET and POST methods provided by the Parse API) are here
 
 import Foundation
 import UIKit

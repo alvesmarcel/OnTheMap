@@ -26,11 +26,11 @@ class ParseClient {
 		var mutableParameters = parameters
 		
 		/* 2/3. Build the URL and configure the request */
-		let urlString = Constants.ParseBaseUrl + method + JSONConvenience.escapedParameters(mutableParameters)
+		let urlString = Constants.ParseBaseURL + method + JSONConvenience.escapedParameters(mutableParameters)
 		let url = NSURL(string: urlString)!
 		let request = NSMutableURLRequest(URL: url)
 		request.addValue(Constants.AppID, forHTTPHeaderField: HTTPHeaderField.AppID)
-		request.addValue(Constants.ApiKey, forHTTPHeaderField: HTTPHeaderField.ApiKey)
+		request.addValue(Constants.APIKey, forHTTPHeaderField: HTTPHeaderField.ApiKey)
 		let session = NSURLSession.sharedSession()
 		
 		/* 4. Make the request */
@@ -58,12 +58,12 @@ class ParseClient {
 		var mutableParameters = parameters
 		
 		/* 2/3. Build the URL and configure the request */
-		let urlString = Constants.ParseBaseUrl + method + JSONConvenience.escapedParameters(mutableParameters)
+		let urlString = Constants.ParseBaseURL + method + JSONConvenience.escapedParameters(mutableParameters)
 		let url = NSURL(string: urlString)!
 		let request = NSMutableURLRequest(URL: url)
 		request.HTTPMethod = "POST"
 		request.addValue(Constants.AppID, forHTTPHeaderField: HTTPHeaderField.AppID)
-		request.addValue(Constants.ApiKey, forHTTPHeaderField: HTTPHeaderField.ApiKey)
+		request.addValue(Constants.APIKey, forHTTPHeaderField: HTTPHeaderField.ApiKey)
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		let session = NSURLSession.sharedSession()
 		

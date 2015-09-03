@@ -14,7 +14,7 @@ extension ParseClient {
 	struct Constants {
 
 		// MARK: - URLs
-		static let ParseBaseUrl : String = "https://api.parse.com/1/classes/"
+		static let ParseBaseURL : String = "https://api.parse.com/1/classes/"
 		
 		// MARK: - AppID and APIKey
 		static let AppID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
