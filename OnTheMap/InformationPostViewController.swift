@@ -98,6 +98,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 				//loadingScreenSetActive(true)
 				
 				if checkLink(linkTextField.text) {
+					// AJEITAR ISSO AQUI DIREITAMENTE
 					UdacityClient.sharedInstance().getPublicUserData() { result, error in
 						if let dictionary = result {
 							self.studentInformation[ParseClient.JSONResponseKeys.FirstName] = dictionary[UdacityClient.JSONResponseKeys.FirstName] as! String

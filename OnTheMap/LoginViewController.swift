@@ -56,7 +56,7 @@ class LoginViewController: UIViewController {
 		emailTextField.resignFirstResponder()
 		passwordTextField.resignFirstResponder()
 		if let tag = sender.tag {
-			if tag == UdacityClient.Constants.udacityLoginButtonTag {
+			if tag == ButtonTags.UdacityLoginButtonTag {
 				UdacityClient.sharedInstance().authenticateWithUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
 					if success {
 						dispatch_async(dispatch_get_main_queue()) {
@@ -67,7 +67,7 @@ class LoginViewController: UIViewController {
 						self.displayError(errorString as? String)
 					}
 				}
-			} else if tag == UdacityClient.Constants.facebookLoginButtonTag {
+			} else if tag == ButtonTags.FacebookLoginButtonTag {
 				// TODO: AUTHENTICATE WITH FACEBOOK
 				//UdacityClient.sharedInstance().authenticateWithFacebook()
 			} else {
@@ -77,7 +77,7 @@ class LoginViewController: UIViewController {
 	}
 	
 	@IBAction func signUpButtonTouch(sender: AnyObject) {
-		let url = NSURL(string: UdacityClient.Constants.signUpUrl)
+		let url = NSURL(string: UdacityClient.Constants.SignUpURL)
 		UIApplication.sharedApplication().openURL(url!)
 	}
 	
