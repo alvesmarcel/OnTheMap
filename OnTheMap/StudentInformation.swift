@@ -1,14 +1,16 @@
 //
-//  StudentLocation.swift
+//  StudentInformation.swift
 //  OnTheMap
 //
 //  Created by Marcel Oliveira Alves on 8/31/15.
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
+//  This class is used to represent the student information used in the Parse API for GET and POST requests
+//  Some information (provided by the Parse's response) are not represented in this class because they are not needed
 
 import Foundation
 
-class StudentLocation: NSObject, Printable {
+class StudentInformation: NSObject, Printable {
 
 	var objectID: String = ""
 	var uniqueKey: String = ""
@@ -19,10 +21,9 @@ class StudentLocation: NSObject, Printable {
 	var latitude: Double = 0.0
 	var longitude: Double = 0.0
 	
-	override  var description: String {
-		return "objectID: \(objectID)\nuniqueKey: \(uniqueKey)\nfirstName: \(firstName)\nlastName: \(lastName)\nmapString: \(mapString)\nmediaURL: \(mediaURL)\nlatitude: \(latitude)\nlongitude: \(longitude)"
-	}
+	// MARK: - Constructors
 	
+	/* Construct a StudentInformation object from a dictionary */
 	init(dictionary: [String : AnyObject]) {
 		
 		objectID = dictionary[ParseClient.JSONResponseKeys.ObjectID] as! String
@@ -35,13 +36,23 @@ class StudentLocation: NSObject, Printable {
 		longitude = dictionary[ParseClient.JSONResponseKeys.Longitude] as! Double
 	}
 	
-	static func studentLocationsFromResults(results: [[String : AnyObject]]) -> [StudentLocation] {
-		var studentLocation = [StudentLocation]()
+	// MARK: - Helpers
+	
+	/* Given an array of dictionaries, convert them to an array of StudentInformation objects */
+	static func studentLocationsFromResults(results: [[String : AnyObject]]) -> [StudentInformation] {
+		var studentInformation = [StudentInformation]()
 		
 		for result in results {
-			studentLocation.append(StudentLocation(dictionary: result))
+			studentInformation.append(StudentInformation(dictionary: result))
 		}
 		
-		return studentLocation
+		return studentInformation
+	}
+	
+	// MARK: - Debug
+	
+	/* Method used only for debug purposes */
+	override  var description: String {
+		return "objectID: \(objectID)\nuniqueKey: \(uniqueKey)\nfirstName: \(firstName)\nlastName: \(lastName)\nmapString: \(mapString)\nmediaURL: \(mediaURL)\nlatitude: \(latitude)\nlongitude: \(longitude)"
 	}
 }

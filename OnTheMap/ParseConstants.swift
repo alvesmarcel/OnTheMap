@@ -5,12 +5,10 @@
 //  Created by Marcel Oliveira Alves on 8/26/15.
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
+//  Extension of class ParseClient
+//  All the constants used in the API are set here
 
 extension ParseClient {
-	
-	struct ErrorMessages {
-
-	}
 	
 	struct Constants {
 

@@ -5,54 +5,20 @@
 //  Created by Marcel Oliveira Alves on 8/26/15.
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
+//  This is a SINGLETON class responsible for the use of Parse API. 
+//  GET and POST methods are provided to make HTTP requests to the server using the Parse API.
+//  This class also saves all student informations that is returned by the Parse API.
+//  - Probably it would be better to use other kind of persistence for studentsInformation in the future
+//  - For now, these locations are stored here because they are used by many ViewControllers and need to be accessible
 
 import Foundation
 
 class ParseClient {
 	
-	var studentLocations: [StudentLocation] = [StudentLocation]()
+	/* Array of student locations */
+	var studentsInformation: [StudentInformation] = [StudentInformation]()
 	
-	func getStudentsLocations(limit: Int, skip: Int, completionHandler: (result: [StudentLocation]?, error: NSError?) -> Void) {
-		let parameters = [
-			ParameterKeys.Limit : limit,
-			ParameterKeys.Skip : skip
-		]
-		
-		taskForGETMethod(Methods.StudentLocation, parameters: parameters) { JSONResult, error in
-		
-			/* 3. Send the desired value(s) to completion handler */
-			if let error = error {
-				completionHandler(result: nil, error: error)
-			} else {
-				if let results = JSONResult.valueForKey(JSONResponseKeys.Results) as? [[String : AnyObject]] {
-					self.studentLocations = StudentLocation.studentLocationsFromResults(results)
-					completionHandler(result: self.studentLocations, error: nil)
-				} else {
-					completionHandler(result: nil, error: NSError(domain: "getStudentsLocations parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getStudentsLocations"]))
-				}
-			}
-		}
-	}
-	
-	// PASSAR UM DICIONARIO TALVEZ SEJA MELHOR - MONTAR ELE LA NO INFORMATION CONTROLLER
-	func postStudentLocation(studentInformation: NSDictionary, completionHandler: (success: Bool) -> Void) {
-		let parameters = [String:AnyObject]()
-		
-		let jsonBody = studentInformation as! [String : AnyObject]
-		
-		println(jsonBody)
-		
-		// VERIFICAR ERROS DE RETORNO
-		
-		taskForPOSTMethod(Methods.StudentLocation, parameters: parameters, jsonBody: jsonBody) { result, error in
-			if let error = error {
-				completionHandler(success: false)
-			} else {
-				println(result)
-				completionHandler(success: true)
-			}
-		}
-	}
+	// MARK: - GET
 	
 	func taskForGETMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
 		
@@ -83,6 +49,8 @@ class ParseClient {
 		
 		return task
 	}
+	
+	// MARK: - POST
 	
 	func taskForPOSTMethod(method: String, parameters: [String : AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
 		
