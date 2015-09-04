@@ -30,7 +30,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	func refreshLocations(sender: AnyObject?) {
 		loadingScreenSetActive(true)
-		ParseClient.sharedInstance().getStudentsLocations(100, skip: 0) { studentLocations, error in
+		ParseClient.sharedInstance().getStudentsLocationsWithLimit(100, skip: 0) { studentLocations, error in
 			if let error = error {
 				self.displayError(error.localizedDescription)
 			} else {
@@ -50,7 +50,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		/* Get cell type */
 		let cellReuseIdentifier = "ListViewTableCell"
-		let student = ParseClient.sharedInstance().studentLocations[indexPath.row]
+		let student = ParseClient.sharedInstance().studentsInformation[indexPath.row]
 		var cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! UITableViewCell
 		
 		/* Set cell defaults */
@@ -62,7 +62,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	}
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return ParseClient.sharedInstance().studentLocations.count
+		return ParseClient.sharedInstance().studentsInformation.count
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

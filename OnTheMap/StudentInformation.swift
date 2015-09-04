@@ -23,7 +23,12 @@ class StudentInformation: NSObject, Printable {
 	
 	// MARK: - Constructors
 	
-	/* Construct a StudentInformation object from a dictionary */
+	/* Constructs a StudentInformation object with no information */
+	override init() {
+		super.init()
+	}
+	
+	/* Constructs a StudentInformation object from a dictionary */
 	init(dictionary: [String : AnyObject]) {
 		
 		objectID = dictionary[ParseClient.JSONBodyKeys.ObjectID] as! String

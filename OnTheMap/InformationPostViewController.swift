@@ -33,7 +33,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	// MARK: - Helper variables
 	var shouldCleanTextView: Bool!
 	
-	var studentInformation = [String : AnyObject]()
+	var studentInformation = StudentInformation()
 	
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
@@ -60,9 +60,12 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	}
 	
 	@IBAction func findOnTheMapButtonTouch(sender: AnyObject) {
-		studentInformation[ParseClient.JSONResponseKeys.UniqueKey] = UdacityClient.sharedInstance().accountKey
-		studentInformation[ParseClient.JSONResponseKeys.MapString] = locationTextField.text
-		studentInformation[ParseClient.JSONResponseKeys.MediaURL] = linkTextField.text
+//		studentInformation[ParseClient.JSONBodyKeys.UniqueKey] = UdacityClient.sharedInstance().accountKey
+//		studentInformation[ParseClient.JSONBodyKeys.MapString] = locationTextField.text
+//		studentInformation[ParseClient.JSONBodyKeys.MediaURL] = linkTextField.text
+		studentInformation.uniqueKey = UdacityClient.sharedInstance().accountKey as! String
+		studentInformation.mapString = locationTextField.text
+		studentInformation.mediaURL = linkTextField.text
 		
 		if submitButton.titleLabel?.text == "Find on the Map" {
 			if shouldCleanTextView == true {
@@ -84,9 +87,10 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 							self.map.addAnnotation(placemark)
 							
 					
-							self.studentInformation[ParseClient.JSONResponseKeys.Latitude] = placemark.coordinate.latitude as Double
-							self.studentInformation[ParseClient.JSONResponseKeys.Longitude] = placemark.coordinate.longitude as Double
-		
+//							self.studentInformation[ParseClient.JSONBodyKeys.Latitude] = placemark.coordinate.latitude as Double
+//							self.studentInformation[ParseClient.JSONBodyKeys.Longitude] = placemark.coordinate.longitude as Double
+							self.studentInformation.latitude = placemark.coordinate.latitude as Double
+							self.studentInformation.longitude = placemark.coordinate.longitude as Double
 						}
 					}
 				}
@@ -101,12 +105,13 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 					// AJEITAR ISSO AQUI DIREITAMENTE
 					UdacityClient.sharedInstance().getPublicUserData() { result, error in
 						if let dictionary = result {
-							self.studentInformation[ParseClient.JSONResponseKeys.FirstName] = dictionary[UdacityClient.JSONResponseKeys.FirstName] as! String
-							self.studentInformation[ParseClient.JSONResponseKeys.LastName] = dictionary[UdacityClient.JSONResponseKeys.LastName] as! String
-							
+//							self.studentInformation[ParseClient.JSONBodyKeys.FirstName] = dictionary[UdacityClient.JSONResponseKeys.FirstName] as! String
+//							self.studentInformation[ParseClient.JSONBodyKeys.LastName] = dictionary[UdacityClient.JSONResponseKeys.LastName] as! String
+							self.studentInformation.firstName = dictionary[UdacityClient.JSONResponseKeys.FirstName] as! String
+							self.studentInformation.lastName = dictionary[UdacityClient.JSONResponseKeys.LastName] as! String
 							println(self.studentInformation)
 							
-							ParseClient.sharedInstance().postStudentLocation(self.studentInformation) { success in
+							ParseClient.sharedInstance().postStudentLocationWithInformation(self.studentInformation) { success in
 								if success {
 									self.dismissViewControllerAnimated(true, completion: nil)
 								} else {

@@ -29,7 +29,8 @@ extension UdacityClient {
 	struct JSONBodyKeys {
 		
 		/* Login (Session) keys */
-		static let Username = "usarname"
+		static let Udacity = "udacity"
+		static let Username = "username"
 		static let Password = "password"
 	}
 	

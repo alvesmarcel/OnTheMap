@@ -77,7 +77,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	
 	func refreshLocations(sender: AnyObject?) {
 		loadingScreenSetActive(true)
-		ParseClient.sharedInstance().getStudentsLocations(100, skip: 0) { studentLocations, error in
+		ParseClient.sharedInstance().getStudentsLocationsWithLimit(100, skip: 0) { studentLocations, error in
 			if let error = error {
 				self.displayError(error.localizedDescription)
 			} else {
@@ -114,7 +114,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		mapView.removeAnnotations(annotations)
 		annotations.removeAll(keepCapacity: false)
 		
-		for studentLocation in ParseClient.sharedInstance().studentLocations {
+		for studentLocation in ParseClient.sharedInstance().studentsInformation {
 			let latitude = CLLocationDegrees(studentLocation.latitude)
 			let longitude = CLLocationDegrees(studentLocation.longitude)
 			

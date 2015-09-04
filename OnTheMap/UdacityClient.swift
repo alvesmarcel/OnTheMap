@@ -31,13 +31,14 @@ class UdacityClient : NSObject {
 		/* 4. Make the request */
 		let task = session.dataTaskWithRequest(request) {data, response, downloadError in
 			
-			/* The first 5 bytes should be ignored, according to the documentation */
-			let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
-			
 			/* 5/6. Parse the data and use the data (happens in completion handler) */
 			if let error = downloadError {
 				completionHandler(result: nil, error: downloadError)
 			} else {
+				
+				/* The first 5 bytes should be ignored, according to the documentation */
+				let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+				
 				JSONConvenience.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
 			}
 		}
@@ -70,13 +71,14 @@ class UdacityClient : NSObject {
 		/* 4. Make the request */
 		let task = session.dataTaskWithRequest(request) {data, response, downloadError in
 			
-			/* The first 5 bytes should be ignored, according to the documentation */
-			let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
-			
 			/* 5/6. Parse the data and use the data (happens in completion handler) */
 			if let error = downloadError {
 				completionHandler(result: nil, error: error)
 			} else {
+				
+				/* The first 5 bytes should be ignored, according to the documentation */
+				let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+				
 				JSONConvenience.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
 			}
 		}

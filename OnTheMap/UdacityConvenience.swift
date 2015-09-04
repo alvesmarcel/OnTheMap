@@ -46,8 +46,10 @@ extension UdacityClient {
 		/* 1. Specify parameters, method and HTTP body (if POST) */
 		let parameters = [String:AnyObject]()
 		let jsonBody = [
-			JSONBodyKeys.Username : username,
-			JSONBodyKeys.Password : password
+			JSONBodyKeys.Udacity : [
+				JSONBodyKeys.Username : username,
+				JSONBodyKeys.Password : password
+			]
 		]
 		
 		/* 2. Make the request */
