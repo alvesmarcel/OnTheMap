@@ -13,7 +13,7 @@ import UIKit
 
 extension ParseClient {
 	
-	// MARK: GET Convenient Methods
+	// MARK: GET Convenience Methods
 	
 	/* This method is used to consult the student locations */
 	/* Given a limit and a skip arguments, this method returns (through completionHandler) an array of student locations or an error */
@@ -42,7 +42,7 @@ extension ParseClient {
 		}
 	}
 	
-	// MARK: POST Convenient Methods
+	// MARK: POST Convenience Methods
 	
 	/* This method is used to post a student location in the server */
 	/* Given a student location, this method returns (through completionHandler) if the post operation was successful or not */

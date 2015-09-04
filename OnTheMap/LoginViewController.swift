@@ -5,6 +5,7 @@
 //  Created by Marcel Oliveira Alves on 8/24/15.
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
+//
 
 // problemas
 // - muito codigo repetido
@@ -27,55 +28,43 @@ class LoginViewController: UIViewController {
 	@IBOutlet weak var loginWithUdacityButton: UIButton!
 	@IBOutlet weak var loadingView: UIView!
 	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-
-	var session: NSURLSession!
 	
 	// MARK: - Lifecycle
 	
 	override func viewDidLoad() {
 		
-		/* Get the shared URL session */
-		session = NSURLSession.sharedSession()
-		
 		/* Configure the UI */
 		self.configureUI()
-		
-		activityIndicatorView.hidesWhenStopped = true
-		loadingScreenSetActive(false)
-	}
-	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
 	}
 	
 	// MARK: - Actions
 	
 	/* Identifies which button was touched and selects the correct login method (Udacity or Facebook) */
 	@IBAction func loginButtonTouch(sender: AnyObject) {
+		
+		/* Activating loading screen */
 		loadingScreenSetActive(true)
 		emailTextField.resignFirstResponder()
 		passwordTextField.resignFirstResponder()
-		if let tag = sender.tag {
-			if tag == ButtonTags.UdacityLoginButtonTag {
-				UdacityClient.sharedInstance().authenticateWithUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
-					if success {
-						dispatch_async(dispatch_get_main_queue()) {
-							self.loadingScreenSetActive(false)
-						}
-						self.completeLogin()
-					} else {
-						self.displayError(errorString as? String)
-					}
+		
+		/* Selecting the correct login method */
+		if sender.tag == ButtonTags.UdacityLoginButtonTag {
+			UdacityClient.sharedInstance().authenticateWithUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
+				if success {
+					self.completeLogin()
+				} else {
+					self.displayError(errorString as? String)
 				}
-			} else if tag == ButtonTags.FacebookLoginButtonTag {
-				// TODO: AUTHENTICATE WITH FACEBOOK
-				//UdacityClient.sharedInstance().authenticateWithFacebook()
-			} else {
-				println("Unidentified button tag")
 			}
+		} else if sender.tag == ButtonTags.FacebookLoginButtonTag {
+			// TODO: AUTHENTICATE WITH FACEBOOK
+			//UdacityClient.sharedInstance().authenticateWithFacebook()
+		} else {
+			println("Unidentified button tag")
 		}
 	}
 	
+	/* Sign up button. Opens Udacity URL in Safari */
 	@IBAction func signUpButtonTouch(sender: AnyObject) {
 		let url = NSURL(string: UdacityClient.Constants.SignUpURL)
 		UIApplication.sharedApplication().openURL(url!)
@@ -83,13 +72,16 @@ class LoginViewController: UIViewController {
 	
 	// MARK: - LoginViewController
 	
+	/* Login completed: sets loading screen not active and calls next view controller */
 	func completeLogin() {
+		self.loadingScreenSetActive(false)
 		dispatch_async(dispatch_get_main_queue(), {
 			let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OTMNavigationController") as! UINavigationController
 			self.presentViewController(controller, animated: true, completion: nil)
 		})
 	}
 	
+	/* Displays error using alert controller */
 	func displayError(errorString: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
 			self.loadingScreenSetActive(false)
@@ -102,17 +94,26 @@ class LoginViewController: UIViewController {
 		}
 	}
 	
+	/* Activates (or deactivates) the loading screen */
 	func loadingScreenSetActive(active: Bool) {
-		if active {
-			loadingView.hidden = false
-			activityIndicatorView.startAnimating()
-		} else {
-			loadingView.hidden = true
-			activityIndicatorView.stopAnimating()
+		dispatch_async(dispatch_get_main_queue()) {
+			if active {
+				self.loadingView.hidden = false
+				self.activityIndicatorView.startAnimating()
+			} else {
+				self.loadingView.hidden = true
+				self.activityIndicatorView.stopAnimating()
+			}
 		}
 	}
 	
+	/* Performs some UI configuration */
 	func configureUI() {
+		
+		/* Loading screen configuration */
+		activityIndicatorView.hidesWhenStopped = true
+		loadingScreenSetActive(false)
+		
 		/* Configure background gradient */
 		self.view.backgroundColor = UIColor.clearColor()
 		let colorTop = UIColor(red: 1.0, green: 0.8, blue: 0.3, alpha: 1.0).CGColor
