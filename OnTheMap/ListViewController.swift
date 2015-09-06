@@ -5,22 +5,34 @@
 //  Created by Marcel Oliveira Alves on 8/28/15.
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
+//  This class is responsible for the List View (Table View).
+//  The table is filled with students first and last names.
+//  When the table cell is touched, the mediaURL link associated with the student is opened in Safari.
 
 import UIKit
 
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	
+	// MARK: - Outlets
+	
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var loadingView: UIView!
 	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 	
+	// MARK: - Lifecycle
+	
 	override func viewDidLoad() {
-		refreshLocations(self)
+		// TODO: VERIFY IF THIS WORKS; PUT IT IN VIEWWILLAPPEAR IF IT'S NOT WORKING
+		if ParseClient.sharedInstance().studentsInformation.count == 0 {
+			refreshLocations(self)
+		}
 	}
 	
 	override func viewWillAppear(animated: Bool) {
 		
 		super.viewWillAppear(animated)
+		
+		// TODO: REMOVE THESE BUTTONS FROM HERE
 		
 		/* Adding the right bar buttons to the navigation bar */
 		let refreshBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshLocations:")
@@ -47,6 +59,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 		}
 	}
 	
+	// MARK: - UITableViewDataSource methods
+	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		/* Get cell type */
 		let cellReuseIdentifier = "ListViewTableCell"
@@ -65,8 +79,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 		return ParseClient.sharedInstance().studentsInformation.count
 	}
 	
+	// MARK: - UITableViewDelegate methods
+	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		
+		let app = UIApplication.sharedApplication()
+		app.openURL(NSURL(string: ParseClient.sharedInstance().studentsInformation[indexPath.row].mediaURL)!)
 	}
 	
 	
