@@ -10,60 +10,27 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
+	
+	// MARK: - Outlets
 
 	@IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var loadingView: UIView!
 	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 	
+	// MARK: - Class variables
+	
 	var annotations = [MKPointAnnotation]()
+	
+	// MARK: - Lifecycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		/* Setting map delegate */
 		mapView.delegate = self
 		
-		activityIndicatorView.hidesWhenStopped = true
+		/* When the view is loaded, the locations are fetched from the server and the view updated */
 		refreshLocations(self)
-		
-//		
-//		// The "locations" array is an array of dictionary objects that are similar to the JSON
-//		// data that you can download from parse.
-//		let locations = hardCodedLocationData()
-//		
-//		// We will create an MKPointAnnotation for each dictionary in "locations". The
-//		// point annotations will be stored in this array, and then provided to the map view.
-//		var annotations = [MKPointAnnotation]()
-//		
-//		// The "locations" array is loaded with the sample data below. We are using the dictionaries
-//		// to create map annotations. This would be more stylish if the dictionaries were being
-//		// used to create custom structs. Perhaps StudentLocation structs.
-//		
-//		for dictionary in locations {
-//			
-//			// Notice that the float values are being used to create CLLocationDegree values.
-//			// This is a version of the Double type.
-//			let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
-//			let long = CLLocationDegrees(dictionary["longitude"] as! Double)
-//			
-//			// The lat and long are used to create a CLLocationCoordinates2D instance.
-//			let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-//			
-//			let first = dictionary["firstName"] as! String
-//			let last = dictionary["lastName"] as! String
-//			let mediaURL = dictionary["mediaURL"] as! String
-//			
-//			// Here we create the annotation and set its coordiate, title, and subtitle properties
-//			var annotation = MKPointAnnotation()
-//			annotation.coordinate = coordinate
-//			annotation.title = "\(first) \(last)"
-//			annotation.subtitle = mediaURL
-//			
-//			// Finally we place the annotation in an array of annotations.
-//			annotations.append(annotation)
-//		}
-//		
-//		// When the array is complete, we add the annotations to the map.
-//		self.mapView.addAnnotations(annotations)
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -75,18 +42,27 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		self.tabBarController!.navigationItem.setRightBarButtonItems([refreshBarButtonItem, pinBarButtonItem], animated: true)
 	}
 	
+	// MARK: - Actions
+	
+	/* Calls the InformationPostViewController modally - pinBarButtonItem action */
+	func callInformationPostViewController(sender: AnyObject) {
+		let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostViewController") as! InformationPostViewController
+		self.presentViewController(controller, animated: true, completion: nil)
+	}
+	
+	/* Fetchs locations from the server and updates the mapView - refreshBarButtonItem action */
 	func refreshLocations(sender: AnyObject?) {
 		loadingScreenSetActive(true)
 		ParseClient.sharedInstance().getStudentsLocationsWithLimit(100, skip: 0) { studentLocations, error in
 			if let error = error {
 				self.displayError(error.localizedDescription)
 			} else {
+				
+				// TODO: Pass locations to updateMapView by reference
 				if let locations = studentLocations {
-					//self.studentLocations = locations
-					dispatch_async(dispatch_get_main_queue()) {
-						self.updateMapView()
-						self.loadingScreenSetActive(false)
-					}
+					println(locations)
+					self.loadingScreenSetActive(false)
+					self.updateMapView()
 					println("Students Locations saved")
 				} else {
 					println("Unexpected Error")
@@ -95,46 +71,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		}
 	}
 	
-	func loadingScreenSetActive(active: Bool) {
-		if active {
-			loadingView.hidden = false
-			activityIndicatorView.startAnimating()
-		} else {
-			loadingView.hidden = true
-			activityIndicatorView.stopAnimating()
-		}
-	}
+	// MARK: - MKMapViewDelegate methods
 	
-	func callInformationPostViewController(sender: AnyObject) {
-		let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostViewController") as! InformationPostViewController
-		self.presentViewController(controller, animated: true, completion: nil)
-	}
-	
-	func updateMapView() {
-		mapView.removeAnnotations(annotations)
-		annotations.removeAll(keepCapacity: false)
-		
-		for studentLocation in ParseClient.sharedInstance().studentsInformation {
-			let latitude = CLLocationDegrees(studentLocation.latitude)
-			let longitude = CLLocationDegrees(studentLocation.longitude)
-			
-			let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-			
-			let firstName = studentLocation.firstName
-			let lastName = studentLocation.lastName
-			let mediaURL = studentLocation.mediaURL
-			
-			var annotation = MKPointAnnotation()
-			annotation.coordinate = coordinate
-			annotation.title = "\(firstName) \(lastName)"
-			annotation.subtitle = mediaURL
-			
-			annotations.append(annotation)
-		}
-
-		self.mapView.addAnnotations(annotations)
-	}
-	
+	/* Configures how the pins will me shown for each annotation */
 	func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
 		
 		let reuseId = "pin"
@@ -153,19 +92,54 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		
 		return pinView
 	}
-
 	
-	
-	// This delegate method is implemented to respond to taps. It opens the system browser
-	// to the URL specified in the annotationViews subtitle property.
+	/* Configures the response for touching the annotation view */
+	/* In this app, it will open the URL that is the subtitle of the annotation */
 	func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-
+		
 		if control == annotationView.rightCalloutAccessoryView {
 			let app = UIApplication.sharedApplication()
 			app.openURL(NSURL(string: annotationView.annotation.subtitle!)!)
 		}
 	}
 	
+	// MARK: - MapViewController
+	
+	/* Takes the student locations in the shared instance of ParseClient and updates the map */
+	func updateMapView() {
+		dispatch_async(dispatch_get_main_queue()) {
+			
+			/* Cleaning old annotations (so they don't overlap every time we update */
+			self.mapView.removeAnnotations(self.annotations)
+			self.annotations.removeAll(keepCapacity: false)
+			
+			/* Students information are used to create the annotations that are appended to the class variable annotations */
+			for studentLocation in ParseClient.sharedInstance().studentsInformation {
+				let latitude = CLLocationDegrees(studentLocation.latitude)
+				let longitude = CLLocationDegrees(studentLocation.longitude)
+				
+				let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+				
+				let firstName = studentLocation.firstName
+				let lastName = studentLocation.lastName
+				let mediaURL = studentLocation.mediaURL
+				
+				var annotation = MKPointAnnotation()
+				annotation.coordinate = coordinate
+				annotation.title = "\(firstName) \(lastName)"
+				annotation.subtitle = mediaURL
+				
+				self.annotations.append(annotation)
+			}
+			
+			/* Adding annotations to the mapView */
+			self.mapView.addAnnotations(self.annotations)
+		}
+	}
+	
+	// MARK: - UI Helper Methods
+	
+	/* Displays error using alert controller */
 	func displayError(errorString: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
 			self.loadingScreenSetActive(false)
@@ -176,5 +150,26 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 				self.presentViewController(alertController, animated: true) {}
 			}
 		}
+	}
+	
+	/* Activates (or deactivates) the loading screen */
+	func loadingScreenSetActive(active: Bool) {
+		dispatch_async(dispatch_get_main_queue()) {
+			if active {
+				self.loadingView.hidden = false
+				self.activityIndicatorView.startAnimating()
+			} else {
+				self.loadingView.hidden = true
+				self.activityIndicatorView.stopAnimating()
+			}
+		}
+	}
+	
+	/* Performs some UI configuration */
+	func configureUI() {
+		
+		/* Loading screen configuration */
+		activityIndicatorView.hidesWhenStopped = true
+		loadingScreenSetActive(false)
 	}
 }

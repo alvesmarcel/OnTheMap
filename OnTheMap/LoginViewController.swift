@@ -5,7 +5,9 @@
 //  Created by Marcel Oliveira Alves on 8/24/15.
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
-//
+//  This class is responsible for the first screen in the app (the Login screen).
+//  It's possible to realize the login using Udacity credentials or through Facebook API
+//  Also, it is possible to be redirected to a website for signing up
 
 // problemas
 // - muito codigo repetido
@@ -22,6 +24,8 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+	
+	// MARK: - Outlets
 
 	@IBOutlet weak var emailTextField: UITextField!
 	@IBOutlet weak var passwordTextField: UITextField!
@@ -80,6 +84,8 @@ class LoginViewController: UIViewController {
 			self.presentViewController(controller, animated: true, completion: nil)
 		})
 	}
+	
+	// MARK: - UI Helper Methods
 	
 	/* Displays error using alert controller */
 	func displayError(errorString: String?) {
