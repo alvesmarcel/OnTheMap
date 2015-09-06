@@ -22,7 +22,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	// MARK: - Lifecycle
 	
 	override func viewDidLoad() {
-		// TODO: VERIFY IF THIS WORKS; PUT IT IN VIEWWILLAPPEAR IF IT'S NOT WORKING
+		
+		configureUI()
 		if ParseClient.sharedInstance().studentsInformation.count == 0 {
 			refreshLocations(self)
 		}
@@ -86,17 +87,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 		app.openURL(NSURL(string: ParseClient.sharedInstance().studentsInformation[indexPath.row].mediaURL)!)
 	}
 	
-	
-	// change to loadingScreen(setActive: Bool)
-	func loadingScreenSetActive(active: Bool) {
-		if active {
-			loadingView.hidden = false
-			activityIndicatorView.startAnimating()
-		} else {
-			loadingView.hidden = true
-			activityIndicatorView.stopAnimating()
-		}
-	}
+	// MARK: - UI Helper Methods
 	
 	func displayError(errorString: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
@@ -108,5 +99,23 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 				self.presentViewController(alertController, animated: true) {}
 			}
 		}
+	}
+	
+	func loadingScreenSetActive(active: Bool) {
+		if active {
+			loadingView.hidden = false
+			activityIndicatorView.startAnimating()
+		} else {
+			loadingView.hidden = true
+			activityIndicatorView.stopAnimating()
+		}
+	}
+	
+	/* Performs some UI configuration */
+	func configureUI() {
+		
+		/* Loading screen configuration */
+		activityIndicatorView.hidesWhenStopped = true
+		loadingScreenSetActive(false)
 	}
 }

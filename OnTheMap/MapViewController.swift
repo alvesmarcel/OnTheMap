@@ -35,6 +35,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		
 		/* When the view is loaded, the locations are fetched from the server and the view updated */
 		refreshLocations(self)
+		//self.view.alpha = 0.5
 	}
 	
 	override func viewWillAppear(animated: Bool) {
