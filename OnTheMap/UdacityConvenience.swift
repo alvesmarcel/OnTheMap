@@ -74,7 +74,7 @@ extension UdacityClient {
 					
 					/* When there is no "status", the operation was succesful. Checks for account key */
 					if let accountKey = result.valueForKey(JSONResponseKeys.Account)?.valueForKey(JSONResponseKeys.Key) as? String {
-						println("Conection was successful")
+						println("Connection was successful")
 						self.accountKey = accountKey
 						completionHandler(success: true, errorString: nil)
 					} else {
