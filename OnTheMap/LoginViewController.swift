@@ -23,15 +23,17 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 	
 	// MARK: - Outlets
 
 	@IBOutlet weak var emailTextField: UITextField!
 	@IBOutlet weak var passwordTextField: UITextField!
 	@IBOutlet weak var loginWithUdacityButton: UIButton!
-	@IBOutlet weak var loadingView: UIView!
-	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+	
+	// MARK: - Loading Screen variable
+	
+	var loadingScreen: LoadingScreen!
 	
 	// MARK: - Lifecycle
 	
@@ -39,6 +41,11 @@ class LoginViewController: UIViewController {
 		
 		/* Configure the UI */
 		self.configureUI()
+		emailTextField.delegate = self
+		passwordTextField.delegate = self
+		
+		/* Loading screen initialization */
+		loadingScreen = LoadingScreen(view: self.view)
 	}
 	
 	// MARK: - Actions
@@ -46,8 +53,9 @@ class LoginViewController: UIViewController {
 	/* Identifies which button was touched and selects the correct login method (Udacity or Facebook) */
 	@IBAction func loginButtonTouch(sender: AnyObject) {
 		
-		/* Activating loading screen */
-		loadingScreenSetActive(true)
+		loadingScreen.setActive(true)
+		
+		/* Hides keyboard */
 		emailTextField.resignFirstResponder()
 		passwordTextField.resignFirstResponder()
 		
@@ -55,6 +63,7 @@ class LoginViewController: UIViewController {
 		if sender.tag == ButtonTags.UdacityLoginButtonTag {
 			UdacityClient.sharedInstance().authenticateWithUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
 				if success {
+					self.loadingScreen.setActive(false)
 					self.completeLogin()
 				} else {
 					self.displayError(errorString as? String)
@@ -74,11 +83,17 @@ class LoginViewController: UIViewController {
 		UIApplication.sharedApplication().openURL(url!)
 	}
 	
+	// MARK: - TextFieldDelegate methods
+	
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		textField.resignFirstResponder()
+		return true
+	}
+	
 	// MARK: - LoginViewController
 	
 	/* Login completed: sets loading screen not active and calls next view controller */
 	func completeLogin() {
-		self.loadingScreenSetActive(false)
 		dispatch_async(dispatch_get_main_queue(), {
 			let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OTMNavigationController") as! UINavigationController
 			self.presentViewController(controller, animated: true, completion: nil)
@@ -90,7 +105,6 @@ class LoginViewController: UIViewController {
 	/* Displays error using alert controller */
 	func displayError(errorString: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
-			self.loadingScreenSetActive(false)
 			if let errorString = errorString {
 				let alertController = UIAlertController(title: "Login Failed", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
 				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
@@ -101,24 +115,18 @@ class LoginViewController: UIViewController {
 	}
 	
 	/* Activates (or deactivates) the loading screen */
-	func loadingScreenSetActive(active: Bool) {
-		dispatch_async(dispatch_get_main_queue()) {
-			if active {
-				self.loadingView.hidden = false
-				self.activityIndicatorView.startAnimating()
-			} else {
-				self.loadingView.hidden = true
-				self.activityIndicatorView.stopAnimating()
-			}
-		}
-	}
+//	func loadingScreenSetActive(active: Bool) {
+//		dispatch_async(dispatch_get_main_queue()) {
+//			// TODO: IMPLEMENT
+//			// create activity indicator view
+//			// - activity view should hide when stop
+//			// change alpha of screen to 0.5
+//			// - screen shouldn't be editable
+//		}
+//	}
 	
 	/* Performs some UI configuration */
 	func configureUI() {
-		
-		/* Loading screen configuration */
-		activityIndicatorView.hidesWhenStopped = true
-		loadingScreenSetActive(false)
 		
 		/* Configure background gradient */
 		self.view.backgroundColor = UIColor.clearColor()

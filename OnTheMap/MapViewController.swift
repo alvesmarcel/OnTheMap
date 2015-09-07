@@ -18,24 +18,27 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	// MARK: - Outlets
 
 	@IBOutlet weak var mapView: MKMapView!
-	@IBOutlet weak var loadingView: UIView!
-	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 	
 	// MARK: - Class variables
 	
 	var annotations = [MKPointAnnotation]()
+	
+	var loadingScreen: LoadingScreen!
 	
 	// MARK: - Lifecycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		loadingScreen = LoadingScreen(view: self.view)
+		
 		/* Setting map delegate */
 		mapView.delegate = self
 		
 		/* When the view is loaded, the locations are fetched from the server and the view updated */
 		refreshLocations(self)
-		//self.view.alpha = 0.5
+		
+		
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -57,7 +60,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	
 	/* Fetchs locations from the server and updates the mapView - refreshBarButtonItem action */
 	func refreshLocations(sender: AnyObject?) {
-		loadingScreenSetActive(true)
+		loadingScreen.setActive(true)
 		ParseClient.sharedInstance().getStudentsLocationsWithLimit(100, skip: 0) { studentLocations, error in
 			if let error = error {
 				self.displayError(error.localizedDescription)
@@ -65,8 +68,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 				
 				// TODO: Pass locations to updateMapView by reference
 				if let locations = studentLocations {
-					println(locations)
-					self.loadingScreenSetActive(false)
+					self.loadingScreen.setActive(false)
 					self.updateMapView()
 					println("Students Locations saved")
 				} else {
@@ -147,7 +149,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	/* Displays error using alert controller */
 	func displayError(errorString: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
-			self.loadingScreenSetActive(false)
 			if let errorString = errorString {
 				let alertController = UIAlertController(title: "Get Locations Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
 				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
@@ -158,23 +159,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	}
 	
 	/* Activates (or deactivates) the loading screen */
-	func loadingScreenSetActive(active: Bool) {
-		dispatch_async(dispatch_get_main_queue()) {
-			if active {
-				self.loadingView.hidden = false
-				self.activityIndicatorView.startAnimating()
-			} else {
-				self.loadingView.hidden = true
-				self.activityIndicatorView.stopAnimating()
-			}
-		}
-	}
-	
-	/* Performs some UI configuration */
-	func configureUI() {
-		
-		/* Loading screen configuration */
-		activityIndicatorView.hidesWhenStopped = true
-		loadingScreenSetActive(false)
-	}
+//	func loadingScreenSetActive(active: Bool) {
+//		dispatch_async(dispatch_get_main_queue()) {
+//			// TODO: IMPLEMENT
+//			// create activity indicator view
+//			// - activity view should hide when stop
+//			// change alpha of screen to 0.5
+//			// - screen shouldn't be editable
+//		}
+//	}
 }

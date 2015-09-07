@@ -16,14 +16,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	// MARK: - Outlets
 	
 	@IBOutlet weak var tableView: UITableView!
-	@IBOutlet weak var loadingView: UIView!
-	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 	
 	// MARK: - Lifecycle
 	
 	override func viewDidLoad() {
 		
-		configureUI()
 		if ParseClient.sharedInstance().studentsInformation.count == 0 {
 			refreshLocations(self)
 		}
@@ -42,7 +39,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	}
 	
 	func refreshLocations(sender: AnyObject?) {
-		loadingScreenSetActive(true)
 		ParseClient.sharedInstance().getStudentsLocationsWithLimit(100, skip: 0) { studentLocations, error in
 			if let error = error {
 				self.displayError(error.localizedDescription)
@@ -50,7 +46,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 				if let locations = studentLocations {
 					dispatch_async(dispatch_get_main_queue()) {
 						self.tableView.reloadData()
-						self.loadingScreenSetActive(false)
 					}
 					println("Students Locations saved")
 				} else {
@@ -91,7 +86,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	func displayError(errorString: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
-			self.loadingScreenSetActive(false)
 			if let errorString = errorString {
 				let alertController = UIAlertController(title: "Get Locations Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
 				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
@@ -99,23 +93,5 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 				self.presentViewController(alertController, animated: true) {}
 			}
 		}
-	}
-	
-	func loadingScreenSetActive(active: Bool) {
-		if active {
-			loadingView.hidden = false
-			activityIndicatorView.startAnimating()
-		} else {
-			loadingView.hidden = true
-			activityIndicatorView.stopAnimating()
-		}
-	}
-	
-	/* Performs some UI configuration */
-	func configureUI() {
-		
-		/* Loading screen configuration */
-		activityIndicatorView.hidesWhenStopped = true
-		loadingScreenSetActive(false)
 	}
 }

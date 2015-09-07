@@ -27,9 +27,6 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	// MARK: - MKMapView
 	@IBOutlet weak var map: MKMapView!
 	
-	@IBOutlet weak var loadingView: UIView!
-	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-	
 	// MARK: - Helper variables
 	var shouldCleanTextView: Bool!
 	
@@ -40,9 +37,6 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		super.viewDidLoad()
 		locationTextField.delegate = self
 		linkTextField.delegate = self
-		
-		activityIndicatorView.hidesWhenStopped = true
-		loadingScreenSetActive(false)
 		
 		map.zoomEnabled = false
 		map.scrollEnabled = false
@@ -202,19 +196,8 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		resetTextView()
 	}
 	
-	func loadingScreenSetActive(active: Bool) {
-		if active {
-			loadingView.hidden = false
-			activityIndicatorView.startAnimating()
-		} else {
-			loadingView.hidden = true
-			activityIndicatorView.stopAnimating()
-		}
-	}
-	
 	func displayError(errorString: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
-			self.loadingScreenSetActive(false)
 			if let errorString = errorString {
 				let alertController = UIAlertController(title: "Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
 				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
