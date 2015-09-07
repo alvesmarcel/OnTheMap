@@ -8,7 +8,7 @@
 //  This class is responsible for posting student information in the servers using the Parse methods
 //  There are "two" implicit screens in this view (Location UI and Link UI). They change between them with alpha configurations.
 //
-// BUG: When an alert controller appears, the Cancel button changes to its color set in the Storyboard (not the correct one set programmatically)
+//  BUG: When an alert controller appears, the Cancel button changes to its color set in the Storyboard (not the correct one set programmatically)
 
 import UIKit
 import MapKit
@@ -60,8 +60,6 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		
 		/* Student information to be posted will always need account key (that is avaiable as soon as the user logs in) */
 		studentInformation.uniqueKey = UdacityClient.sharedInstance().accountKey as! String
-		
-		println(self.parentViewController)
 	}
 
 	override func viewWillAppear(animated: Bool) {
@@ -202,7 +200,6 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	
 	/* Configures the UI to present the "location screen" */
 	func configureLocationUI() {
-		println("Configure Location UI")
 		dispatch_async(dispatch_get_main_queue()) {
 			self.label1.alpha = 1.0
 			self.label2.alpha = 1.0
@@ -222,7 +219,6 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	
 	/* Configures the UI to presente the "link screen" */
 	func configureLinkUI() {
-		println("Configure Link UI")
 		dispatch_async(dispatch_get_main_queue()) {
 			self.label1.alpha = 0.0
 			self.label2.alpha = 0.0

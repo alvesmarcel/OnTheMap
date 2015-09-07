@@ -92,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2828FA1A1B9DEBC300E9B813 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				286F408B1B8B42D4008B012D /* Main.storyboard */,
+				286F40901B8B42D4008B012D /* LaunchScreen.xib */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
 		286F40791B8B42D4008B012D = {
 			isa = PBXGroup;
 			children = (
@@ -113,13 +122,10 @@
 		286F40841B8B42D4008B012D /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				286F40871B8B42D4008B012D /* AppDelegate.swift */,
 				286F40AA1B8B5A16008B012D /* Model */,
 				286F40B81B8BBD4C008B012D /* View */,
 				286F40A71B8B46F5008B012D /* Controller */,
-				286F40871B8B42D4008B012D /* AppDelegate.swift */,
-				286F408B1B8B42D4008B012D /* Main.storyboard */,
-				286F408E1B8B42D4008B012D /* Images.xcassets */,
-				286F40901B8B42D4008B012D /* LaunchScreen.xib */,
 				286F40851B8B42D4008B012D /* Supporting Files */,
 			);
 			path = OnTheMap;
@@ -128,6 +134,8 @@
 		286F40851B8B42D4008B012D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				286F408E1B8B42D4008B012D /* Images.xcassets */,
+				2828FA1A1B9DEBC300E9B813 /* Storyboards */,
 				286F40B11B8B6C5C008B012D /* Fonts */,
 				286F40861B8B42D4008B012D /* Info.plist */,
 			);

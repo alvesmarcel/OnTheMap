@@ -10,7 +10,7 @@
 
 import Foundation
 
-class StudentInformation: NSObject, Printable {
+struct StudentInformation {
 
 	var objectID: String = ""
 	var uniqueKey: String = ""
@@ -24,9 +24,7 @@ class StudentInformation: NSObject, Printable {
 	// MARK: - Constructors
 	
 	/* Constructs a StudentInformation object with no information */
-	override init() {
-		super.init()
-	}
+	init() {}
 	
 	/* Constructs a StudentInformation object from a dictionary */
 	init(dictionary: [String : AnyObject]) {
@@ -52,12 +50,5 @@ class StudentInformation: NSObject, Printable {
 		}
 		
 		return studentInformation
-	}
-	
-	// MARK: - Debug
-	
-	/* Method used only for debug purposes */
-	override  var description: String {
-		return "objectID: \(objectID)\nuniqueKey: \(uniqueKey)\nfirstName: \(firstName)\nlastName: \(lastName)\nmapString: \(mapString)\nmediaURL: \(mediaURL)\nlatitude: \(latitude)\nlongitude: \(longitude)"
 	}
 }
