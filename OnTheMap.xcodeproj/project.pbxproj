@@ -13,6 +13,7 @@
 		2828FA151B97CF8600E9B813 /* ButtonTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA141B97CF8600E9B813 /* ButtonTags.swift */; };
 		2828FA171B9C6F8900E9B813 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA161B9C6F8900E9B813 /* LoadingScreen.swift */; };
 		2828FA191B9DD13C00E9B813 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA181B9DD13C00E9B813 /* ErrorDisplay.swift */; };
+		2828FA1C1B9E541E00E9B813 /* TopFiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA1B1B9E541E00E9B813 /* TopFiveViewController.swift */; };
 		286F40881B8B42D4008B012D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40871B8B42D4008B012D /* AppDelegate.swift */; };
 		286F408D1B8B42D4008B012D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 286F408B1B8B42D4008B012D /* Main.storyboard */; };
 		286F408F1B8B42D4008B012D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 286F408E1B8B42D4008B012D /* Images.xcassets */; };
@@ -50,6 +51,7 @@
 		2828FA141B97CF8600E9B813 /* ButtonTags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTags.swift; sourceTree = "<group>"; };
 		2828FA161B9C6F8900E9B813 /* LoadingScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		2828FA181B9DD13C00E9B813 /* ErrorDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorDisplay.swift; sourceTree = "<group>"; };
+		2828FA1B1B9E541E00E9B813 /* TopFiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopFiveViewController.swift; sourceTree = "<group>"; };
 		286F40821B8B42D4008B012D /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		286F40861B8B42D4008B012D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		286F40871B8B42D4008B012D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				286F40C81B8E3317008B012D /* MapViewController.swift */,
 				286F40D71B9085FE008B012D /* ListViewController.swift */,
 				286F40D51B8E831D008B012D /* InformationPostViewController.swift */,
+				2828FA1B1B9E541E00E9B813 /* TopFiveViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				286F40D21B8E76D8008B012D /* ParseConstants.swift in Sources */,
 				286F40D41B8E771E008B012D /* ParseClient.swift in Sources */,
 				2828FA171B9C6F8900E9B813 /* LoadingScreen.swift in Sources */,
+				2828FA1C1B9E541E00E9B813 /* TopFiveViewController.swift in Sources */,
 				286F40881B8B42D4008B012D /* AppDelegate.swift in Sources */,
 				286F40D61B8E831D008B012D /* InformationPostViewController.swift in Sources */,
 				286F40C91B8E3317008B012D /* MapViewController.swift in Sources */,

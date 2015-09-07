@@ -15,8 +15,16 @@
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
         </mutableArray>
         <mutableArray key="Roboto-Thin.ttf">
+            <string>Roboto-Thin</string>
+            <string>Roboto-Thin</string>
             <string>Roboto-Thin</string>
             <string>Roboto-Thin</string>
         </mutableArray>
@@ -175,7 +183,75 @@
                     <view key="view" contentMode="scaleToFill" id="35V-kf-xqg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top 5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ydI-sK-xzH">
+                                <rect key="frame" x="264" y="94" width="73" height="35.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="30"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="countries" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrj-aS-6Mf">
+                                <rect key="frame" x="237" y="137" width="126.5" height="35.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="30"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="of student locations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4X6-4b-nzw">
+                                <rect key="frame" x="172" y="180" width="255.5" height="35.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="30"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWd-JP-V6c">
+                                <rect key="frame" x="290" y="280" width="21" height="29.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="25"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CyC-ws-59W">
+                                <rect key="frame" x="290" y="318" width="21" height="29.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="25"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kAd-vx-E3G">
+                                <rect key="frame" x="289" y="356" width="21" height="29.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="25"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flm-vC-5wT">
+                                <rect key="frame" x="290" y="394" width="21" height="29.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="25"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s47-XO-jmC">
+                                <rect key="frame" x="290" y="242" width="21" height="30"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="25"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.29411764709999999" green="0.56862745100000001" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="kWd-JP-V6c" secondAttribute="centerX" constant="-0.5" id="3i5-pK-vxH"/>
+                            <constraint firstItem="flm-vC-5wT" firstAttribute="top" secondItem="kAd-vx-E3G" secondAttribute="bottom" constant="8" id="A8N-NT-PjK"/>
+                            <constraint firstAttribute="centerX" secondItem="vrj-aS-6Mf" secondAttribute="centerX" constant="-0.5" id="Blk-Up-TyJ"/>
+                            <constraint firstItem="vrj-aS-6Mf" firstAttribute="top" secondItem="ydI-sK-xzH" secondAttribute="bottom" constant="8" id="LSP-Qj-2Jd"/>
+                            <constraint firstAttribute="centerX" secondItem="flm-vC-5wT" secondAttribute="centerX" constant="-0.5" id="Ohj-Sx-1bt"/>
+                            <constraint firstItem="ydI-sK-xzH" firstAttribute="top" secondItem="FRr-uf-YSQ" secondAttribute="bottom" constant="30" id="QRU-1Z-mel"/>
+                            <constraint firstItem="CyC-ws-59W" firstAttribute="top" secondItem="kWd-JP-V6c" secondAttribute="bottom" constant="8" id="QUI-oi-b5m"/>
+                            <constraint firstAttribute="centerX" secondItem="kAd-vx-E3G" secondAttribute="centerX" constant="0.5" id="RDR-gC-ew6"/>
+                            <constraint firstItem="4X6-4b-nzw" firstAttribute="top" secondItem="vrj-aS-6Mf" secondAttribute="bottom" constant="7.5" id="Rka-F9-qOy"/>
+                            <constraint firstItem="kAd-vx-E3G" firstAttribute="top" secondItem="CyC-ws-59W" secondAttribute="bottom" constant="8" id="UMU-A2-5JD"/>
+                            <constraint firstAttribute="centerX" secondItem="s47-XO-jmC" secondAttribute="centerX" constant="-0.5" id="esA-IH-NOG"/>
+                            <constraint firstAttribute="centerX" secondItem="ydI-sK-xzH" secondAttribute="centerX" constant="-0.5" id="fGg-xh-Zl3"/>
+                            <constraint firstItem="s47-XO-jmC" firstAttribute="top" secondItem="4X6-4b-nzw" secondAttribute="bottom" constant="26.5" id="iJa-Py-mUU"/>
+                            <constraint firstItem="kWd-JP-V6c" firstAttribute="top" secondItem="s47-XO-jmC" secondAttribute="bottom" constant="8" id="r3Z-1S-CfC"/>
+                            <constraint firstAttribute="centerX" secondItem="4X6-4b-nzw" secondAttribute="centerX" id="uhA-sx-dkJ"/>
+                            <constraint firstAttribute="centerX" secondItem="CyC-ws-59W" secondAttribute="centerX" constant="-0.5" id="vsL-da-6iB"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Top 5" image="leaderboard" id="RD9-Qs-MxG"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
