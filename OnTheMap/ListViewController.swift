@@ -8,6 +8,7 @@
 //  This class is responsible for the List View (Table View).
 //  The table is filled with students first and last names.
 //  When the table cell is touched, the mediaURL link associated with the student is opened in Safari.
+//  All the UI methods are realized by MapViewController.
 
 import UIKit
 
@@ -16,44 +17,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	// MARK: - Outlets
 	
 	@IBOutlet weak var tableView: UITableView!
-	
-	// MARK: - Lifecycle
-	
-	override func viewDidLoad() {
-		
-		if ParseClient.sharedInstance().studentsInformation.count == 0 {
-			refreshLocations(self)
-		}
-	}
-	
-	override func viewWillAppear(animated: Bool) {
-		
-		super.viewWillAppear(animated)
-		
-		// TODO: REMOVE THESE BUTTONS FROM HERE
-		
-		/* Adding the right bar buttons to the navigation bar */
-		let refreshBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshLocations:")
-		let pinBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "callInformationPostViewController:")
-		self.tabBarController!.navigationItem.setRightBarButtonItems([refreshBarButtonItem, pinBarButtonItem], animated: true)
-	}
-	
-	func refreshLocations(sender: AnyObject?) {
-		ParseClient.sharedInstance().getStudentsLocationsWithLimit(100, skip: 0) { studentLocations, error in
-			if let error = error {
-				self.displayError(error.localizedDescription)
-			} else {
-				if let locations = studentLocations {
-					dispatch_async(dispatch_get_main_queue()) {
-						self.tableView.reloadData()
-					}
-					println("Students Locations saved")
-				} else {
-					println("Unexpected Error")
-				}
-			}
-		}
-	}
 	
 	// MARK: - UITableViewDataSource methods
 	
@@ -80,18 +43,5 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let app = UIApplication.sharedApplication()
 		app.openURL(NSURL(string: ParseClient.sharedInstance().studentsInformation[indexPath.row].mediaURL)!)
-	}
-	
-	// MARK: - UI Helper Methods
-	
-	func displayError(errorString: String?) {
-		dispatch_async(dispatch_get_main_queue()) {
-			if let errorString = errorString {
-				let alertController = UIAlertController(title: "Get Locations Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
-				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-				alertController.addAction(DismissAction)
-				self.presentViewController(alertController, animated: true) {}
-			}
-		}
 	}
 }

@@ -9,6 +9,7 @@
 //  The NavigationBarButtons are initialized here.
 //  Students locations are displayed as pins on the map.
 //  When the pin is touched, student information (first name, last name and mediaURL) appears.
+//  All the UI methods are treated here.
 
 import UIKit
 import MapKit
@@ -22,7 +23,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	// MARK: - Class variables
 	
 	var annotations = [MKPointAnnotation]()
-	
 	var loadingScreen: LoadingScreen!
 	
 	// MARK: - Lifecycle
@@ -30,32 +30,40 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		loadingScreen = LoadingScreen(view: self.view)
+		/* Passing parentViewController view as reference */
+		/* This makes the loading screen works in the list view */
+		if let parentView = self.parentViewController?.view {
+			loadingScreen = LoadingScreen(view: parentView)
+		}
+		
+		/* Adding the left bar button (logout) to the navigation bar */
+		let logoutBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logout:")
+		self.parentViewController!.navigationItem.setLeftBarButtonItem(logoutBarButtonItem, animated: true)
+		
+		/* Adding the right bar buttons to the navigation bar */
+		let refreshBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshLocations:")
+		let pinBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "callInformationPostViewController:")
+		self.parentViewController!.navigationItem.setRightBarButtonItems([refreshBarButtonItem, pinBarButtonItem], animated: true)
 		
 		/* Setting map delegate */
 		mapView.delegate = self
 		
 		/* When the view is loaded, the locations are fetched from the server and the view updated */
 		refreshLocations(self)
-		
-		
-	}
-	
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		/* Adding the right bar buttons to the navigation bar */
-		let refreshBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshLocations:")
-		let pinBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "callInformationPostViewController:")
-		self.tabBarController!.navigationItem.setRightBarButtonItems([refreshBarButtonItem, pinBarButtonItem], animated: true)
 	}
 	
 	// MARK: - Actions
 	
+	/* Realizes the logout and dismiss the view */
+	func logout(sender: AnyObject) {
+		// TODO: Implement Logout
+		self.parentViewController!.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
 	/* Calls the InformationPostViewController modally - pinBarButtonItem action */
 	func callInformationPostViewController(sender: AnyObject) {
 		let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostViewController") as! InformationPostViewController
-		self.presentViewController(controller, animated: true, completion: nil)
+		self.parentViewController!.presentViewController(controller, animated: true, completion: nil)
 	}
 	
 	/* Fetchs locations from the server and updates the mapView - refreshBarButtonItem action */
@@ -148,24 +156,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	
 	/* Displays error using alert controller */
 	func displayError(errorString: String?) {
+		loadingScreen.setActive(false)
 		dispatch_async(dispatch_get_main_queue()) {
 			if let errorString = errorString {
 				let alertController = UIAlertController(title: "Get Locations Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
 				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
 				alertController.addAction(DismissAction)
-				self.presentViewController(alertController, animated: true) {}
+				self.parentViewController!.presentViewController(alertController, animated: true) {}
 			}
 		}
 	}
-	
-	/* Activates (or deactivates) the loading screen */
-//	func loadingScreenSetActive(active: Bool) {
-//		dispatch_async(dispatch_get_main_queue()) {
-//			// TODO: IMPLEMENT
-//			// create activity indicator view
-//			// - activity view should hide when stop
-//			// change alpha of screen to 0.5
-//			// - screen shouldn't be editable
-//		}
-//	}
 }

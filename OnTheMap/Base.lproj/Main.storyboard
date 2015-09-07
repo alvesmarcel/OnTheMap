@@ -235,13 +235,7 @@
             <objects>
                 <tabBarController storyboardIdentifier="OTMTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="nLH-Bi-Swj" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="On The Map" id="yNI-3H-cEF">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="vrp-gE-aRf">
-                            <connections>
-                                <action selector="logoutTouch:" destination="nLH-Bi-Swj" id="rdX-Hc-jqw"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="On The Map" id="yNI-3H-cEF"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="liY-w4-oiG">
                         <autoresizingMask key="autoresizingMask"/>

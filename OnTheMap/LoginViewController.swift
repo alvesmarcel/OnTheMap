@@ -31,7 +31,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	@IBOutlet weak var passwordTextField: UITextField!
 	@IBOutlet weak var loginWithUdacityButton: UIButton!
 	
-	// MARK: - Loading Screen variable
+	// MARK: - Class variables
 	
 	var loadingScreen: LoadingScreen!
 	
@@ -95,6 +95,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	/* Login completed: sets loading screen not active and calls next view controller */
 	func completeLogin() {
 		dispatch_async(dispatch_get_main_queue(), {
+			self.emailTextField.text = ""
+			self.passwordTextField.text = ""
 			let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OTMNavigationController") as! UINavigationController
 			self.presentViewController(controller, animated: true, completion: nil)
 		})
@@ -104,6 +106,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	
 	/* Displays error using alert controller */
 	func displayError(errorString: String?) {
+		loadingScreen.setActive(false)
 		dispatch_async(dispatch_get_main_queue()) {
 			if let errorString = errorString {
 				let alertController = UIAlertController(title: "Login Failed", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
