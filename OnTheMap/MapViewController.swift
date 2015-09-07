@@ -73,15 +73,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 			if let error = error {
 				self.displayError(error.localizedDescription)
 			} else {
-				
-				// TODO: Pass locations to updateMapView by reference
-				if let locations = studentLocations {
-					self.loadingScreen.setActive(false)
-					self.updateMapView()
-					println("Students Locations saved")
-				} else {
-					println("Unexpected Error")
-				}
+				self.loadingScreen.setActive(false)
+				self.updateMapView()
+				println("Students Locations saved")
 			}
 		}
 	}
