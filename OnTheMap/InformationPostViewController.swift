@@ -5,6 +5,8 @@
 //  Created by Marcel Oliveira Alves on 8/26/15.
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
+//  This class is responsible for posting student information in the servers using the Parse methods
+//  There are "two" screens in this view. They change between them with alpha configurations.
 
 import UIKit
 import MapKit
@@ -25,11 +27,11 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	@IBOutlet weak var linkTextField: UITextView!
 	
 	// MARK: - MKMapView
-	@IBOutlet weak var map: MKMapView!
+	@IBOutlet weak var mapView: MKMapView!
 	
-	// MARK: - Helper variables
+	// MARK: - Class variables
 	var shouldCleanTextView: Bool!
-	
+	var loadingScreen: LoadingScreen!
 	var studentInformation = StudentInformation()
 	
 	// MARK: - Lifecycle
@@ -38,9 +40,12 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		locationTextField.delegate = self
 		linkTextField.delegate = self
 		
-		map.zoomEnabled = false
-		map.scrollEnabled = false
-		map.delegate = self
+		mapView.zoomEnabled = false
+		mapView.scrollEnabled = false
+		mapView.delegate = self
+		
+		/* Loading screen initialization */
+		loadingScreen = LoadingScreen(view: self.view)
 	}
 
 	override func viewWillAppear(animated: Bool) {
@@ -54,68 +59,70 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	}
 	
 	@IBAction func findOnTheMapButtonTouch(sender: AnyObject) {
-//		studentInformation[ParseClient.JSONBodyKeys.UniqueKey] = UdacityClient.sharedInstance().accountKey
-//		studentInformation[ParseClient.JSONBodyKeys.MapString] = locationTextField.text
-//		studentInformation[ParseClient.JSONBodyKeys.MediaURL] = linkTextField.text
 		studentInformation.uniqueKey = UdacityClient.sharedInstance().accountKey as! String
 		studentInformation.mapString = locationTextField.text
 		studentInformation.mediaURL = linkTextField.text
 		
+		/* When button's text is "Find on the Map", the button is dealing with the "first" screen */
 		if submitButton.titleLabel?.text == "Find on the Map" {
 			if shouldCleanTextView == true {
-				displayError("Must Enter Location")
+				ErrorDisplay.displayErrorWithTitle("Missing Location", errorDescription: "Must Enter Location", inViewController: self, andDeactivatesLoadingScreen: nil)
 			} else {
-				//loadingScreenSetActive(true)
+				
+				/* The app will try to post the location */
+				loadingScreen.setActive(true)
 				
 				let geocoder = CLGeocoder()
 				geocoder.geocodeAddressString(locationTextField.text) { placemarks, error in
 					if let error = error {
-						self.displayError("Could Not Geocode the String")
+						ErrorDisplay.displayErrorWithTitle("Place Not Found", errorDescription: "Could Not Geocode the String", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 					} else {
+						
+						/* Location was successful posted */
+						self.loadingScreen.setActive(false)
+						
 						if let topResult = placemarks[0] as? CLPlacemark {
 							self.configureLinkUI()
 							
 							let placemark = MKPlacemark(placemark: topResult)
 							let region = MKCoordinateRegionMakeWithDistance(placemark.coordinate, 4000, 4000)
-							self.map.setRegion(region, animated: true)
-							self.map.addAnnotation(placemark)
+							self.mapView.setRegion(region, animated: true)
+							self.mapView.addAnnotation(placemark)
 							
-					
-//							self.studentInformation[ParseClient.JSONBodyKeys.Latitude] = placemark.coordinate.latitude as Double
-//							self.studentInformation[ParseClient.JSONBodyKeys.Longitude] = placemark.coordinate.longitude as Double
 							self.studentInformation.latitude = placemark.coordinate.latitude as Double
 							self.studentInformation.longitude = placemark.coordinate.longitude as Double
 						}
 					}
 				}
 			}
-		} else {
+		}
+		
+		/* Button's text isn't "Find on the Map" (it is "Submit") - the action should deal with the "second" screen  */
+		else {
 			if shouldCleanTextView == true {
-				displayError("Must Enter a Link")
+				ErrorDisplay.displayErrorWithTitle("Missing Link", errorDescription: "Must Enter a Link", inViewController: self, andDeactivatesLoadingScreen: nil)
 			} else {
-				//loadingScreenSetActive(true)
-				
 				if checkLink(linkTextField.text) {
+					loadingScreen.setActive(true)
 					// AJEITAR ISSO AQUI DIREITAMENTE
 					UdacityClient.sharedInstance().getPublicUserData() { result, error in
 						if let dictionary = result {
-//							self.studentInformation[ParseClient.JSONBodyKeys.FirstName] = dictionary[UdacityClient.JSONResponseKeys.FirstName] as! String
-//							self.studentInformation[ParseClient.JSONBodyKeys.LastName] = dictionary[UdacityClient.JSONResponseKeys.LastName] as! String
 							self.studentInformation.firstName = dictionary[UdacityClient.JSONResponseKeys.FirstName] as! String
 							self.studentInformation.lastName = dictionary[UdacityClient.JSONResponseKeys.LastName] as! String
 							println(self.studentInformation)
 							
 							ParseClient.sharedInstance().postStudentLocationWithInformation(self.studentInformation) { success in
 								if success {
+									self.loadingScreen.setActive(false)
 									self.dismissViewControllerAnimated(true, completion: nil)
 								} else {
-									self.displayError("Error Posting Location")
+									ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could Not Post Student Location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 								}
 							}
 						}
 					}
 				} else {
-					displayError("Invalid Link. Include http(s)://")
+					ErrorDisplay.displayErrorWithTitle("Invalid Link", errorDescription: "Invalid Link. Include http(s)://", inViewController: self, andDeactivatesLoadingScreen: nil)
 				}
 			}
 		}
@@ -168,7 +175,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		
 		linkTextField.alpha = 0.0
 		
-		map.alpha = 0.0
+		mapView.alpha = 0.0
 		
 		submitButton.setTitle("Find on the Map", forState: .Normal)
 		cancelButton.titleLabel?.textColor = UIColor(red: 0.0, green: 0.0, blue: 0.59, alpha: 1.0)
@@ -186,7 +193,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	
 		linkTextField.alpha = 1.0
 		
-		map.alpha = 1.0
+		mapView.alpha = 1.0
 		
 		submitButton.setTitle("Submit", forState: .Normal)
 		cancelButton.titleLabel?.textColor = UIColor.whiteColor()
@@ -194,17 +201,6 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		self.view.backgroundColor = UIColor(red: 0.29, green: 0.57, blue: 0.75, alpha: 1.0)
 		
 		resetTextView()
-	}
-	
-	func displayError(errorString: String?) {
-		dispatch_async(dispatch_get_main_queue()) {
-			if let errorString = errorString {
-				let alertController = UIAlertController(title: "Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
-				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-				alertController.addAction(DismissAction)
-				self.presentViewController(alertController, animated: true) {}
-			}
-		}
 	}
 	
 	func checkLink (urlString: String?) -> Bool {

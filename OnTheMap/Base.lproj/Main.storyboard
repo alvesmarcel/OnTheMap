@@ -363,7 +363,7 @@
                         <outlet property="label3" destination="GpR-gm-vuu" id="QDd-un-HIm"/>
                         <outlet property="linkTextField" destination="Gzc-gj-lQw" id="Of5-o2-YHR"/>
                         <outlet property="locationTextField" destination="FFn-Ax-5aG" id="6mu-cw-t3o"/>
-                        <outlet property="map" destination="Ct3-W4-ArU" id="74I-dD-YeD"/>
+                        <outlet property="mapView" destination="Ct3-W4-ArU" id="5mC-IU-NST"/>
                         <outlet property="submitButton" destination="8lp-Yw-hyl" id="yr5-ZP-9jU"/>
                     </connections>
                 </viewController>

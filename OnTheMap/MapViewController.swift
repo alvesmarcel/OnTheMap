@@ -62,6 +62,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	
 	/* Calls the InformationPostViewController modally - pinBarButtonItem action */
 	func callInformationPostViewController(sender: AnyObject) {
+		
+		// TODO: Implement check if the student has already posted information
 		let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostViewController") as! InformationPostViewController
 		self.parentViewController!.presentViewController(controller, animated: true, completion: nil)
 	}

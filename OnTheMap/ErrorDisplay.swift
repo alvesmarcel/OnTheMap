@@ -12,8 +12,10 @@ import UIKit
 
 class ErrorDisplay {
 	
-	class func displayErrorWithTitle(title: String, errorDescription: String, inViewController viewController: UIViewController, andDeactivatesLoadingScreen loadingScreen: LoadingScreen) {
-		loadingScreen.setActive(false)
+	class func displayErrorWithTitle(title: String, errorDescription: String, inViewController viewController: UIViewController, andDeactivatesLoadingScreen loadingScreen: LoadingScreen?) {
+		if let loadingScreen = loadingScreen {
+			loadingScreen.setActive(false)
+		}
 		dispatch_async(dispatch_get_main_queue()) {
 			let alertController = UIAlertController(title: title, message: "An error has ocurred\n" + errorDescription, preferredStyle: .Alert)
 			let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
