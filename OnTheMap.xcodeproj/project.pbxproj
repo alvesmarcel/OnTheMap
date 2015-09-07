@@ -12,6 +12,7 @@
 		2828FA131B978FC300E9B813 /* ParseConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA121B978FC300E9B813 /* ParseConvenience.swift */; };
 		2828FA151B97CF8600E9B813 /* ButtonTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA141B97CF8600E9B813 /* ButtonTags.swift */; };
 		2828FA171B9C6F8900E9B813 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA161B9C6F8900E9B813 /* LoadingScreen.swift */; };
+		2828FA191B9DD13C00E9B813 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA181B9DD13C00E9B813 /* ErrorDisplay.swift */; };
 		286F40881B8B42D4008B012D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40871B8B42D4008B012D /* AppDelegate.swift */; };
 		286F408D1B8B42D4008B012D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 286F408B1B8B42D4008B012D /* Main.storyboard */; };
 		286F408F1B8B42D4008B012D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 286F408E1B8B42D4008B012D /* Images.xcassets */; };
@@ -48,6 +49,7 @@
 		2828FA121B978FC300E9B813 /* ParseConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConvenience.swift; sourceTree = "<group>"; };
 		2828FA141B97CF8600E9B813 /* ButtonTags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTags.swift; sourceTree = "<group>"; };
 		2828FA161B9C6F8900E9B813 /* LoadingScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
+		2828FA181B9DD13C00E9B813 /* ErrorDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorDisplay.swift; sourceTree = "<group>"; };
 		286F40821B8B42D4008B012D /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		286F40861B8B42D4008B012D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		286F40871B8B42D4008B012D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			children = (
 				286F40C61B8BE2DD008B012D /* CustomTextField.swift */,
 				2828FA161B9C6F8900E9B813 /* LoadingScreen.swift */,
+				2828FA181B9DD13C00E9B813 /* ErrorDisplay.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				28096DCB1B947BB00084982C /* JSONConvenience.swift in Sources */,
 				2828FA131B978FC300E9B813 /* ParseConvenience.swift in Sources */,
 				286F40A91B8B4822008B012D /* LoginViewController.swift in Sources */,
+				2828FA191B9DD13C00E9B813 /* ErrorDisplay.swift in Sources */,
 				28096DC71B9475C70084982C /* StudentInformation.swift in Sources */,
 				286F40AE1B8B5B41008B012D /* UdacityClient.swift in Sources */,
 				286F40D81B9085FE008B012D /* ListViewController.swift in Sources */,

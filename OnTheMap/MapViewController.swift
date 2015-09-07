@@ -9,7 +9,7 @@
 //  The NavigationBarButtons are initialized here.
 //  Students locations are displayed as pins on the map.
 //  When the pin is touched, student information (first name, last name and mediaURL) appears.
-//  All the UI methods are treated here.
+//  All the UI methods of the TabBarViewController (parentViewController) are treated here.
 
 import UIKit
 import MapKit
@@ -71,7 +71,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		loadingScreen.setActive(true)
 		ParseClient.sharedInstance().getStudentsLocationsWithLimit(100, skip: 0) { studentLocations, error in
 			if let error = error {
-				self.displayError(error.localizedDescription)
+				ErrorDisplay.displayErrorWithTitle("Could Not Get Locations", errorDescription: error.localizedDescription, inViewController: self.parentViewController!, andDeactivatesLoadingScreen: self.loadingScreen)
 			} else {
 				self.loadingScreen.setActive(false)
 				self.updateMapView()
@@ -118,7 +118,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	func updateMapView() {
 		dispatch_async(dispatch_get_main_queue()) {
 			
-			/* Cleaning old annotations (so they don't overlap every time we update */
+			/* Cleaning old annotations (so they don't overlap every time the app updates */
 			self.mapView.removeAnnotations(self.annotations)
 			self.annotations.removeAll(keepCapacity: false)
 			
@@ -143,21 +143,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 			
 			/* Adding annotations to the mapView */
 			self.mapView.addAnnotations(self.annotations)
-		}
-	}
-	
-	// MARK: - UI Helper Methods
-	
-	/* Displays error using alert controller */
-	func displayError(errorString: String?) {
-		loadingScreen.setActive(false)
-		dispatch_async(dispatch_get_main_queue()) {
-			if let errorString = errorString {
-				let alertController = UIAlertController(title: "Get Locations Error", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
-				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-				alertController.addAction(DismissAction)
-				self.parentViewController!.presentViewController(alertController, animated: true) {}
-			}
 		}
 	}
 }

@@ -66,7 +66,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 					self.loadingScreen.setActive(false)
 					self.completeLogin()
 				} else {
-					self.displayError(errorString as? String)
+					ErrorDisplay.displayErrorWithTitle("Login Failed", errorDescription: errorString as! String, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 				}
 			}
 		} else if sender.tag == ButtonTags.FacebookLoginButtonTag {
@@ -102,31 +102,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		})
 	}
 	
-	// MARK: - UI Helper Methods
-	
-	/* Displays error using alert controller */
-	func displayError(errorString: String?) {
-		loadingScreen.setActive(false)
-		dispatch_async(dispatch_get_main_queue()) {
-			if let errorString = errorString {
-				let alertController = UIAlertController(title: "Login Failed", message: "An error has ocurred\n" + errorString, preferredStyle: .Alert)
-				let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-				alertController.addAction(DismissAction)
-				self.presentViewController(alertController, animated: true) {}
-			}
-		}
-	}
-	
-	/* Activates (or deactivates) the loading screen */
-//	func loadingScreenSetActive(active: Bool) {
-//		dispatch_async(dispatch_get_main_queue()) {
-//			// TODO: IMPLEMENT
-//			// create activity indicator view
-//			// - activity view should hide when stop
-//			// change alpha of screen to 0.5
-//			// - screen shouldn't be editable
-//		}
-//	}
+	// MARK: UI Helper methods
 	
 	/* Performs some UI configuration */
 	func configureUI() {
