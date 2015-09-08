@@ -18,8 +18,8 @@ class ErrorDisplay {
 		}
 		dispatch_async(dispatch_get_main_queue()) {
 			let alertController = UIAlertController(title: title, message: "An error has ocurred\n" + errorDescription, preferredStyle: .Alert)
-			let DismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-			alertController.addAction(DismissAction)
+			let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+			alertController.addAction(dismissAction)
 			viewController.presentViewController(alertController, animated: true) {}
 		}
 	}

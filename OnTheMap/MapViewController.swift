@@ -42,7 +42,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		
 		/* Adding the right bar buttons to the navigation bar */
 		let refreshBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshLocations:")
-		let pinBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "callInformationPostViewController:")
+		let pinBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "pinBarButtonTouch:")
 		self.parentViewController!.navigationItem.setRightBarButtonItems([refreshBarButtonItem, pinBarButtonItem], animated: true)
 		
 		/* Setting map delegate */
@@ -60,10 +60,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		self.parentViewController!.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	/* Calls the InformationPostViewController modally - pinBarButtonItem action */
-	/* This method also download student information with Udacity API and checks if the information was already posted */
-	func callInformationPostViewController(sender: AnyObject) {
-		
+	/* pinBarButtonItem action - Verifies if the student has already posted the information */
+	/* Then calls callInformationPostViewControllerWithDictionary:toUpdate: with the correct parameters */
+	func pinBarButtonTouch(sender: AnyObject) {
 		loadingScreen.setActive(true)
 		UdacityClient.sharedInstance().getPublicUserData() { result, error in
 			
@@ -71,16 +70,33 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 				ErrorDisplay.displayErrorWithTitle("Error Getting Student Information", errorDescription: "Could Not Get Student Information from Server", inViewController: self.parentViewController!, andDeactivatesLoadingScreen: self.loadingScreen)
 			} else {
 				if let dictionary = result {
-					dispatch_async(dispatch_get_main_queue()) {
-						var studentInformation = StudentInformation()
-						studentInformation.uniqueKey = UdacityClient.sharedInstance().accountKey as! String
-						studentInformation.firstName = dictionary[UdacityClient.JSONResponseKeys.FirstName] as! String
-						studentInformation.lastName = dictionary[UdacityClient.JSONResponseKeys.LastName] as! String
-						let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostViewController") as! InformationPostViewController
-						controller.studentInformation = studentInformation
-						self.parentViewController!.presentViewController(controller, animated: true, completion: nil)
-						self.loadingScreen.setActive(false)
+					
+					/* Checks if the information/location was already posted */
+					let alreadyPosted = ParseClient.sharedInstance().studentsInformation.filter{$0.uniqueKey == dictionary[UdacityClient.JSONResponseKeys.Key] as! String}.count > 0
+					
+					if alreadyPosted {
+						
+						/* Information was already posted: alertController gives option to Overwrite or Cancel */
+						dispatch_async(dispatch_get_main_queue()) {
+							let firstName = dictionary[UdacityClient.JSONResponseKeys.FirstName] as! String
+							let lastName = dictionary[UdacityClient.JSONResponseKeys.LastName] as! String
+							let alertController = UIAlertController(title: "Location Already Posted", message: "User \"\(firstName) \(lastName)\" has already posted a student location. Would you like to overwrite the location?", preferredStyle: .Alert)
+							
+							let overwriteAction = UIAlertAction(title: "Overwrite", style: .Default) { action in
+								self.callInformationPostViewControllerWithDictionary(dictionary, toUpdate: true)
+							}
+							let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+							
+							alertController.addAction(overwriteAction)
+							alertController.addAction(cancelAction)
+							self.presentViewController(alertController, animated: true) {}
+						}
+					} else {
+						
+						/* Information wasn't posted yet: call the next view controller saying that it is not to update (but to post) */
+						self.callInformationPostViewControllerWithDictionary(dictionary, toUpdate: false)
 					}
+					self.loadingScreen.setActive(false)
 				}
 			}
 		}
@@ -164,6 +180,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 			
 			/* Adding annotations to the mapView */
 			self.mapView.addAnnotations(self.annotations)
+		}
+	}
+	
+	func callInformationPostViewControllerWithDictionary(dictionary: [String:AnyObject], toUpdate update: Bool) {
+		dispatch_async(dispatch_get_main_queue()) {
+			/* Student information to pass to the next controller */
+			var studentInformation = StudentInformation()
+			studentInformation.uniqueKey = UdacityClient.sharedInstance().accountKey as! String
+			studentInformation.firstName = dictionary[UdacityClient.JSONResponseKeys.FirstName] as! String
+			studentInformation.lastName = dictionary[UdacityClient.JSONResponseKeys.LastName] as! String
+			
+			/* Calling the next controller and turning off the loading screen */
+			let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostViewController") as! InformationPostViewController
+			controller.studentInformation = studentInformation
+			controller.update = update
+			self.parentViewController!.presentViewController(controller, animated: true, completion: nil)
 		}
 	}
 }
