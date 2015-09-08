@@ -72,9 +72,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 				if let dictionary = result {
 					
 					/* Checks if the information/location was already posted */
-					let alreadyPosted = ParseClient.sharedInstance().studentsInformation.filter{$0.uniqueKey == dictionary[UdacityClient.JSONResponseKeys.Key] as! String}.count > 0
+					let alreadyPosted = ParseClient.sharedInstance().studentsInformation.filter{$0.uniqueKey == dictionary[UdacityClient.JSONResponseKeys.Key] as! String}
 					
-					if alreadyPosted {
+					if alreadyPosted.count > 0 {
 						
 						/* Information was already posted: alertController gives option to Overwrite or Cancel */
 						dispatch_async(dispatch_get_main_queue()) {
@@ -83,7 +83,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 							let alertController = UIAlertController(title: "Location Already Posted", message: "User \"\(firstName) \(lastName)\" has already posted a student location. Would you like to overwrite the location?", preferredStyle: .Alert)
 							
 							let overwriteAction = UIAlertAction(title: "Overwrite", style: .Default) { action in
-								self.callInformationPostViewControllerWithDictionary(dictionary, toUpdate: true)
+								self.callInformationPostViewControllerWithDictionary(dictionary, toUpdate: alreadyPosted[0].objectID)
 							}
 							let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
 							
@@ -94,7 +94,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 					} else {
 						
 						/* Information wasn't posted yet: call the next view controller saying that it is not to update (but to post) */
-						self.callInformationPostViewControllerWithDictionary(dictionary, toUpdate: false)
+						self.callInformationPostViewControllerWithDictionary(dictionary, toUpdate: nil)
 					}
 					self.loadingScreen.setActive(false)
 				}
@@ -183,7 +183,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		}
 	}
 	
-	func callInformationPostViewControllerWithDictionary(dictionary: [String:AnyObject], toUpdate update: Bool) {
+	func callInformationPostViewControllerWithDictionary(dictionary: [String:AnyObject], toUpdate objectID: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
 			/* Student information to pass to the next controller */
 			var studentInformation = StudentInformation()
@@ -194,7 +194,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 			/* Calling the next controller and turning off the loading screen */
 			let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostViewController") as! InformationPostViewController
 			controller.studentInformation = studentInformation
-			controller.update = update
+			controller.objectID = objectID
 			self.parentViewController!.presentViewController(controller, animated: true, completion: nil)
 		}
 	}

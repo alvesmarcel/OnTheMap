@@ -40,7 +40,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	var shouldCleanTextView: Bool!
 	var loadingScreen: LoadingScreen!
 	var studentInformation = StudentInformation()
-	var update: Bool!
+	var objectID: String?
 	
 	// MARK: - Lifecycle
 	
