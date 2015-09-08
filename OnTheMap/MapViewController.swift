@@ -61,11 +61,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	}
 	
 	/* Calls the InformationPostViewController modally - pinBarButtonItem action */
+	/* This method also download student information with Udacity API and checks if the information was already posted */
 	func callInformationPostViewController(sender: AnyObject) {
 		
-		// TODO: Implement check if the student has already posted information
-		let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostViewController") as! InformationPostViewController
-		self.parentViewController!.presentViewController(controller, animated: true, completion: nil)
+		loadingScreen.setActive(true)
+		UdacityClient.sharedInstance().getPublicUserData() { result, error in
+			
+			if error != nil {
+				ErrorDisplay.displayErrorWithTitle("Error Getting Student Information", errorDescription: "Could Not Get Student Information from Server", inViewController: self.parentViewController!, andDeactivatesLoadingScreen: self.loadingScreen)
+			} else {
+				if let dictionary = result {
+					dispatch_async(dispatch_get_main_queue()) {
+						var studentInformation = StudentInformation()
+						studentInformation.uniqueKey = UdacityClient.sharedInstance().accountKey as! String
+						studentInformation.firstName = dictionary[UdacityClient.JSONResponseKeys.FirstName] as! String
+						studentInformation.lastName = dictionary[UdacityClient.JSONResponseKeys.LastName] as! String
+						let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostViewController") as! InformationPostViewController
+						controller.studentInformation = studentInformation
+						self.parentViewController!.presentViewController(controller, animated: true, completion: nil)
+						self.loadingScreen.setActive(false)
+					}
+				}
+			}
+		}
 	}
 	
 	/* Fetchs locations from the server and updates the mapView - refreshBarButtonItem action */

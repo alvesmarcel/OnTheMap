@@ -57,9 +57,6 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		
 		/* Loading screen initialization */
 		loadingScreen = LoadingScreen(view: self.view)
-		
-		/* Student information to be posted will always need account key (that is avaiable as soon as the user logs in) */
-		studentInformation.uniqueKey = UdacityClient.sharedInstance().accountKey as! String
 	}
 
 	override func viewWillAppear(animated: Bool) {
@@ -130,26 +127,19 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 					
 					/* The link is valid - set loadingScreen active and try to post link with location */
 					loadingScreen.setActive(true)
-
-					UdacityClient.sharedInstance().getPublicUserData() { result, error in
-						if let dictionary = result {
 							
-							/* Completing student information to be posted */
-							self.studentInformation.firstName = dictionary[UdacityClient.JSONResponseKeys.FirstName] as! String
-							self.studentInformation.lastName = dictionary[UdacityClient.JSONResponseKeys.LastName] as! String
-							self.studentInformation.mediaURL = self.linkTextField.text
+					/* Completing student information to be posted */
+					self.studentInformation.mediaURL = self.linkTextField.text
+						
+					ParseClient.sharedInstance().postStudentLocationWithInformation(self.studentInformation) { success in
+						if success {
 							
-							ParseClient.sharedInstance().postStudentLocationWithInformation(self.studentInformation) { success in
-								if success {
-									
-									/* Student information was successful posted - update MapViewController */
-									self.loadingScreen.setActive(false)
-									self.dismissViewControllerAnimated(true, completion: nil)
-									// TODO: Post Notification to update MapViewController
-								} else {
-									ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could Not Post Student Location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
-								}
-							}
+							/* Student information was successful posted - update MapViewController */
+							self.loadingScreen.setActive(false)
+							self.dismissViewControllerAnimated(true, completion: nil)
+							// TODO: Post Notification to update MapViewController
+						} else {
+							ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could Not Post Student Location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 						}
 					}
 				} else {
