@@ -77,6 +77,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 			} else {
 				self.loadingScreen.setActive(false)
 				self.updateMapView()
+				NSNotificationCenter.defaultCenter().postNotificationName("StudentLocationsSavedNotification", object: nil)
 				println("Students Locations saved")
 			}
 		}

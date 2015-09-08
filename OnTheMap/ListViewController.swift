@@ -18,6 +18,24 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	@IBOutlet weak var tableView: UITableView!
 	
+	// MARK: - Lifecycle
+	
+	override func viewWillAppear(animated: Bool) {
+		
+		/* Notification is used to update the table view when the data is completely downloaded again using the refresh button */
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTableView:", name: "StudentLocationsSavedNotification", object: nil)
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
+	
+	// MARK: - Notification activated methods
+	
+	func updateTableView(sender: AnyObject) {
+		self.tableView.reloadData()
+	}
+	
 	// MARK: - UITableViewDataSource methods
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

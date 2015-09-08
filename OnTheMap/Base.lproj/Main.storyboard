@@ -175,7 +175,7 @@
         <!--Top 5-->
         <scene sceneID="Gao-4V-rjU">
             <objects>
-                <viewController id="ON5-5j-Lpx" sceneMemberID="viewController">
+                <viewController id="ON5-5j-Lpx" customClass="TopFiveViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FRr-uf-YSQ"/>
                         <viewControllerLayoutGuide type="bottom" id="R2O-gs-h2C"/>
@@ -255,6 +255,13 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Top 5" image="leaderboard" id="RD9-Qs-MxG"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outletCollection property="countryLabels" destination="s47-XO-jmC" collectionClass="NSMutableArray" id="DAK-CI-dXJ"/>
+                        <outletCollection property="countryLabels" destination="kWd-JP-V6c" collectionClass="NSMutableArray" id="BCy-WP-7NN"/>
+                        <outletCollection property="countryLabels" destination="CyC-ws-59W" collectionClass="NSMutableArray" id="5Xr-Gm-ehV"/>
+                        <outletCollection property="countryLabels" destination="kAd-vx-E3G" collectionClass="NSMutableArray" id="bQ1-Qo-1bN"/>
+                        <outletCollection property="countryLabels" destination="flm-vC-5wT" collectionClass="NSMutableArray" id="FKh-jz-9L0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="584-03-hzD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -300,6 +307,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="List" image="list" id="4G5-o8-Jbh"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="kdy-WE-yzT" id="8Kg-5z-Y9V"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nuB-Ff-VnX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
