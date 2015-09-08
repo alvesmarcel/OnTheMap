@@ -131,18 +131,36 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 							
 					/* Completing student information to be posted */
 					self.studentInformation.mediaURL = self.linkTextField.text
+					
+					if let objectID = self.objectID {
 						
-					ParseClient.sharedInstance().postStudentLocationWithInformation(self.studentInformation) { success in
-						if success {
-							
-							/* Student information was successful posted - update MapViewController */
-							self.loadingScreen.setActive(false)
-							self.dismissViewControllerAnimated(true, completion: nil)
-							// TODO: Post Notification to update MapViewController
-						} else {
-							ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could Not Post Student Location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+						/* objectID is not nil - should PUT (update) student location information */
+						studentInformation.objectID = objectID
+						ParseClient.sharedInstance().updateStudentLocationWithInformation(self.studentInformation) { success in
+							if success {
+								
+								/* Student information was successful posted - update MapViewController */
+								self.loadingScreen.setActive(false)
+								self.dismissViewControllerAnimated(true, completion: nil)
+							} else {
+								ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could Not Post Student Location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+							}
+						}
+					} else {
+						
+						/* objectID is nil - should POST student location information */
+						ParseClient.sharedInstance().postStudentLocationWithInformation(self.studentInformation) { success in
+							if success {
+								
+								/* Student information was successful posted - update MapViewController */
+								self.loadingScreen.setActive(false)
+								self.dismissViewControllerAnimated(true, completion: nil)
+							} else {
+								ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could Not Post Student Location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+							}
 						}
 					}
+					
 				} else {
 					ErrorDisplay.displayErrorWithTitle("Invalid Link", errorDescription: "Invalid Link. Include http(s)://", inViewController: self, andDeactivatesLoadingScreen: nil)
 				}
