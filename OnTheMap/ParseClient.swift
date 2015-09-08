@@ -89,25 +89,40 @@ class ParseClient {
 	
 	// MARK: - PUT
 	
-//	func taskForPUTMethod(method: String, parameters: [String : AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
-//	
-//		let urlString = "https://api.parse.com/1/classes/StudentLocation/8ZExGR5uX8"
-//		let url = NSURL(string: urlString)
-//		let request = NSMutableURLRequest(URL: url!)
-//		request.HTTPMethod = "PUT"
-//		request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-//		request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-//		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//		request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Cupertino, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.322998, \"longitude\": -122.032182}".dataUsingEncoding(NSUTF8StringEncoding)
-//		let session = NSURLSession.sharedSession()
-//		let task = session.dataTaskWithRequest(request) { data, response, error in
-//			if error != nil { // Handle error…
-//				return
-//			}
-//			println(NSString(data: data, encoding: NSUTF8StringEncoding))
-//		}
-//		task.resume()
-//	}
+	func taskForPUTMethod(method: String, parameters: [String : AnyObject], objectID: String, jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+		
+		/* 1. Set the parameters */
+		var mutableParameters = parameters
+	
+		/* 2/3. Build the URL and configure the request */
+		let urlString = Constants.ParseBaseURL + method + "/\(objectID)"
+		let url = NSURL(string: urlString)
+		let request = NSMutableURLRequest(URL: url!)
+		request.HTTPMethod = "PUT"
+		request.addValue(Constants.AppID, forHTTPHeaderField: HTTPHeaderField.AppID)
+		request.addValue(Constants.APIKey, forHTTPHeaderField: HTTPHeaderField.ApiKey)
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		let session = NSURLSession.sharedSession()
+		
+		var jsonifyError: NSError? = nil
+		request.HTTPBody = NSJSONSerialization.dataWithJSONObject(jsonBody, options: nil, error: &jsonifyError)
+		
+		/* 4. Make the request */
+		let task = session.dataTaskWithRequest(request) { data, response, downloadError in
+			
+			/* 5/6. Parse the data and use the data (happens in completion handler) */
+			if let error = downloadError {
+				completionHandler(result: nil, error: downloadError)
+			} else {
+				JSONConvenience.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+			}
+		}
+		
+		/* 7. Start the request */
+		task.resume()
+		
+		return task
+	}
 	
 	// MARK: - Shared Instance
 	
