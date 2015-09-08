@@ -71,4 +71,33 @@ extension ParseClient {
 			}
 		}
 	}
+	
+	// MARK: PUT Convenience Methods
+	
+	func updateStudentLocationWithInformation(studentInformation: StudentInformation, completionHandler: (success: Bool) -> Void) {
+		
+		/* 1. Specify parameters, method and HTTP body (if POST) */
+		let parameters = [String:AnyObject]()
+		let jsonBody: [String:AnyObject] = [
+			JSONBodyKeys.ObjectID	: studentInformation.objectID,
+			JSONBodyKeys.UniqueKey	: studentInformation.uniqueKey,
+			JSONBodyKeys.FirstName	: studentInformation.firstName,
+			JSONBodyKeys.LastName	: studentInformation.lastName,
+			JSONBodyKeys.MapString	: studentInformation.mapString,
+			JSONBodyKeys.MediaURL	: studentInformation.mediaURL,
+			JSONBodyKeys.Latitude	: studentInformation.latitude,
+			JSONBodyKeys.Longitude	: studentInformation.longitude
+		]
+		
+		/* 2. Make the request */
+		taskForPUTMethod(Methods.StudentLocation, parameters: parameters, jsonBody: jsonBody) { result, error in
+			
+			/* 3. Send the desired value(s) to completion handler */
+			if let error = error {
+				completionHandler(success: false)
+			} else {
+				completionHandler(success: true)
+			}
+		}
+	}
 }

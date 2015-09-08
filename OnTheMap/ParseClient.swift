@@ -89,13 +89,13 @@ class ParseClient {
 	
 	// MARK: - PUT
 	
-	func taskForPUTMethod(method: String, parameters: [String : AnyObject], objectID: String, jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+	func taskForPUTMethod(method: String, parameters: [String : AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
 		
 		/* 1. Set the parameters */
 		var mutableParameters = parameters
 	
 		/* 2/3. Build the URL and configure the request */
-		let urlString = Constants.ParseBaseURL + method + "/\(objectID)"
+		let urlString = Constants.ParseBaseURL + method + "/\(jsonBody[JSONBodyKeys.ObjectID] as! String)"
 		let url = NSURL(string: urlString)
 		let request = NSMutableURLRequest(URL: url!)
 		request.HTTPMethod = "PUT"
