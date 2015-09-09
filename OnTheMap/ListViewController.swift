@@ -32,7 +32,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	// MARK: - Notification activated methods
 	
-	func updateTableView(sender: AnyObject) {
+	func updateTableView(sender: AnyObject?) {
 		self.tableView.reloadData()
 	}
 	

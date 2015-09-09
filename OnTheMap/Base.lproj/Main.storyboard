@@ -336,7 +336,7 @@
         <!--On The Map-->
         <scene sceneID="gAX-Jl-yZu">
             <objects>
-                <tabBarController storyboardIdentifier="OTMTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="nLH-Bi-Swj" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="OTMTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="nLH-Bi-Swj" customClass="TabBarViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="On The Map" id="yNI-3H-cEF"/>
                     <nil key="simulatedBottomBarMetrics"/>
