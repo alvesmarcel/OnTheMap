@@ -52,6 +52,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		refreshLocations(self)
 	}
 	
+	override func viewWillAppear(animated: Bool) {
+		/* Notification is used to update the data when InformationPostViewController is dismissed */
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshLocations:", name: "ShouldUpdateDataNotification", object: nil)
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
+	
 	// MARK: - Actions
 	
 	/* Realizes the logout and dismiss the view */
@@ -89,7 +98,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 							
 							alertController.addAction(overwriteAction)
 							alertController.addAction(cancelAction)
-							self.presentViewController(alertController, animated: true) {}
+							self.parentViewController!.presentViewController(alertController, animated: true) {}
 						}
 					} else {
 						
@@ -104,6 +113,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	
 	/* Fetchs locations from the server and updates the mapView - refreshBarButtonItem action */
 	func refreshLocations(sender: AnyObject?) {
+		println("refresh locations called")
 		loadingScreen.setActive(true)
 		ParseClient.sharedInstance().getStudentsLocationsWithLimit(100, skip: 0) { studentLocations, error in
 			if let error = error {
@@ -183,6 +193,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		}
 	}
 	
+	/* Calls Information Post View Controller after pinBarButtonItem is touched */
 	func callInformationPostViewControllerWithDictionary(dictionary: [String:AnyObject], toUpdate objectID: String?) {
 		dispatch_async(dispatch_get_main_queue()) {
 			/* Student information to pass to the next controller */

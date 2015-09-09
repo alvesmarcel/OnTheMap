@@ -139,9 +139,13 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 						ParseClient.sharedInstance().updateStudentLocationWithInformation(self.studentInformation) { success in
 							if success {
 								
-								/* Student information was successful posted - update MapViewController */
+								/* Student information was successfully updated - update MapViewController */
+								
 								self.loadingScreen.setActive(false)
 								self.dismissViewControllerAnimated(true, completion: nil)
+								dispatch_async(dispatch_get_main_queue()) {
+									NSNotificationCenter.defaultCenter().postNotificationName("ShouldUpdateDataNotification", object: nil)
+								}
 							} else {
 								ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could Not Post Student Location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 							}
@@ -152,9 +156,12 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 						ParseClient.sharedInstance().postStudentLocationWithInformation(self.studentInformation) { success in
 							if success {
 								
-								/* Student information was successful posted - update MapViewController */
+								/* Student information was successfully posted - update MapViewController */
 								self.loadingScreen.setActive(false)
 								self.dismissViewControllerAnimated(true, completion: nil)
+								dispatch_async(dispatch_get_main_queue()) {
+									NSNotificationCenter.defaultCenter().postNotificationName("ShouldUpdateDataNotification", object: nil)
+								}
 							} else {
 								ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could Not Post Student Location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 							}
