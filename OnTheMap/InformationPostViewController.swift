@@ -73,6 +73,9 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	
 	/* Deals with "Find on the Map" (if) or "Submit" (else) button (they are the same) touch */
 	@IBAction func findOnTheMapButtonTouch(sender: AnyObject) {
+		
+		locationTextField.resignFirstResponder()
+		linkTextField.resignFirstResponder()
 
 		/* When button's text is "Find on the Map", the button is dealing with the "first" screen (Location UI) */
 		if submitButton.titleLabel?.text == "Find on the Map" {
