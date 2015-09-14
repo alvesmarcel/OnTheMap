@@ -144,7 +144,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 								self.loadingScreen.setActive(false)
 								self.dismissViewControllerAnimated(true, completion: nil)
 								dispatch_async(dispatch_get_main_queue()) {
-									NSNotificationCenter.defaultCenter().postNotificationName("ShouldUpdateDataNotification", object: nil)
+									NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.ShouldUpdateDataNotification, object: nil)
 								}
 							} else {
 								ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could Not Post Student Location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
@@ -160,7 +160,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 								self.loadingScreen.setActive(false)
 								self.dismissViewControllerAnimated(true, completion: nil)
 								dispatch_async(dispatch_get_main_queue()) {
-									NSNotificationCenter.defaultCenter().postNotificationName("ShouldUpdateDataNotification", object: nil)
+									NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.ShouldUpdateDataNotification, object: nil)
 								}
 							} else {
 								ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could Not Post Student Location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)

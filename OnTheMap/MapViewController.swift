@@ -34,7 +34,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	override func viewWillAppear(animated: Bool) {
 		
 		/* Notification is used to update the mapView when student information is saved */
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMapView:", name: "StudentLocationsSavedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMapView:", name: NotificationNames.StudentLocationsSavedNotification, object: nil)
 		
 		/* Ensure mapView is updated when the view appears - this doesn't consume network data */
 		updateMapView(self)

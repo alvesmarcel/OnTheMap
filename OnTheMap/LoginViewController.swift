@@ -22,6 +22,7 @@
 // -- Your update seems to be doing the same thing as the post
 // - FindOnTheMapButtonTouch is very complicated
 // - Timeout para internet?
+// - Couldn't think in a way to optmize the requests
 //
 // - ERRO: AS LOADING SCREEN DEVEM SAIR QUANDO OCORRE ALGUM ERRO
 

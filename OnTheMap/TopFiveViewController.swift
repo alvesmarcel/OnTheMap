@@ -32,7 +32,7 @@ class TopFiveViewController: UIViewController {
 	override func viewWillAppear(animated: Bool) {
 		
 		/* Notification is used to update the tableView when student information is saved */
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "getTopFiveCountries", name: "StudentLocationsSavedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "getTopFiveCountries", name: NotificationNames.StudentLocationsSavedNotification, object: nil)
 		
 		/* Ensure the top 5 is updated when the view appears - this consumes network data and may take a while */
 		getTopFiveCountries()

@@ -40,7 +40,7 @@ class TabBarViewController: UITabBarController {
 	override func viewWillAppear(animated: Bool) {
 		
 		/* Notification is used to update the data when InformationPostViewController is dismissed */
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshLocations:", name: "ShouldUpdateDataNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshLocations:", name: NotificationNames.ShouldUpdateDataNotification, object: nil)
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
@@ -107,7 +107,7 @@ class TabBarViewController: UITabBarController {
 				ErrorDisplay.displayErrorWithTitle("Could Not Get Locations", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 			} else {
 				self.loadingScreen.setActive(false)
-				NSNotificationCenter.defaultCenter().postNotificationName("StudentLocationsSavedNotification", object: nil)
+				NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.StudentLocationsSavedNotification, object: nil)
 				println("Students Locations saved")
 			}
 		}

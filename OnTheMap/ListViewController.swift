@@ -22,7 +22,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	override func viewWillAppear(animated: Bool) {
 		
 		/* Notification is used to update the tableView when student information is saved */
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTableView:", name: "StudentLocationsSavedNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTableView:", name: NotificationNames.StudentLocationsSavedNotification, object: nil)
 		
 		/* Ensure tableView is updated when the view appears - this doesn't consume network data */
 		updateTableView(self)
