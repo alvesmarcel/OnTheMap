@@ -8,7 +8,6 @@
 //  This class is responsible for the List View (Table View).
 //  The table is filled with students first and last names.
 //  When the table cell is touched, the mediaURL link associated with the student is opened in Safari.
-//  All the UI methods are realized by MapViewController.
 
 import UIKit
 
@@ -22,23 +21,23 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	override func viewWillAppear(animated: Bool) {
 		
-		/* Notification is used to update the table view when the data is completely downloaded again using the refresh button */
+		/* Notification is used to update the tableView when student information is saved */
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTableView:", name: "StudentLocationsSavedNotification", object: nil)
+		
+		/* Ensure tableView is updated when the view appears - this doesn't consume network data */
+		updateTableView(self)
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
+		
+		/* Removing observers */
 		NSNotificationCenter.defaultCenter().removeObserver(self)
-	}
-	
-	// MARK: - Notification activated methods
-	
-	func updateTableView(sender: AnyObject?) {
-		self.tableView.reloadData()
 	}
 	
 	// MARK: - UITableViewDataSource methods
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		
 		/* Get cell type */
 		let cellReuseIdentifier = "ListViewTableCell"
 		let student = ParseClient.sharedInstance().studentsInformation[indexPath.row]
@@ -61,5 +60,14 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let app = UIApplication.sharedApplication()
 		app.openURL(NSURL(string: ParseClient.sharedInstance().studentsInformation[indexPath.row].mediaURL)!)
+	}
+	
+	// MARK: - Helper methods
+	
+	/* Takes the student locations in the shared instance of ParseClient and updates the table */
+	func updateTableView(sender: AnyObject?) {
+		dispatch_async(dispatch_get_main_queue()) {
+			self.tableView.reloadData()
+		}
 	}
 }

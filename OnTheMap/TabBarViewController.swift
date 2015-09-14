@@ -5,14 +5,22 @@
 //  Created by Marcel Oliveira Alves on 9/9/15.
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
+//  This class is the Parent View Controller of MapViewController, ListViewController and TopFiveViewController
+//  The objective of this class is to handle the actions of Navigation Item Buttons
+//  This class also calls methods to update students' information (studentsInformation array)
 
 import UIKit
 
 class TabBarViewController: UITabBarController {
 	
+	// MARK: - Class variables
+	
 	var loadingScreen: LoadingScreen!
 	
+	// MARK: - Lifecycle
+	
 	override func viewDidLoad() {
+		
 		/* Adding the left bar button (logout) to the navigation bar */
 		let logoutBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logout:")
 		self.navigationItem.setLeftBarButtonItem(logoutBarButtonItem, animated: true)
@@ -30,11 +38,14 @@ class TabBarViewController: UITabBarController {
 	}
 	
 	override func viewWillAppear(animated: Bool) {
+		
 		/* Notification is used to update the data when InformationPostViewController is dismissed */
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshLocations:", name: "ShouldUpdateDataNotification", object: nil)
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
+		
+		/* Removing observers */
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 	
@@ -101,6 +112,8 @@ class TabBarViewController: UITabBarController {
 			}
 		}
 	}
+	
+	// MARK: - Helper methods
 	
 	/* Calls Information Post View Controller after pinBarButtonItem is touched */
 	func callInformationPostViewControllerWithDictionary(dictionary: [String:AnyObject], toUpdate objectID: String?) {

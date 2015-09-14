@@ -21,6 +21,7 @@
 // - POST and PUT (and all related methods) should probably be better organized because they are very similar
 // -- Your update seems to be doing the same thing as the post
 // - FindOnTheMapButtonTouch is very complicated
+// - Timeout para internet?
 //
 // - ERRO: AS LOADING SCREEN DEVEM SAIR QUANDO OCORRE ALGUM ERRO
 

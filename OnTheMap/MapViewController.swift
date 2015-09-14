@@ -6,10 +6,8 @@
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
 //  This class is responsible for the Map View. It's the screen that comes after a successful login.
-//  The NavigationBarButtons are initialized here.
 //  Students locations are displayed as pins on the map.
 //  When the pin is touched, student information (first name, last name and mediaURL) appears.
-//  All the UI methods of the TabBarViewController (parentViewController) are treated here.
 
 import UIKit
 import MapKit
@@ -34,11 +32,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	}
 	
 	override func viewWillAppear(animated: Bool) {
-
+		
+		/* Notification is used to update the mapView when student information is saved */
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMapView:", name: "StudentLocationsSavedNotification", object: nil)
+		
+		/* Ensure mapView is updated when the view appears - this doesn't consume network data */
+		updateMapView(self)
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
+		
+		/* Removing observers */
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 	
@@ -74,7 +78,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 		}
 	}
 	
-	// MARK: - MapViewController
+	// MARK: - Helper methods
 	
 	/* Takes the student locations in the shared instance of ParseClient and updates the map */
 	func updateMapView(sender: AnyObject?) {

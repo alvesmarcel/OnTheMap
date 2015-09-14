@@ -26,24 +26,28 @@ class TopFiveViewController: UIViewController {
 	override func viewDidLoad() {
 		
 		/* Loading screen initialization */
-		loadingScreen = LoadingScreen(view: self.view)
-		
-		/* Get top five countries to initialize the screen */
-		getTopFiveCountries()
+		loadingScreen = LoadingScreen(view: self.parentViewController!.view)
 	}
 	
 	override func viewWillAppear(animated: Bool) {
 		
-		/* Notification is used to update the table view when the data is completely downloaded again using the refresh button */
+		/* Notification is used to update the tableView when student information is saved */
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "getTopFiveCountries", name: "StudentLocationsSavedNotification", object: nil)
+		
+		/* Ensure the top 5 is updated when the view appears - this consumes network data and may take a while */
+		getTopFiveCountries()
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
+		
+		/* Removing observers */
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 	
 	// MARK: - Notification activated methods
 	
+	/* Realizes a reverseGeocodeLocation for every student to discover their countries */
+	/* This method takes a while because it performs at least 100 calls using the network */
 	func getTopFiveCountries() {
 		var countryCountDictionary = [String:Int]()
 		var count = 0
@@ -78,6 +82,7 @@ class TopFiveViewController: UIViewController {
 	
 	// MARK: UI Helper methods
 	
+	/* Updates the view to show the rank (top 5) of countries with most student locations posted */
 	func updateViewWithCountries(countryCountDictionary: [String:Int]) {
 		let sortedCountries = Array(countryCountDictionary).sorted({$0.1 > $1.1})
 		for i in 0...4 {
