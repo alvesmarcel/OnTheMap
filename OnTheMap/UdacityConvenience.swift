@@ -85,4 +85,19 @@ extension UdacityClient {
 			}
 		}
 	}
+	
+	// MARK: - Deauthentication
+	
+	func deauthenticationWithUdacity(completionHandler: (success: Bool, error: NSError?) -> Void) {
+		
+		let parameters = [String:AnyObject]()
+		
+		taskForDELETEMethod(Methods.UdacitySession, parameters: parameters) { result, error in
+			if let error = error {
+				completionHandler(success: false, error: error)
+			} else {
+				completionHandler(success: true, error: nil)
+			}
+		}
+	}
 }

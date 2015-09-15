@@ -92,7 +92,7 @@ class UdacityClient : NSObject {
 	
 	// MARK: - DELETE
 	
-	func taskForDELETEMethod(method: String, parameters: [String : AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+	func taskForDELETEMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
 		
 		/* 1. Set the parameters */
 		var mutableParameters = parameters

@@ -53,8 +53,21 @@ class TabBarViewController: UITabBarController {
 	
 	/* Realizes the logout and dismiss the view */
 	func logout(sender: AnyObject) {
-		// TODO: Implement Logout
-		self.dismissViewControllerAnimated(true, completion: nil)
+		// TODO: Implement Facebook Logout
+		
+		loadingScreen.setActive(true)
+		
+		/* Logout with Udacity */
+		UdacityClient.sharedInstance().deauthenticationWithUdacity() { result, error in
+			
+			if let error = error {
+				ErrorDisplay.displayErrorWithTitle("Logout Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+			} else {
+				dispatch_async(dispatch_get_main_queue()) {
+					self.dismissViewControllerAnimated(true, completion: nil)
+				}
+			}
+		}
 	}
 	
 	/* pinBarButtonItem action - Verifies if the student has already posted the information */
