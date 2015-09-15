@@ -51,7 +51,7 @@ class TabBarViewController: UITabBarController {
 	
 	// MARK: - Actions
 	
-	/* Realizes the logout and dismiss the view */
+	/* Realizes the logout and dismiss the view if the logout is successful */
 	func logout(sender: AnyObject) {
 		// TODO: Implement Facebook Logout
 		
@@ -63,6 +63,7 @@ class TabBarViewController: UITabBarController {
 			if let error = error {
 				ErrorDisplay.displayErrorWithTitle("Logout Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 			} else {
+				println("Udacity logout successful")
 				dispatch_async(dispatch_get_main_queue()) {
 					self.dismissViewControllerAnimated(true, completion: nil)
 				}

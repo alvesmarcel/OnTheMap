@@ -27,6 +27,7 @@
 // - ERRO: AS LOADING SCREEN DEVEM SAIR QUANDO OCORRE ALGUM ERRO
 
 import UIKit
+import FBSDKLoginKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 	
