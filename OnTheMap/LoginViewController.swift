@@ -29,7 +29,7 @@
 import UIKit
 import FBSDKLoginKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButtonDelegate {
 	
 	// MARK: - Outlets
 
@@ -39,6 +39,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	
 	// MARK: - Class variables
 	
+	var loginWithFacebookButton: FBSDKLoginButton!
 	var loadingScreen: LoadingScreen!
 	
 	// MARK: - Lifecycle
@@ -49,6 +50,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		self.configureUI()
 		emailTextField.delegate = self
 		passwordTextField.delegate = self
+		loginWithFacebookButton.delegate = self
 		
 		/* Loading screen initialization */
 		loadingScreen = LoadingScreen(view: self.view)
@@ -96,6 +98,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		return true
 	}
 	
+	// MARK: - FBSDKLoginButtonDelegate
+	
+	func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+		println("login")
+	}
+	
+	func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+		println("logout")
+	}
+	
 	// MARK: - LoginViewController
 	
 	/* Login completed: sets loading screen not active and calls next view controller */
@@ -114,8 +126,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	func configureUI() {
 		
 		/* Creating Facebook Button */
-		let facebookButtonFrame = CGRect(x: self.view.center.x - loginWithUdacityButton.frame.width / 2, y: self.view.center.y + 174, width: loginWithUdacityButton.frame.width, height: loginWithUdacityButton.frame.height)
-		let loginWithFacebookButton = FBSDKLoginButton(frame: facebookButtonFrame)
+		let facebookButtonFrame = CGRect(
+			x: self.view.center.x - loginWithUdacityButton.frame.width / 2,
+			y: self.view.center.y + 174,
+			width: loginWithUdacityButton.frame.width,
+			height: loginWithUdacityButton.frame.height)
+		loginWithFacebookButton = FBSDKLoginButton(frame: facebookButtonFrame)
 		self.view.addSubview(loginWithFacebookButton)
 		
 		/* Configure background gradient */
