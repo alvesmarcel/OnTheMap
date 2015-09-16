@@ -67,21 +67,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 		emailTextField.resignFirstResponder()
 		passwordTextField.resignFirstResponder()
 		
-		/* Selecting the correct login method */
-		if sender.tag == ButtonTags.UdacityLoginButtonTag {
-			UdacityClient.sharedInstance().authenticateWithUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
-				if success {
-					self.loadingScreen.setActive(false)
-					self.completeLogin()
-				} else {
-					ErrorDisplay.displayErrorWithTitle("Login Failed", errorDescription: errorString as! String, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
-				}
+		UdacityClient.sharedInstance().authenticateWithUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
+			if success {
+				self.loadingScreen.setActive(false)
+				self.completeLogin()
+			} else {
+				ErrorDisplay.displayErrorWithTitle("Login Failed", errorDescription: errorString as! String, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 			}
-		} else if sender.tag == ButtonTags.FacebookLoginButtonTag {
-			// TODO: AUTHENTICATE WITH FACEBOOK
-			//UdacityClient.sharedInstance().authenticateWithFacebook()
-		} else {
-			println("Unidentified button tag")
 		}
 	}
 	
@@ -100,12 +92,32 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 	
 	// MARK: - FBSDKLoginButtonDelegate
 	
+	/* Performs everything necessary after the Facebook login is completed */
 	func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-		UdacityClient.sharedInstance().authenticateWithFacebook()
+		
+		if error != nil {
+			
+			/* There was an error trying to log in with Facebook */
+			ErrorDisplay.displayErrorWithTitle("Login With Facebook Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: nil)
+		} else if result.isCancelled {
+			// The login was cancelled - nothing need to be done
+		} else {
+			
+			/* Facebook login was successful - the app communicate with Udacity to complete the log in process */
+			loadingScreen.setActive(true)
+			UdacityClient.sharedInstance().authenticateWithFacebook() { success, error in
+				if success {
+					self.loadingScreen.setActive(false)
+					self.completeLogin()
+				} else {
+					ErrorDisplay.displayErrorWithTitle("Error Communicating With Udacity", errorDescription: error!.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+				}
+			}
+		}
 	}
 	
 	func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-		println("logout")
+		// Needed by FBSDKLoginButtonDelegate but not used
 	}
 	
 	// MARK: - LoginViewController

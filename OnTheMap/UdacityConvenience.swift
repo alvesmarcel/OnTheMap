@@ -89,7 +89,7 @@ extension UdacityClient {
 	}
 	
 	/* Authenticate using Facebook API */
-	func authenticateWithFacebook() {
+	func authenticateWithFacebook(completionHandler: (success: Bool, error: NSError?) -> Void) {
 		
 		/* 1. Specify parameters, method and HTTP body (if POST) */
 		let parameters = [String:AnyObject]()
@@ -101,10 +101,10 @@ extension UdacityClient {
 		
 		/* 2. Make the request */
 		taskForPOSTMethod(Methods.UdacitySession, parameters: parameters, jsonBody: jsonBody) { result, error in
-			if let r = result as? NSDictionary {
-				println(r)
+			if let error = error {
+				completionHandler(success: false, error: error)
 			} else {
-				println(error)
+				completionHandler(success: true, error: error)
 			}
 		}
 	}

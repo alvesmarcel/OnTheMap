@@ -10,7 +10,6 @@
 		28096DC71B9475C70084982C /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28096DC61B9475C70084982C /* StudentInformation.swift */; };
 		28096DCB1B947BB00084982C /* JSONConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28096DCA1B947BB00084982C /* JSONConvenience.swift */; };
 		2828FA131B978FC300E9B813 /* ParseConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA121B978FC300E9B813 /* ParseConvenience.swift */; };
-		2828FA151B97CF8600E9B813 /* ButtonTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA141B97CF8600E9B813 /* ButtonTags.swift */; };
 		2828FA171B9C6F8900E9B813 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA161B9C6F8900E9B813 /* LoadingScreen.swift */; };
 		2828FA191B9DD13C00E9B813 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA181B9DD13C00E9B813 /* ErrorDisplay.swift */; };
 		2828FA1C1B9E541E00E9B813 /* TopFiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828FA1B1B9E541E00E9B813 /* TopFiveViewController.swift */; };
@@ -52,7 +51,6 @@
 		28096DC61B9475C70084982C /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 		28096DCA1B947BB00084982C /* JSONConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONConvenience.swift; sourceTree = "<group>"; };
 		2828FA121B978FC300E9B813 /* ParseConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConvenience.swift; sourceTree = "<group>"; };
-		2828FA141B97CF8600E9B813 /* ButtonTags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTags.swift; sourceTree = "<group>"; };
 		2828FA161B9C6F8900E9B813 /* LoadingScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		2828FA181B9DD13C00E9B813 /* ErrorDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorDisplay.swift; sourceTree = "<group>"; };
 		2828FA1B1B9E541E00E9B813 /* TopFiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopFiveViewController.swift; sourceTree = "<group>"; };
@@ -184,7 +182,6 @@
 		286F40A71B8B46F5008B012D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2828FA141B97CF8600E9B813 /* ButtonTags.swift */,
 				2828FA1F1BA71B1E00E9B813 /* NotificationNames.swift */,
 				286F40A81B8B4822008B012D /* LoginViewController.swift */,
 				2828FA1D1BA06B9E00E9B813 /* TabBarViewController.swift */,
@@ -358,7 +355,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2828FA151B97CF8600E9B813 /* ButtonTags.swift in Sources */,
 				28096DCB1B947BB00084982C /* JSONConvenience.swift in Sources */,
 				2828FA131B978FC300E9B813 /* ParseConvenience.swift in Sources */,
 				286F40A91B8B4822008B012D /* LoginViewController.swift in Sources */,
