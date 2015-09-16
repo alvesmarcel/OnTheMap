@@ -11,6 +11,7 @@
 
 import UIKit
 import Foundation
+import FBSDKLoginKit
 
 extension UdacityClient {
 	
@@ -41,6 +42,7 @@ extension UdacityClient {
 	
 	// MARK: - Authentication
 	
+	/* Authenticate with Udacity login and password */
 	func authenticateWithUdacity(username: String, password: String, completionHandler: (success: Bool, errorString: NSString?) -> Void) {
 		
 		/* 1. Specify parameters, method and HTTP body (if POST) */
@@ -86,9 +88,30 @@ extension UdacityClient {
 		}
 	}
 	
+	/* Authenticate using Facebook API */
+	func authenticateWithFacebook() {
+		
+		/* 1. Specify parameters, method and HTTP body (if POST) */
+		let parameters = [String:AnyObject]()
+		let jsonBody = [
+			JSONBodyKeys.FacebookMobile : [
+				JSONBodyKeys.AccessToken : FBSDKAccessToken.currentAccessToken().tokenString
+			]
+		]
+		
+		/* 2. Make the request */
+		taskForPOSTMethod(Methods.UdacitySession, parameters: parameters, jsonBody: jsonBody) { result, error in
+			if let r = result as? NSDictionary {
+				println(r)
+			} else {
+				println(error)
+			}
+		}
+	}
+	
 	// MARK: - Deauthentication
 	
-	func deauthenticationWithUdacity(completionHandler: (success: Bool, error: NSError?) -> Void) {
+	func deauthenticateWithUdacity(completionHandler: (success: Bool, error: NSError?) -> Void) {
 		
 		let parameters = [String:AnyObject]()
 		

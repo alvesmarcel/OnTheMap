@@ -101,7 +101,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 	// MARK: - FBSDKLoginButtonDelegate
 	
 	func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-		println("login")
+		UdacityClient.sharedInstance().authenticateWithFacebook()
 	}
 	
 	func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {

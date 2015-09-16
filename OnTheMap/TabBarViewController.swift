@@ -58,7 +58,7 @@ class TabBarViewController: UITabBarController {
 		loadingScreen.setActive(true)
 		
 		/* Logout with Udacity */
-		UdacityClient.sharedInstance().deauthenticationWithUdacity() { result, error in
+		UdacityClient.sharedInstance().deauthenticateWithUdacity() { result, error in
 			
 			if let error = error {
 				ErrorDisplay.displayErrorWithTitle("Logout Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
