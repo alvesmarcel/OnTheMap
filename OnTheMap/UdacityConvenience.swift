@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
 //  Extension of class UdacityClient
-//  The convenient methods (specific GET and POST methods provided by the Udacity API) are here
-//  This class is also responsible for the authentication with Udacity
+//  The convenience methods (specific GET and POST methods provided by the Udacity API) are here
+//  This class is also responsible for the authentication with Udacity and Facebook
 
 import UIKit
 import Foundation
@@ -42,7 +42,7 @@ extension UdacityClient {
 	
 	// MARK: - Authentication
 	
-	/* Authenticate with Udacity login and password */
+	/* Authenticate with Udacity API using Udacity login and password */
 	func authenticateWithUdacity(username: String, password: String, completionHandler: (success: Bool, errorString: NSString?) -> Void) {
 		
 		/* 1. Specify parameters, method and HTTP body (if POST) */
@@ -76,7 +76,7 @@ extension UdacityClient {
 					
 					/* When there is no "status", the operation was succesful. Checks for account key */
 					if let accountKey = result.valueForKey(JSONResponseKeys.Account)?.valueForKey(JSONResponseKeys.Key) as? String {
-						println("Connection was successful")
+						println("Udacity login successful")
 						self.accountKey = accountKey
 						completionHandler(success: true, errorString: nil)
 					} else {
@@ -88,8 +88,8 @@ extension UdacityClient {
 		}
 	}
 	
-	/* Authenticate using Facebook API */
-	func authenticateWithFacebook(completionHandler: (success: Bool, error: NSError?) -> Void) {
+	/* Authenticate with Udacity API for Facebook login */
+	func authenticateWithFacebook(completionHandler: (success: Bool, errorString: NSString?) -> Void) {
 		
 		/* 1. Specify parameters, method and HTTP body (if POST) */
 		let parameters = [String:AnyObject]()
@@ -102,15 +102,23 @@ extension UdacityClient {
 		/* 2. Make the request */
 		taskForPOSTMethod(Methods.UdacitySession, parameters: parameters, jsonBody: jsonBody) { result, error in
 			if let error = error {
-				completionHandler(success: false, error: error)
+				completionHandler(success: false, errorString: error.localizedDescription)
 			} else {
-				completionHandler(success: true, error: error)
+				
+				if let accountKey = result.valueForKey(JSONResponseKeys.Account)?.valueForKey(JSONResponseKeys.Key) as? String {
+					println("Facebook login successful")
+					self.accountKey = accountKey
+					completionHandler(success: true, errorString: nil)
+				} else {
+					completionHandler(success: false, errorString: "Could not find Account Key")
+				}
 			}
 		}
 	}
 	
 	// MARK: - Deauthentication
 	
+	/* Deauthenticate using Udacity API (for Udacity login) */
 	func deauthenticateWithUdacity(completionHandler: (success: Bool, error: NSError?) -> Void) {
 		
 		let parameters = [String:AnyObject]()
@@ -123,4 +131,15 @@ extension UdacityClient {
 			}
 		}
 	}
+	
+	/* Deauthenticate using Udacity API and sets the Access Token to nil (for Facebook login) */
+	func deauthenticateWithFacebook(completionHandler: (success: Bool, error: NSError?) -> Void) {
+		
+		/* Deauthenticate of Udacity session */
+		deauthenticateWithUdacity(completionHandler)
+
+		/* Sets the Access Token to nil */
+		FBSDKLoginManager().logOut()
+	}
+
 }

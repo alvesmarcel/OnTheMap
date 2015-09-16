@@ -10,6 +10,7 @@
 //  This class also calls methods to update students' information (studentsInformation array)
 
 import UIKit
+import FBSDKLoginKit
 
 class TabBarViewController: UITabBarController {
 	
@@ -53,22 +54,39 @@ class TabBarViewController: UITabBarController {
 	
 	/* Realizes the logout and dismiss the view if the logout is successful */
 	func logout(sender: AnyObject) {
-		// TODO: Implement Facebook Logout
-		
+
 		loadingScreen.setActive(true)
 		
-		/* Logout with Udacity */
-		UdacityClient.sharedInstance().deauthenticateWithUdacity() { result, error in
+		if FBSDKAccessToken.currentAccessToken() == nil {
 			
-			if let error = error {
-				ErrorDisplay.displayErrorWithTitle("Logout Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
-			} else {
-				println("Udacity logout successful")
-				dispatch_async(dispatch_get_main_queue()) {
-					self.dismissViewControllerAnimated(true, completion: nil)
+			/* Logout with Udacity */
+			UdacityClient.sharedInstance().deauthenticateWithUdacity() { result, error in
+				
+				if let error = error {
+					ErrorDisplay.displayErrorWithTitle("Logout Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+				} else {
+					println("Udacity logout successful")
+					dispatch_async(dispatch_get_main_queue()) {
+						self.dismissViewControllerAnimated(true, completion: nil)
+					}
+				}
+			}
+		} else {
+			
+			/* Logout with Facebook */
+			UdacityClient.sharedInstance().deauthenticateWithFacebook() { success, error in
+				
+				if let error = error {
+					ErrorDisplay.displayErrorWithTitle("Logout Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+				} else {
+					println("Facebook logout successful")
+					dispatch_async(dispatch_get_main_queue()) {
+						self.dismissViewControllerAnimated(true, completion: nil)
+					}
 				}
 			}
 		}
+		
 	}
 	
 	/* pinBarButtonItem action - Verifies if the student has already posted the information */

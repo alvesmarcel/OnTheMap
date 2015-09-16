@@ -58,8 +58,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 	
 	// MARK: - Actions
 	
-	/* Identifies which button was touched and selects the correct login method (Udacity or Facebook) */
-	@IBAction func loginButtonTouch(sender: AnyObject) {
+	/* Realizes Udacity Login when the loginWithUdacityButton is touched */
+	@IBAction func udacityLoginButtonTouch(sender: AnyObject) {
 		
 		loadingScreen.setActive(true)
 		
@@ -105,12 +105,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 			
 			/* Facebook login was successful - the app communicate with Udacity to complete the log in process */
 			loadingScreen.setActive(true)
-			UdacityClient.sharedInstance().authenticateWithFacebook() { success, error in
+			UdacityClient.sharedInstance().authenticateWithFacebook() { success, errorString in
 				if success {
 					self.loadingScreen.setActive(false)
 					self.completeLogin()
 				} else {
-					ErrorDisplay.displayErrorWithTitle("Error Communicating With Udacity", errorDescription: error!.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+					ErrorDisplay.displayErrorWithTitle("Error Communicating With Udacity", errorDescription: errorString as! String, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+					dispatch_async(dispatch_get_main_queue()) {
+						FBSDKLoginManager().logOut()
+					}
 				}
 			}
 		}

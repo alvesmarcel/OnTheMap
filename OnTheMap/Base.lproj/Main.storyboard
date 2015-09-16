@@ -100,7 +100,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginButtonTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="s7i-aO-XnM"/>
+                                    <action selector="udacityLoginButtonTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="xoU-ue-5Fk"/>
                                 </connections>
                             </button>
                         </subviews>
