@@ -130,6 +130,7 @@
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="LK1-uo-zUS" id="hdx-lu-LuC"/>
+                        <outlet property="loginWithFacebookButton" destination="VJj-qo-fXX" id="749-Fp-sNS"/>
                         <outlet property="loginWithUdacityButton" destination="FSI-cB-0nU" id="XRj-DN-vhc"/>
                         <outlet property="passwordTextField" destination="NWT-99-nid" id="Rj0-pP-XbA"/>
                     </connections>

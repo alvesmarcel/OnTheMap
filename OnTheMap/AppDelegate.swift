@@ -8,7 +8,7 @@
 //  Facebook setup was inserted to make possible the Facebook Login
 
 import UIKit
-import FBSDKLoginKit
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

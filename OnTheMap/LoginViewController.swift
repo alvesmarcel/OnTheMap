@@ -36,6 +36,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	@IBOutlet weak var emailTextField: UITextField!
 	@IBOutlet weak var passwordTextField: UITextField!
 	@IBOutlet weak var loginWithUdacityButton: UIButton!
+	@IBOutlet weak var loginWithFacebookButton: FBSDKButton!
 	
 	// MARK: - Class variables
 	
@@ -52,6 +53,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		
 		/* Loading screen initialization */
 		loadingScreen = LoadingScreen(view: self.view)
+		
+//		let loginView = FBSDKLoginButton(frame: loginWithUdacityButton.frame)
+//		self.view.addSubview(loginView)
+//		loginView.center = self.view.center
 	}
 	
 	// MARK: - Actions
