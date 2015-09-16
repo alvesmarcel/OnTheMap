@@ -88,12 +88,6 @@
                                     <action selector="signUpButtonTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Wus-Hh-yix"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJj-qo-fXX">
-                                <rect key="frame" x="196" y="472" width="208" height="50"/>
-                                <state key="normal" image="login_with_fb">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FSI-cB-0nU">
                                 <rect key="frame" x="160" y="356" width="280" height="44"/>
                                 <constraints>
@@ -116,12 +110,10 @@
                             <constraint firstAttribute="centerX" secondItem="6Be-9P-oTg" secondAttribute="centerX" id="ERF-xZ-8Sm"/>
                             <constraint firstAttribute="centerX" secondItem="LK1-uo-zUS" secondAttribute="centerX" id="MZu-xv-7Fg"/>
                             <constraint firstAttribute="centerX" secondItem="w72-Cz-dOs" secondAttribute="centerX" id="O1E-gt-xa5"/>
-                            <constraint firstItem="VJj-qo-fXX" firstAttribute="top" secondItem="w72-Cz-dOs" secondAttribute="bottom" constant="20" id="QZr-Kw-7MY"/>
                             <constraint firstItem="NWT-99-nid" firstAttribute="top" secondItem="LK1-uo-zUS" secondAttribute="bottom" constant="8" id="RDc-kp-g98"/>
                             <constraint firstAttribute="centerX" secondItem="8hS-On-aia" secondAttribute="centerX" id="VkL-8t-EL0"/>
                             <constraint firstItem="LK1-uo-zUS" firstAttribute="top" secondItem="6Be-9P-oTg" secondAttribute="bottom" constant="12" id="Xl3-Yr-zsF"/>
                             <constraint firstItem="w72-Cz-dOs" firstAttribute="top" secondItem="FSI-cB-0nU" secondAttribute="bottom" constant="20" id="d3l-zw-Uuu"/>
-                            <constraint firstAttribute="centerX" secondItem="VJj-qo-fXX" secondAttribute="centerX" id="et9-UK-zJO"/>
                             <constraint firstAttribute="centerX" secondItem="NWT-99-nid" secondAttribute="centerX" id="gJh-dp-Fsd"/>
                             <constraint firstItem="6Be-9P-oTg" firstAttribute="top" secondItem="8hS-On-aia" secondAttribute="bottom" constant="48.5" id="wH0-VY-zgG"/>
                             <constraint firstAttribute="centerX" secondItem="FSI-cB-0nU" secondAttribute="centerX" id="x5e-vC-4on"/>
@@ -130,7 +122,6 @@
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="LK1-uo-zUS" id="hdx-lu-LuC"/>
-                        <outlet property="loginWithFacebookButton" destination="VJj-qo-fXX" id="749-Fp-sNS"/>
                         <outlet property="loginWithUdacityButton" destination="FSI-cB-0nU" id="XRj-DN-vhc"/>
                         <outlet property="passwordTextField" destination="NWT-99-nid" id="Rj0-pP-XbA"/>
                     </connections>
@@ -480,7 +471,6 @@
     <resources>
         <image name="leaderboard" width="32" height="32"/>
         <image name="list" width="32" height="32"/>
-        <image name="login_with_fb" width="208" height="50"/>
         <image name="map" width="32" height="32"/>
     </resources>
 </document>
