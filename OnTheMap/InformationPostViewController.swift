@@ -7,8 +7,6 @@
 //
 //  This class is responsible for posting student information in the servers using the Parse methods
 //  There are "two" implicit screens in this view (Location UI and Link UI). They change between them with alpha configurations.
-//
-//  BUG: When an alert controller appears, the Cancel button changes to its color set in the Storyboard (not the correct one set programmatically)
 
 import UIKit
 import MapKit
@@ -19,6 +17,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var submitButton: UIButton!
+	@IBOutlet weak var previewLinkButton: UIButton!
 	
 	// MARK: - UILabels
 	
@@ -26,10 +25,10 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	@IBOutlet weak var label2: UILabel!
 	@IBOutlet weak var label3: UILabel!
 	
-	// MARK: - UITextFields
+	// MARK: - UITextViews
 	
-	@IBOutlet weak var locationTextField: UITextView!
-	@IBOutlet weak var linkTextField: UITextView!
+	@IBOutlet weak var locationTextView: UITextView!
+	@IBOutlet weak var linkTextView: UITextView!
 	
 	// MARK: - MKMapView
 	
@@ -48,8 +47,8 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		super.viewDidLoad()
 		
 		/* Setting the delegates */
-		locationTextField.delegate = self
-		linkTextField.delegate = self
+		locationTextView.delegate = self
+		linkTextView.delegate = self
 		
 		/* Setting mapView configurations */
 		mapView.zoomEnabled = false
@@ -74,8 +73,8 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	/* Deals with "Find on the Map" (if) or "Submit" (else) button (they are the same) touch */
 	@IBAction func findOnTheMapButtonTouch(sender: AnyObject) {
 		
-		locationTextField.resignFirstResponder()
-		linkTextField.resignFirstResponder()
+		locationTextView.resignFirstResponder()
+		linkTextView.resignFirstResponder()
 
 		/* When button's text is "Find on the Map", the button is dealing with the "first" screen (Location UI) */
 		if submitButton.titleLabel?.text == "Find on the Map" {
@@ -88,13 +87,14 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 				/* The app will try to post the location and activates the loading screen */
 				loadingScreen.setActive(true)
 				
-				/* The geocoder tries to find a location that was in locationTextField */
+				/* The geocoder tries to find a location that was in locationTextView */
 				let geocoder = CLGeocoder()
-				geocoder.geocodeAddressString(locationTextField.text) { placemarks, error in
+				geocoder.geocodeAddressString(locationTextView.text) { placemarks, error in
 					
 					/* Geocoder could not find the location */
 					if let error = error {
-						ErrorDisplay.displayErrorWithTitle("Place Not Found", errorDescription: "Could Not Geocode the String", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+						// TODO: - Improve this error message
+						ErrorDisplay.displayErrorWithTitle("Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 					} else {
 						
 						/* Location was found by the geocoder - loading screen is off */
@@ -112,7 +112,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 							/* Complementing student information to be posted */
 							self.studentInformation.latitude = placemark.coordinate.latitude as Double
 							self.studentInformation.longitude = placemark.coordinate.longitude as Double
-							self.studentInformation.mapString = self.locationTextField.text
+							self.studentInformation.mapString = self.locationTextView.text
 						}
 					}
 				}
@@ -127,13 +127,13 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 				ErrorDisplay.displayErrorWithTitle("Missing Link", errorDescription: "Must Enter a Link", inViewController: self, andDeactivatesLoadingScreen: nil)
 			} else {
 				
-				if checkLink(linkTextField.text) {
+				if checkLink(linkTextView.text) {
 					
 					/* The link is valid - set loadingScreen active and try to post link with location */
 					loadingScreen.setActive(true)
 							
 					/* Completing student information to be posted */
-					self.studentInformation.mediaURL = self.linkTextField.text
+					self.studentInformation.mediaURL = self.linkTextView.text
 					
 					if let objectID = self.objectID {
 						
@@ -178,9 +178,9 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		}
 	}
 	
-	// MARK: - UITextFieldDelegate Methods
+	// MARK: - UITextViewDelegate Methods
 	
-	/* Cleans text field when needed */
+	/* Cleans text view when needed */
 	func textViewDidBeginEditing(textView: UITextView) {
 		if shouldCleanTextView == true {
 			textView.text = ""
@@ -194,7 +194,21 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 			textView.resignFirstResponder()
 			
 			if textView.text == "" {
-				resetTextView()
+				resetTextView(textView)
+			} else {
+				
+				/* Checks if it is in the Link Text View */
+				if textView == self.linkTextView {
+					if checkLink(self.linkTextView.text) {
+						previewLinkButton.setTitle("Tap to preview link", forState: .Normal)
+						previewLinkButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+						previewLinkButton.enabled = true
+					} else {
+						previewLinkButton.setTitle("Invalid Link", forState: .Normal)
+						previewLinkButton.setTitleColor(UIColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0), forState: .Normal)
+						previewLinkButton.enabled = false
+					}
+				}
 			}
 			
 			return false
@@ -204,14 +218,18 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	
 	// MARK: - UI Helper methods
 	
-	/* Puts the text field in the initial state according to the text field alpha */
-	/* The alpha condition is essential to avoid updating both text fields (correct values are needed to post student location) */
-	func resetTextView() {
+	/* Puts the text view in the initial state according to the text view alpha */
+	/* The alpha condition is essential to avoid updating both text views (correct values are needed to post student location) */
+	func resetTextView(textView: UITextView) {
 		dispatch_async(dispatch_get_main_queue()) {
-			if self.linkTextField.alpha > 0 {
-				self.linkTextField.text = "Enter a Link to Share Here"
+			
+			/* Identifies which text view is being edited */
+			if textView == self.linkTextView {
+				self.linkTextView.text = "Enter a Link to Share Here"
+				self.previewLinkButton.setTitle("", forState: .Normal)
+				self.previewLinkButton.enabled = false
 			} else {
-				self.locationTextField.text = "Enter Your Location Here"
+				self.locationTextView.text = "Enter Your Location Here"
 			}
 		}
 		shouldCleanTextView = true
@@ -220,39 +238,45 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	/* Configures the UI to present the "location screen" */
 	func configureLocationUI() {
 		dispatch_async(dispatch_get_main_queue()) {
+			self.previewLinkButton.setTitle("", forState: .Normal)
+			self.previewLinkButton.enabled = false
+			
 			self.label1.alpha = 1.0
 			self.label2.alpha = 1.0
 			self.label3.alpha = 1.0
 			
-			self.linkTextField.alpha = 0.0
+			self.linkTextView.alpha = 0.0
 			
 			self.mapView.alpha = 0.0
 			
 			self.submitButton.setTitle("Find on the Map", forState: .Normal)
-			self.cancelButton.titleLabel?.textColor = UIColor(red: 0.0, green: 0.0, blue: 0.59, alpha: 1.0)
+			self.cancelButton.setTitleColor(UIColor(red: 0.0, green: 0.0, blue: 0.59, alpha: 1.0), forState: .Normal)
 			
 			self.view.backgroundColor = UIColor(red: 0.94, green: 0.94, blue: 0.95, alpha: 1.0)
 		}
-		resetTextView()
+		resetTextView(self.locationTextView)
 	}
 	
 	/* Configures the UI to presente the "link screen" */
 	func configureLinkUI() {
 		dispatch_async(dispatch_get_main_queue()) {
+			self.previewLinkButton.setTitle("", forState: .Normal)
+			self.previewLinkButton.enabled = false
+			
 			self.label1.alpha = 0.0
 			self.label2.alpha = 0.0
 			self.label3.alpha = 0.0
 			
-			self.linkTextField.alpha = 1.0
+			self.linkTextView.alpha = 1.0
 			
 			self.mapView.alpha = 1.0
 			
 			self.submitButton.setTitle("Submit", forState: .Normal)
-			self.cancelButton.titleLabel?.textColor = UIColor.whiteColor()
+			self.cancelButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
 			
 			self.view.backgroundColor = UIColor(red: 0.29, green: 0.57, blue: 0.75, alpha: 1.0)
 		}
-		resetTextView()
+		resetTextView(self.linkTextView)
 	}
 	
 	// MARK: - Helper methods
