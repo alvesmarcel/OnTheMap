@@ -432,6 +432,9 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="previewLinkButtonTouch:" destination="zHZ-fa-vUq" eventType="touchUpInside" id="PWU-ao-lT8"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -478,10 +481,10 @@
             </objects>
             <point key="canvasLocation" x="1490" y="937"/>
         </scene>
-        <!--View Controller-->
+        <!--Preview Link View Controller-->
         <scene sceneID="Qh5-jd-gz7">
             <objects>
-                <viewController id="etz-q8-d4a" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PreviewLinkViewController" id="etz-q8-d4a" customClass="PreviewLinkViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o9P-wC-McT"/>
                         <viewControllerLayoutGuide type="bottom" id="aSL-FM-zfY"/>
@@ -489,8 +492,23 @@
                     <view key="view" contentMode="scaleToFill" id="oRs-Fm-QS0">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BOP-Wh-W3V">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BOP-Wh-W3V" firstAttribute="top" secondItem="oRs-Fm-QS0" secondAttribute="topMargin" id="UYa-Kk-3Oz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BOP-Wh-W3V" secondAttribute="trailing" constant="-16" id="a3i-gU-9gR"/>
+                            <constraint firstItem="BOP-Wh-W3V" firstAttribute="leading" secondItem="oRs-Fm-QS0" secondAttribute="leadingMargin" constant="-16" id="p8z-Gy-1rO"/>
+                            <constraint firstItem="aSL-FM-zfY" firstAttribute="top" secondItem="BOP-Wh-W3V" secondAttribute="bottom" id="vaS-Lr-uNE"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="webView" destination="BOP-Wh-W3V" id="Uro-z1-i91"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="STC-gP-xeq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

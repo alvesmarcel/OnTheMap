@@ -40,6 +40,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	var loadingScreen: LoadingScreen!
 	var studentInformation = StudentInformation()
 	var objectID: String?
+	var backFromPreviewLink: Bool = false
 	
 	// MARK: - Lifecycle
 	
@@ -61,7 +62,14 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		configureLocationUI()
+		
+		if backFromPreviewLink {
+			configureLinkUI()
+		} else {
+			configureLocationUI()
+		}
+		
+		backFromPreviewLink = false
 	}
 	
 	// MARK: - Actions
@@ -175,6 +183,22 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 					ErrorDisplay.displayErrorWithTitle("Invalid Link", errorDescription: "Invalid Link. Include http(s)://", inViewController: self, andDeactivatesLoadingScreen: nil)
 				}
 			}
+		}
+	}
+	
+	/* Calls PreviewLinkViewController to show the preview of the web page when the previewLinkButton is touched */
+	@IBAction func previewLinkButtonTouch(sender: AnyObject) {
+		let previewLinkViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PreviewLinkViewController") as! PreviewLinkViewController
+		
+		let url = NSURL(string: linkTextView.text)
+		let request = NSURLRequest(URL: url!)
+		previewLinkViewController.urlRequest = request
+		
+		let previewLinkNavigationController = UINavigationController()
+		previewLinkNavigationController.pushViewController(previewLinkViewController, animated: false)
+		
+		dispatch_async(dispatch_get_main_queue()) {
+			self.presentViewController(previewLinkNavigationController, animated: true, completion: nil)
 		}
 	}
 	
