@@ -96,7 +96,7 @@ class TabBarViewController: UITabBarController {
 		UdacityClient.sharedInstance().getPublicUserData() { result, error in
 			
 			if error != nil {
-				ErrorDisplay.displayErrorWithTitle("Error Getting Student Information", errorDescription: "Could Not Get Student Information from Server", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+				ErrorDisplay.displayErrorWithTitle("Error Getting Student Information", errorDescription: "Could not get student information from server", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 			} else {
 				if let dictionary = result {
 					
@@ -136,11 +136,24 @@ class TabBarViewController: UITabBarController {
 		loadingScreen.setActive(true)
 		ParseClient.sharedInstance().getStudentsLocationsWithLimit(100, skip: 0) { studentLocations, error in
 			if let error = error {
-				ErrorDisplay.displayErrorWithTitle("Could Not Get Locations", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+				
+				/* There was a connection error */
+				ErrorDisplay.displayErrorWithTitle("Could not get locations", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 			} else {
-				self.loadingScreen.setActive(false)
-				NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.StudentLocationsSavedNotification, object: nil)
-				println("Students Locations saved")
+				
+				/* The connection is OK but there may be a response error */
+				if let locations = studentLocations {
+					
+					/* studentLocations is not nil: they were correctly saved */
+					self.loadingScreen.setActive(false)
+					NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.StudentLocationsSavedNotification, object: nil)
+					println("Students Locations saved")
+				} else {
+					
+					/* studentLocations is nil: there was an error trying the find a key in the response */
+					ErrorDisplay.displayErrorWithTitle("JSON Parsing Error", errorDescription: "Could not find appropriate key in JSON response", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+				}
+				
 			}
 		}
 	}

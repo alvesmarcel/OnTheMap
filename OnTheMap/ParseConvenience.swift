@@ -36,7 +36,7 @@ extension ParseClient {
 					self.studentsInformation = StudentInformation.studentLocationsFromResults(results)
 					completionHandler(result: self.studentsInformation, error: nil)
 				} else {
-					completionHandler(result: nil, error: NSError(domain: "getStudentsLocations parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getStudentsLocations"]))
+					completionHandler(result: nil, error: NSError(domain: "getStudentsLocations", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not find \(JSONResponseKeys.Results) key"]))
 				}
 			}
 		}

@@ -79,7 +79,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 			
 			/* The text view is clean or should be cleaned - so, it should not proceed */
 			if shouldCleanTextView == true {
-				ErrorDisplay.displayErrorWithTitle("Missing Location", errorDescription: "Must Enter Location", inViewController: self, andDeactivatesLoadingScreen: nil)
+				ErrorDisplay.displayErrorWithTitle("Missing Location", errorDescription: "Must enter location", inViewController: self, andDeactivatesLoadingScreen: nil)
 			} else {
 				
 				/* The app will try to post the location and activates the loading screen */
@@ -122,7 +122,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 			
 			/* The text view is clean or should be cleaned - so, it should not proceed */
 			if shouldCleanTextView == true {
-				ErrorDisplay.displayErrorWithTitle("Missing Link", errorDescription: "Must Enter a Link", inViewController: self, andDeactivatesLoadingScreen: nil)
+				ErrorDisplay.displayErrorWithTitle("Missing Link", errorDescription: "Must enter a link", inViewController: self, andDeactivatesLoadingScreen: nil)
 			} else {
 				
 				if checkLink(linkTextView.text) {
@@ -148,7 +148,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 									NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.ShouldUpdateDataNotification, object: nil)
 								}
 							} else {
-								ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could Not Post Student Location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+								ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could not post student location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 							}
 						}
 					} else {
@@ -164,13 +164,13 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 									NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.ShouldUpdateDataNotification, object: nil)
 								}
 							} else {
-								ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could Not Post Student Location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+								ErrorDisplay.displayErrorWithTitle("Error Posting Location", errorDescription: "Could not post student location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 							}
 						}
 					}
 					
 				} else {
-					ErrorDisplay.displayErrorWithTitle("Invalid Link", errorDescription: "Invalid Link. Include http(s)://", inViewController: self, andDeactivatesLoadingScreen: nil)
+					ErrorDisplay.displayErrorWithTitle("Invalid Link", errorDescription: "Invalid link. Include http(s)://", inViewController: self, andDeactivatesLoadingScreen: nil)
 				}
 			}
 		}
