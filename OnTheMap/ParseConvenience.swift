@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
 //  Extension of class ParseClient
-//  The convenient methods (specific GET and POST methods provided by the Parse API) are here
+//  The convenience methods (specific GET, POST and PUT methods provided by the Parse API) are here
 
 import Foundation
 import UIKit
@@ -45,7 +45,7 @@ extension ParseClient {
 	// MARK: POST Convenience Methods
 	
 	/* This method is used to post a student location in the server */
-	/* Given a student location, this method returns (through completionHandler) if the post operation was successful or not */
+	/* Given student information, this method returns (through completionHandler) if the post operation was successful or not */
 	func postStudentLocationWithInformation(studentInformation: StudentInformation, completionHandler: (success: Bool) -> Void) {
 		
 		/* 1. Specify parameters, method and HTTP body (if POST) */
@@ -74,6 +74,8 @@ extension ParseClient {
 	
 	// MARK: PUT Convenience Methods
 	
+	/* This method is used to update a student location in the server */
+	/* Given student information, this method returns (through completionHandler) if the post operation was successful or not */
 	func updateStudentLocationWithInformation(studentInformation: StudentInformation, completionHandler: (success: Bool) -> Void) {
 		
 		/* 1. Specify parameters, method and HTTP body (if POST) */

@@ -40,7 +40,6 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	var loadingScreen: LoadingScreen!
 	var studentInformation = StudentInformation()
 	var objectID: String?
-	var backFromPreviewLink: Bool = false
 	
 	// MARK: - Lifecycle
 	
@@ -58,18 +57,9 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 		
 		/* Loading screen initialization */
 		loadingScreen = LoadingScreen(view: self.view)
-	}
-
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
 		
-		if backFromPreviewLink {
-			configureLinkUI()
-		} else {
-			configureLocationUI()
-		}
-		
-		backFromPreviewLink = false
+		/* When the view is loaded, the LocationUI must appear */
+		configureLocationUI()
 	}
 	
 	// MARK: - Actions

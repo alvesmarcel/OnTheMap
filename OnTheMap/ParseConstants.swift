@@ -29,6 +29,7 @@ extension ParseClient {
 	
 	// MARK: - Parameter Keys
 	struct ParameterKeys {
+		
 		static let Limit = "limit"
 		static let Skip = "skip"
 	}
@@ -48,11 +49,13 @@ extension ParseClient {
 	
 	// MARK: - JSON Response Keys
 	struct JSONResponseKeys {
+		
 		static let Results = "results"
 	}
 	
 	// MARK: - HTTP Header Fields
 	struct HTTPHeaderField {
+		
 		static let AppID = "X-Parse-Application-Id"
 		static let ApiKey = "X-Parse-REST-API-Key"
 	}

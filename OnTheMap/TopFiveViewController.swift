@@ -7,6 +7,7 @@
 //
 //  This class is responsible for exibiting the top 5 countries with student locations posted
 //  The view exhibits some labels (countryLabels) with the country rank
+//  THIS VIEW USES "A LOT" OF NETWORK CALLS WHEN COMPARED TO THE OTHERS DUE TO THE getTopFiveCountries() METHOD
 
 import UIKit
 import MapKit

@@ -12,7 +12,11 @@ import UIKit
 
 class PreviewLinkViewController: UIViewController {
 	
+	// MARK: - Outlets
+	
 	@IBOutlet weak var webView: UIWebView!
+	
+	// MARK: - Class variables
 	
 	var urlRequest: NSURLRequest!
 	

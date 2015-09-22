@@ -5,8 +5,8 @@
 //  Created by Marcel Oliveira Alves on 8/31/15.
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
-//  This class is used to represent the student information used in the Parse API for GET and POST requests
-//  Some information (provided by the Parse's response) are not represented in this class because they are not needed
+//  This class is used to represent the student information used in the Parse API for the requests
+//  Some information (provided by the Parse's response) are not represented in this class because they are not needed in the app
 
 import Foundation
 

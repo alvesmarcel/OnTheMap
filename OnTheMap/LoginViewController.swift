@@ -9,23 +9,6 @@
 //  It's possible to realize the login using Udacity credentials or through Facebook API
 //  Also, it is possible to be redirected to a website for signing up
 
-// problemas
-// - muito codigo repetido
-// - nao existe timeout para o caso de 100% packet loss
-// -- entre mapview e listview
-// -- os botoes adicionados no viewWillAppear
-// -- duvida sobre como fazer bom uso da conexao de internet (talvez usando threads)
-// - uma custom view poderia ser criada para loading screen
-// - overwrite? no app pode fazer isso, mas nao achei nada na rubric nem na especificacao
-// - mais informacao sobre as APIs (possiveis codigos de retorno, por exemplo, seriam interessantes
-// - POST and PUT (and all related methods) should probably be better organized because they are very similar
-// -- Your update seems to be doing the same thing as the post
-// - FindOnTheMapButtonTouch is very complicated
-// - Timeout para internet?
-// - Couldn't think in a way to optmize the requests
-//
-// - ERRO: AS LOADING SCREEN DEVEM SAIR QUANDO OCORRE ALGUM ERRO
-
 import UIKit
 import FBSDKLoginKit
 

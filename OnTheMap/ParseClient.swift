@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
 //  This is a SINGLETON class responsible for the use of Parse API. 
-//  GET and POST methods are provided to make HTTP requests to the server using the Parse API.
+//  Generic GET, POST and PUT methods are provided to make HTTP requests to the server using the Parse API.
 //  This class also saves all student informations that is returned by the Parse API.
 //  - Probably it would be better to use other kind of persistence for studentsInformation in the future
 //  - For now, these locations are stored here because they are used by many ViewControllers and need to be accessible

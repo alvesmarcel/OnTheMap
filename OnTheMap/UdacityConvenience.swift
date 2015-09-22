@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
 //  Extension of class UdacityClient
-//  The convenience methods (specific GET and POST methods provided by the Udacity API) are here
-//  This class is also responsible for the authentication with Udacity and Facebook
+//  The convenience methods (specific GET, POST and DELETE methods provided by the Udacity API) are here
+//  This class is also responsible for the authentication and deauthentication with Udacity and Facebook
 
 import UIKit
 import Foundation

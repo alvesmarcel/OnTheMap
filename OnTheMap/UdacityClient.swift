@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Marcel Oliveira Alves. All rights reserved.
 //
 //  This is a SINGLETON class responsible for the use of Udacity API.
-//  GET and POST methods are provided to make HTTP requests to the server using the Udacity API.
+//  GET, POST and DELETE methods are provided to make HTTP requests to the server using the Udacity API.
 
 import Foundation
 
