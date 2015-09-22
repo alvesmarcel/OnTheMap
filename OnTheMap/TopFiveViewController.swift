@@ -64,10 +64,19 @@ class TopFiveViewController: UIViewController {
 					ErrorDisplay.displayErrorWithTitle("Error Checking Countries", errorDescription: "Could not download all locations", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 				} else {
 					let place = placemark[0] as! CLPlacemark
-					if countryCountDictionary[place.country] == nil {
-						countryCountDictionary[place.country] = 1
-					} else {
-						countryCountDictionary[place.country] = countryCountDictionary[place.country]! + 1
+					
+					/* Verifies if the country is not nil */
+					if let country = place.country {
+						
+						if countryCountDictionary[place.country] == nil {
+							
+							/* If the country is not found in the dictionary, the count should be initialized for that country */
+							countryCountDictionary[place.country] = 1
+						} else {
+							
+							/* Increment country count */
+							countryCountDictionary[place.country] = countryCountDictionary[place.country]! + 1
+						}
 					}
 				}
 				
