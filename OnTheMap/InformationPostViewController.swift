@@ -91,8 +91,8 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 					
 					/* Geocoder could not find the location */
 					if let error = error {
-						// TODO: - Improve this error message
-						ErrorDisplay.displayErrorWithTitle("Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+	
+						ErrorDisplay.displayErrorWithTitle("CLGeocoder Error", errorDescription: "Could not geocode location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 					} else {
 						
 						/* Location was found by the geocoder - loading screen is off */

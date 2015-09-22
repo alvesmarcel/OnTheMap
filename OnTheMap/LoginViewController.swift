@@ -37,6 +37,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 		
 		/* Loading screen initialization */
 		loadingScreen = LoadingScreen(view: self.view)
+		
+		/* Log out of Facebook account if it is already logged in */
+		if FBSDKAccessToken.currentAccessToken() != nil {
+			FBSDKLoginManager().logOut()
+		}
 	}
 	
 	// MARK: - Actions
@@ -77,7 +82,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 	
 	/* Performs everything necessary after the Facebook login is completed */
 	func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-		println("aqui 1")
+		
 		if error != nil {
 			println(error)
 			println(error.localizedDescription)
@@ -85,9 +90,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 			ErrorDisplay.displayErrorWithTitle("Login With Facebook Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: nil)
 		} else if result.isCancelled {
 			// The login was cancelled - nothing need to be done
-			println("cancelou")
 		} else {
-			println("aqui 2")
+			
 			/* Facebook login was successful - the app communicate with Udacity to complete the log in process */
 			loadingScreen.setActive(true)
 			UdacityClient.sharedInstance().authenticateWithFacebook() { success, errorString in
