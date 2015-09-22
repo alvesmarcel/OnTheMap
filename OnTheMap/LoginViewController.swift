@@ -77,15 +77,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 	
 	/* Performs everything necessary after the Facebook login is completed */
 	func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-		
+		println("aqui 1")
 		if error != nil {
-			
+			println(error)
+			println(error.localizedDescription)
 			/* There was an error trying to log in with Facebook */
 			ErrorDisplay.displayErrorWithTitle("Login With Facebook Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: nil)
 		} else if result.isCancelled {
 			// The login was cancelled - nothing need to be done
+			println("cancelou")
 		} else {
-			
+			println("aqui 2")
 			/* Facebook login was successful - the app communicate with Udacity to complete the log in process */
 			loadingScreen.setActive(true)
 			UdacityClient.sharedInstance().authenticateWithFacebook() { success, errorString in
