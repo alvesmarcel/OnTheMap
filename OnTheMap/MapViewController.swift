@@ -49,7 +49,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	// MARK: - MKMapViewDelegate methods
 	
 	/* Configures how the pins will me shown for each annotation */
-	func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+	func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
 		
 		let reuseId = "pin"
 		
@@ -59,7 +59,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 			pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
 			pinView!.canShowCallout = true
 			pinView!.pinColor = .Red
-			pinView!.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIButton
+			pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
 		}
 		else {
 			pinView!.annotation = annotation
@@ -70,11 +70,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 	
 	/* Configures the response for touching the annotation view */
 	/* In this app, it will open the URL that is the subtitle of the annotation */
-	func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+	func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 		
 		if control == annotationView.rightCalloutAccessoryView {
 			let app = UIApplication.sharedApplication()
-			app.openURL(NSURL(string: annotationView.annotation.subtitle!)!)
+			app.openURL(NSURL(string: annotationView.annotation!.subtitle!!)!)
 		}
 	}
 	
@@ -99,7 +99,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 				let lastName = studentLocation.lastName
 				let mediaURL = studentLocation.mediaURL
 				
-				var annotation = MKPointAnnotation()
+				let annotation = MKPointAnnotation()
 				annotation.coordinate = coordinate
 				annotation.title = "\(firstName) \(lastName)"
 				annotation.subtitle = mediaURL

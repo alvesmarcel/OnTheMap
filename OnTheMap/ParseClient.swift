@@ -23,7 +23,7 @@ class ParseClient {
 	func taskForGETMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
 		
 		/* 1. Set the parameters */
-		var mutableParameters = parameters
+		let mutableParameters = parameters
 		
 		/* 2/3. Build the URL and configure the request */
 		let urlString = Constants.ParseBaseURL + method + JSONConvenience.escapedParameters(mutableParameters)
@@ -37,10 +37,10 @@ class ParseClient {
 		let task = session.dataTaskWithRequest(request) {data, response, downloadError in
 			
 			/* 5/6. Parse the data and use the data (happens in completion handler) */
-			if let error = downloadError {
+			if downloadError != nil {
 				completionHandler(result: nil, error: downloadError)
 			} else {
-				JSONConvenience.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+				JSONConvenience.parseJSONWithCompletionHandler(data!, completionHandler: completionHandler)
 			}
 		}
 		
@@ -55,7 +55,7 @@ class ParseClient {
 	func taskForPOSTMethod(method: String, parameters: [String : AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
 		
 		/* 1. Set the parameters */
-		var mutableParameters = parameters
+		let mutableParameters = parameters
 		
 		/* 2/3. Build the URL and configure the request */
 		let urlString = Constants.ParseBaseURL + method + JSONConvenience.escapedParameters(mutableParameters)
@@ -68,16 +68,21 @@ class ParseClient {
 		let session = NSURLSession.sharedSession()
 		
 		var jsonifyError: NSError? = nil
-		request.HTTPBody = NSJSONSerialization.dataWithJSONObject(jsonBody, options: nil, error: &jsonifyError)
+		do {
+			request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(jsonBody, options: [])
+		} catch let error as NSError {
+			jsonifyError = error
+			request.HTTPBody = nil
+		}
 		
 		/* 4. Make the request */
 		let task = session.dataTaskWithRequest(request) {data, response, downloadError in
 			
 			/* 5/6. Parse the data and use the data (happens in completion handler) */
-			if let error = downloadError {
+			if downloadError != nil {
 				completionHandler(result: nil, error: downloadError)
 			} else {
-				JSONConvenience.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+				JSONConvenience.parseJSONWithCompletionHandler(data!, completionHandler: completionHandler)
 			}
 		}
 		
@@ -92,7 +97,7 @@ class ParseClient {
 	func taskForPUTMethod(method: String, parameters: [String : AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
 		
 		/* 1. Set the parameters */
-		var mutableParameters = parameters
+		_ = parameters
 	
 		/* 2/3. Build the URL and configure the request */
 		let urlString = Constants.ParseBaseURL + method + "/\(jsonBody[JSONBodyKeys.ObjectID] as! String)"
@@ -105,16 +110,21 @@ class ParseClient {
 		let session = NSURLSession.sharedSession()
 		
 		var jsonifyError: NSError? = nil
-		request.HTTPBody = NSJSONSerialization.dataWithJSONObject(jsonBody, options: nil, error: &jsonifyError)
+		do {
+			request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(jsonBody, options: [])
+		} catch let error as NSError {
+			jsonifyError = error
+			request.HTTPBody = nil
+		}
 		
 		/* 4. Make the request */
 		let task = session.dataTaskWithRequest(request) { data, response, downloadError in
 			
 			/* 5/6. Parse the data and use the data (happens in completion handler) */
-			if let error = downloadError {
+			if downloadError != nil {
 				completionHandler(result: nil, error: downloadError)
 			} else {
-				JSONConvenience.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+				JSONConvenience.parseJSONWithCompletionHandler(data!, completionHandler: completionHandler)
 			}
 		}
 		

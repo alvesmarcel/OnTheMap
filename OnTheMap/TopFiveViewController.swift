@@ -63,19 +63,19 @@ class TopFiveViewController: UIViewController {
 				if error != nil {
 					ErrorDisplay.displayErrorWithTitle("Error Checking Countries", errorDescription: "Could not download all locations", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 				} else {
-					let place = placemark[0] as! CLPlacemark
+					let place = (placemark as [CLPlacemark]!)[0] as CLPlacemark!
 					
 					/* Verifies if the country is not nil */
-					if let country = place.country {
+					if let _ = place.country {
 						
-						if countryCountDictionary[place.country] == nil {
+						if countryCountDictionary[place.country!] == nil {
 							
 							/* If the country is not found in the dictionary, the count should be initialized for that country */
-							countryCountDictionary[place.country] = 1
+							countryCountDictionary[place.country!] = 1
 						} else {
 							
 							/* Increment country count */
-							countryCountDictionary[place.country] = countryCountDictionary[place.country]! + 1
+							countryCountDictionary[place.country!] = countryCountDictionary[place.country!]! + 1
 						}
 					}
 				}
@@ -94,7 +94,7 @@ class TopFiveViewController: UIViewController {
 	
 	/* Updates the view to show the rank (top 5) of countries with most student locations posted */
 	func updateViewWithCountries(countryCountDictionary: [String:Int]) {
-		let sortedCountries = Array(countryCountDictionary).sorted({$0.1 > $1.1})
+		let sortedCountries = Array(countryCountDictionary).sort({$0.1 > $1.1})
 		for i in 0...4 {
 			dispatch_async(dispatch_get_main_queue()){
 				self.countryLabels[i].text = "\(i+1). \(sortedCountries[i].0) (\(sortedCountries[i].1))"

@@ -20,7 +20,7 @@ class UdacityClient : NSObject {
 	func taskForGETMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
 				
 		/* 1. Set the parameters */
-		var mutableParameters = parameters
+		_ = parameters
 		
 		/* 2/3. Build the URL and configure the request */
 		let urlString = Constants.UdacityBaseURL + method + "/\(accountKey!)"
@@ -32,12 +32,12 @@ class UdacityClient : NSObject {
 		let task = session.dataTaskWithRequest(request) {data, response, downloadError in
 			
 			/* 5/6. Parse the data and use the data (happens in completion handler) */
-			if let error = downloadError {
+			if downloadError != nil {
 				completionHandler(result: nil, error: downloadError)
 			} else {
 				
 				/* The first 5 bytes should be ignored, according to the documentation */
-				let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+				let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
 				
 				JSONConvenience.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
 			}
@@ -54,7 +54,7 @@ class UdacityClient : NSObject {
 	func taskForPOSTMethod(method: String, parameters: [String : AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
 		
 		/* 1. Set the parameters */
-		var mutableParameters = parameters
+		let mutableParameters = parameters
 		
 		/* 2/3. Build the URL and configure the request */
 		let urlString = Constants.UdacityBaseURL + method + JSONConvenience.escapedParameters(mutableParameters)
@@ -65,7 +65,12 @@ class UdacityClient : NSObject {
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		
 		var jsonifyError: NSError? = nil
-		request.HTTPBody = NSJSONSerialization.dataWithJSONObject(jsonBody, options: nil, error: &jsonifyError)
+		do {
+			request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(jsonBody, options: [])
+		} catch let error as NSError {
+			jsonifyError = error
+			request.HTTPBody = nil
+		}
 		
 		let session = NSURLSession.sharedSession()
 		
@@ -78,7 +83,7 @@ class UdacityClient : NSObject {
 			} else {
 				
 				/* The first 5 bytes should be ignored, according to the documentation */
-				let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+				let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
 				
 				JSONConvenience.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
 			}
@@ -95,7 +100,7 @@ class UdacityClient : NSObject {
 	func taskForDELETEMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
 		
 		/* 1. Set the parameters */
-		var mutableParameters = parameters
+		let mutableParameters = parameters
 		
 		/* 2/3. Build the URL and configure the request */
 		let urlString = Constants.UdacityBaseURL + method + JSONConvenience.escapedParameters(mutableParameters)
@@ -106,11 +111,11 @@ class UdacityClient : NSObject {
 		/* Finding the cookie and setting the request value */
 		var xsrfCookie: NSHTTPCookie? = nil
 		let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-		for cookie in sharedCookieStorage.cookies as! [NSHTTPCookie] {
+		for cookie in sharedCookieStorage.cookies as [NSHTTPCookie]! {
 			if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
 		}
 		if let xsrfCookie = xsrfCookie {
-			request.setValue(xsrfCookie.value!, forHTTPHeaderField: "X-XSRF-TOKEN")
+			request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
 		}
 		
 		let session = NSURLSession.sharedSession()
@@ -124,7 +129,7 @@ class UdacityClient : NSObject {
 			} else {
 				
 				/* The first 5 bytes should be ignored, according to the documentation */
-				let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+				let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
 				
 				JSONConvenience.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
 			}

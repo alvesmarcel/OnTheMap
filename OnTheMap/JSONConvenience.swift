@@ -17,7 +17,13 @@ class JSONConvenience {
 		
 		var parsingError: NSError? = nil
 		
-		let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
+		let parsedResult: AnyObject?
+		do {
+			parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+		} catch let error as NSError {
+			parsingError = error
+			parsedResult = nil
+		}
 		
 		if let error = parsingError {
 			completionHandler(result: nil, error: error)
@@ -44,6 +50,6 @@ class JSONConvenience {
 			
 		}
 		
-		return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
+		return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
 	}
 }

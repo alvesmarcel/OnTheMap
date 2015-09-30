@@ -65,7 +65,7 @@ class TabBarViewController: UITabBarController {
 				if let error = error {
 					ErrorDisplay.displayErrorWithTitle("Logout Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 				} else {
-					println("Udacity logout successful")
+					print("Udacity logout successful")
 					dispatch_async(dispatch_get_main_queue()) {
 						self.dismissViewControllerAnimated(true, completion: nil)
 					}
@@ -79,7 +79,7 @@ class TabBarViewController: UITabBarController {
 				if let error = error {
 					ErrorDisplay.displayErrorWithTitle("Logout Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 				} else {
-					println("Facebook logout successful")
+					print("Facebook logout successful")
 					dispatch_async(dispatch_get_main_queue()) {
 						self.dismissViewControllerAnimated(true, completion: nil)
 					}
@@ -142,12 +142,12 @@ class TabBarViewController: UITabBarController {
 			} else {
 				
 				/* The connection is OK but there may be a response error */
-				if let locations = studentLocations {
+				if let _ = studentLocations {
 					
 					/* studentLocations is not nil: they were correctly saved */
 					self.loadingScreen.setActive(false)
 					NSNotificationCenter.defaultCenter().postNotificationName(NotificationNames.StudentLocationsSavedNotification, object: nil)
-					println("Students Locations saved")
+					print("Students Locations saved")
 				} else {
 					
 					/* studentLocations is nil: there was an error trying the find a key in the response */

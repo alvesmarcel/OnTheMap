@@ -47,5 +47,20 @@
 	<string>365362206864879</string>
 	<key>FacebookDisplayName</key>
 	<string>onthemap</string>
+	
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<!-- Allow all connections (including Facebook) to make possible for all the app functions work properly-->
+		<key>NSAllowsArbitraryLoads</key>
+			<true/>
+	</dict>
+	
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 </dict>
 </plist>

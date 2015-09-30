@@ -41,7 +41,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 		/* Get cell type */
 		let cellReuseIdentifier = "ListViewTableCell"
 		let student = ParseClient.sharedInstance().studentsInformation[indexPath.row]
-		var cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! UITableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as UITableViewCell!
 		
 		/* Set cell defaults */
 		cell.textLabel!.text = "\(student.firstName) \(student.lastName)"

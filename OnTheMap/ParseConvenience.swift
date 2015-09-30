@@ -64,7 +64,7 @@ extension ParseClient {
 		taskForPOSTMethod(Methods.StudentLocation, parameters: parameters, jsonBody: jsonBody) { result, error in
 			
 			/* 3. Send the desired value(s) to completion handler */
-			if let error = error {
+			if error != nil {
 				completionHandler(success: false)
 			} else {
 				completionHandler(success: true)
@@ -95,7 +95,7 @@ extension ParseClient {
 		taskForPUTMethod(Methods.StudentLocation, parameters: parameters, jsonBody: jsonBody) { result, error in
 			
 			/* 3. Send the desired value(s) to completion handler */
-			if let error = error {
+			if error != nil {
 				completionHandler(success: false)
 			} else {
 				completionHandler(success: true)

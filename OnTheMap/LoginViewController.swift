@@ -55,7 +55,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 		emailTextField.resignFirstResponder()
 		passwordTextField.resignFirstResponder()
 		
-		UdacityClient.sharedInstance().authenticateWithUdacity(emailTextField.text, password: passwordTextField.text) { success, errorString in
+		UdacityClient.sharedInstance().authenticateWithUdacity(emailTextField.text!, password: passwordTextField.text!) { success, errorString in
 			if success {
 				self.loadingScreen.setActive(false)
 				self.completeLogin()
@@ -84,8 +84,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 	func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
 		
 		if error != nil {
-			println(error)
-			println(error.localizedDescription)
+			print(error)
+			print(error.localizedDescription)
 			/* There was an error trying to log in with Facebook */
 			ErrorDisplay.displayErrorWithTitle("Login With Facebook Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: nil)
 		} else if result.isCancelled {
@@ -142,7 +142,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 		self.view.backgroundColor = UIColor.clearColor()
 		let colorTop = UIColor(red: 1.0, green: 0.8, blue: 0.3, alpha: 1.0).CGColor
 		let colorBottom = UIColor(red: 1.0, green: 0.5, blue: 0.0, alpha: 1.0).CGColor
-		var backgroundGradient = CAGradientLayer()
+		let backgroundGradient = CAGradientLayer()
 		backgroundGradient.colors = [colorTop, colorBottom]
 		backgroundGradient.locations = [0.0, 1.0]
 		backgroundGradient.frame = view.frame

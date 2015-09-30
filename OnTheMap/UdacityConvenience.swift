@@ -65,22 +65,22 @@ extension UdacityClient {
 				if let status = result.valueForKey(JSONResponseKeys.Status) as? Int {
 					
 					/* Checks the response's status and return the appropriate error message */
-					if let errorMessage = ErrorMessages.MessageForStatus[status] {
-						println("Status error: \(status) (\(ErrorMessages.MessageForStatus[status]!))")
+					if let _ = ErrorMessages.MessageForStatus[status] {
+						print("Status error: \(status) (\(ErrorMessages.MessageForStatus[status]!))")
 						completionHandler(success: false, errorString: ErrorMessages.MessageForStatus[status])
 					} else {
-						println("Status error: \(status) (Unknown error)")
+						print("Status error: \(status) (Unknown error)")
 						completionHandler(success: false, errorString: "Unknown Error")
 					}
 				} else {
 					
 					/* When there is no "status", the operation was succesful. Checks for account key */
 					if let accountKey = result.valueForKey(JSONResponseKeys.Account)?.valueForKey(JSONResponseKeys.Key) as? String {
-						println("Udacity login successful")
+						print("Udacity login successful")
 						self.accountKey = accountKey
 						completionHandler(success: true, errorString: nil)
 					} else {
-						println("Could not find account key")
+						print("Could not find account key")
 						completionHandler(success: false, errorString: "Could not find account key (API error)")
 					}
 				}
@@ -106,7 +106,7 @@ extension UdacityClient {
 			} else {
 				
 				if let accountKey = result.valueForKey(JSONResponseKeys.Account)?.valueForKey(JSONResponseKeys.Key) as? String {
-					println("Facebook login successful")
+					print("Facebook login successful")
 					self.accountKey = accountKey
 					completionHandler(success: true, errorString: nil)
 				} else {

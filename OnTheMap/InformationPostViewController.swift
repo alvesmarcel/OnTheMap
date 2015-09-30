@@ -90,7 +90,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 				geocoder.geocodeAddressString(locationTextView.text) { placemarks, error in
 					
 					/* Geocoder could not find the location */
-					if let error = error {
+					if error != nil {
 	
 						ErrorDisplay.displayErrorWithTitle("CLGeocoder Error", errorDescription: "Could not geocode location", inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
 					} else {
@@ -99,7 +99,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 						self.loadingScreen.setActive(false)
 						
 						/* Selects the top result from the geocoder and configure the Link UI (the "second" screen) */
-						if let topResult = placemarks[0] as? CLPlacemark {
+						if let topResult = (placemarks as [CLPlacemark]!)[0] as CLPlacemark? {
 							self.configureLinkUI()
 							
 							let placemark = MKPlacemark(placemark: topResult)
