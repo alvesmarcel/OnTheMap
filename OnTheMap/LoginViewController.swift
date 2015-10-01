@@ -84,8 +84,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 	func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
 		
 		if error != nil {
-			print(error)
-			print(error.localizedDescription)
+			
 			/* There was an error trying to log in with Facebook */
 			ErrorDisplay.displayErrorWithTitle("Login With Facebook Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: nil)
 		} else if result.isCancelled {

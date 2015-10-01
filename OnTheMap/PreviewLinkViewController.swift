@@ -10,7 +10,7 @@
 
 import UIKit
 
-class PreviewLinkViewController: UIViewController {
+class PreviewLinkViewController: UIViewController, UIWebViewDelegate {
 	
 	// MARK: - Outlets
 	
@@ -19,6 +19,7 @@ class PreviewLinkViewController: UIViewController {
 	// MARK: - Class variables
 	
 	var urlRequest: NSURLRequest!
+	var loadingScreen: LoadingScreen!
 	
 	// MARK: - Lifecycle
 	
@@ -27,15 +28,29 @@ class PreviewLinkViewController: UIViewController {
 		
 		self.navigationItem.title = "Preview Link"
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .Plain, target: self, action: "dismissPreviewLinkView")
+		
+		/* Loading screen initialization */
+		loadingScreen = LoadingScreen(view: self.view)
 	}
 	
 	override func viewWillAppear(animated: Bool) {
 		
 		super.viewWillAppear(animated)
 	
+		/* Activates loading screen */
+		loadingScreen.setActive(true)
+		
 		if urlRequest != nil {
 			self.webView.loadRequest(urlRequest!)
 		}
+	}
+	
+	// MARK: - UIWebViewDelegate
+	
+	func webViewDidFinishLoad(webView: UIWebView) {
+		
+		/* Deactivates loading screen */
+		loadingScreen.setActive(false)
 	}
 	
 	// MARK: - Actions
