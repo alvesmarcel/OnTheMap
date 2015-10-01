@@ -64,11 +64,11 @@ class UdacityClient : NSObject {
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		
-		var jsonifyError: NSError? = nil
 		do {
 			request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(jsonBody, options: [])
-		} catch let error as NSError {
-			jsonifyError = error
+		} catch {
+			// Handle NSJSONSerialization.dataWithJSONObject error
+			print(error)
 			request.HTTPBody = nil
 		}
 		

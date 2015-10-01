@@ -67,11 +67,11 @@ class ParseClient {
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		let session = NSURLSession.sharedSession()
 		
-		var jsonifyError: NSError? = nil
 		do {
 			request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(jsonBody, options: [])
-		} catch let error as NSError {
-			jsonifyError = error
+		} catch {
+			// Handle NSJSONSerialization.dataWithJSONObject error
+			print(error)
 			request.HTTPBody = nil
 		}
 		
@@ -109,11 +109,11 @@ class ParseClient {
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		let session = NSURLSession.sharedSession()
 		
-		var jsonifyError: NSError? = nil
 		do {
 			request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(jsonBody, options: [])
-		} catch let error as NSError {
-			jsonifyError = error
+		} catch {
+			// Handle NSJSONSerialization.dataWithJSONObject error
+			print(error)
 			request.HTTPBody = nil
 		}
 		
