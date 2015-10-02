@@ -31,6 +31,8 @@ class PreviewLinkViewController: UIViewController, UIWebViewDelegate {
 		
 		/* Loading screen initialization */
 		loadingScreen = LoadingScreen(view: self.view)
+		
+		webView.delegate = self
 	}
 	
 	override func viewWillAppear(animated: Bool) {

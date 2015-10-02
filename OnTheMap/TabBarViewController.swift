@@ -22,6 +22,13 @@ class TabBarViewController: UITabBarController {
 	
 	override func viewDidLoad() {
 		
+		/* Checking if it is iPhone 4S to adjust TopFive functionality */
+		if UIScreen.mainScreen().bounds.size.height < 568.0 {
+			dispatch_async(dispatch_get_main_queue()) {
+				self.tabBar.items![2].title! = "Top 3"
+			}
+		}
+		
 		/* Adding the left bar button (logout) to the navigation bar */
 		let logoutBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logout:")
 		self.navigationItem.setLeftBarButtonItem(logoutBarButtonItem, animated: true)

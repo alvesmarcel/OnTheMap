@@ -7,6 +7,10 @@
 //
 //  This class is responsible for exibiting the top 5 countries with student locations posted
 //  The view exhibits some labels (countryLabels) with the country rank
+//
+//  Only the last 40 students (first 40 in the array) are used to generate the Top 5
+//  - This is due to the fact that Apple seems not to allow too many calls to CLGeocoder().reverseGeocodeLocation()
+//
 //  THIS VIEW USES "A LOT" OF NETWORK CALLS WHEN COMPARED TO THE OTHERS DUE TO THE getTopFiveCountries() METHOD
 
 import UIKit
@@ -17,15 +21,27 @@ class TopFiveViewController: UIViewController {
 	// MARK: - Outlets
 	
 	@IBOutlet var countryLabels: [UILabel]!
+	@IBOutlet weak var top5Label: UILabel!
 	
 	// MARK: - Class variables
 
 	var loadingScreen: LoadingScreen!
 	var countryCountDictionary = [String:Int]()
+	var numberOfLabels = 5
 	
 	// MARK: - Lifecycle
 	
 	override func viewDidLoad() {
+		
+		/* Checking if it is iPhone 4S to adjust TopFive functionality */
+		if UIScreen.mainScreen().bounds.size.height < 568.0 {
+			dispatch_async(dispatch_get_main_queue()) {
+				self.countryLabels[3].text = ""
+				self.countryLabels[4].text = ""
+				self.top5Label.text = "Top 3"
+			}
+			numberOfLabels = 3
+		}
 		
 		/* Loading screen initialization */
 		loadingScreen = LoadingScreen(view: self.parentViewController!.view)
@@ -98,10 +114,10 @@ class TopFiveViewController: UIViewController {
 	
 	/* Updates the view to show the rank (top 5) of countries with most student locations posted */
 	func updateViewWithCountries(countryCountDictionary: [String:Int]) {
-		print(countryCountDictionary)
+		
 		let sortedCountries = Array(countryCountDictionary).sort({$0.1 > $1.1})
-		print(sortedCountries)
-		for i in 0...4 {
+		let loopRange = min(numberOfLabels - 1, sortedCountries.count) // Prevents accessing array out of bounds
+		for i in 0...loopRange {
 			dispatch_async(dispatch_get_main_queue()){
 				self.countryLabels[i].text = "\(i+1). \(sortedCountries[i].0) (\(sortedCountries[i].1))"
 			}
