@@ -45,21 +45,11 @@ class TopFiveViewController: UIViewController {
 		
 		/* Loading screen initialization */
 		loadingScreen = LoadingScreen(view: self.parentViewController!.view)
-	}
-	
-	override func viewWillAppear(animated: Bool) {
 		
-		/* Notification is used to update the tableView when student information is saved */
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "getTopFiveCountries", name: NotificationNames.StudentLocationsSavedNotification, object: nil)
-		
-		/* Ensure the top 5 is updated when the view appears - this consumes network data and may take a while */
-		getTopFiveCountries(0)
-	}
-	
-	override func viewWillDisappear(animated: Bool) {
-		
-		/* Removing observers */
-		NSNotificationCenter.defaultCenter().removeObserver(self)
+		/* getTopFiveCountries() can be called only once due to reverseGeocodeLocation() limitations */
+		if countryLabels[0].text! == "1." {
+			getTopFiveCountries(0)
+		}
 	}
 	
 	// MARK: - Notification activated methods
@@ -95,8 +85,6 @@ class TopFiveViewController: UIViewController {
 				}
 				
 				if count < 40 {
-					
-					print(count)
 					
 					/* Recursive call getTopFiveCountries to get one more country */
 					self.getTopFiveCountries(count + 1)
