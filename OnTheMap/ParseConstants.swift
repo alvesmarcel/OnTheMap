@@ -32,6 +32,7 @@ extension ParseClient {
 		
 		static let Limit = "limit"
 		static let Skip = "skip"
+		static let Order = "order"
 	}
 	
 	// MARK: - JSON Body Keys

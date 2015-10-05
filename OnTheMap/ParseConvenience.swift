@@ -20,7 +20,8 @@ extension ParseClient {
 	func getStudentsLocationsWithLimit(limit: Int, skip: Int, completionHandler: (result: [StudentInformation]?, error: NSError?) -> Void) {
 		
 		/* 1. Specify parameters, method and HTTP body (if POST) */
-		let parameters = [
+		let parameters :[String : AnyObject] = [
+			ParameterKeys.Order : "-updatedAt",
 			ParameterKeys.Limit : limit,
 			ParameterKeys.Skip : skip
 		]
