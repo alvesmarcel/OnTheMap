@@ -141,7 +141,7 @@ class TabBarViewController: UITabBarController {
 	/* Fetchs locations from the server and updates the mapView - refreshBarButtonItem action */
 	func refreshLocations(sender: AnyObject?) {
 		loadingScreen.setActive(true)
-		ParseClient.sharedInstance().getStudentsLocationsWithLimit(200, skip: 0) { studentLocations, error in
+		ParseClient.sharedInstance().getStudentsLocationsWithLimit(100, skip: 0) { studentLocations, error in
 			if let error = error {
 				
 				/* There was a connection error */

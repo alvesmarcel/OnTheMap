@@ -41,13 +41,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 		/* Get cell type */
 		let cellReuseIdentifier = "ListViewTableCell"
 		let student = ParseClient.sharedInstance().studentsInformation[indexPath.row]
-		let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as UITableViewCell!
+		let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! CustomTableViewCell!
 		
 		/* Set cell defaults */
-		cell.textLabel!.text = "\(student.firstName) \(student.lastName)"
-		cell.imageView!.image = UIImage(named: "pin")
-		cell.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
-		
+		cell.studentNameLabel.text = "\(student.firstName) \(student.lastName)"
+		cell.studentLocationLabel.text = "\(student.mapString)"
+		cell.studentLinkLabel.text = "\(student.mediaURL)"
+		cell.studentImage.image = UIImage(named: "pin")
+		cell.studentImage.contentMode = UIViewContentMode.Center
+
 		return cell
 	}
 	

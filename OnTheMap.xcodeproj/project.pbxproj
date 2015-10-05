@@ -36,6 +36,7 @@
 		286F40D81B9085FE008B012D /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F40D71B9085FE008B012D /* ListViewController.swift */; };
 		288731E11BBCACD500D11592 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288731DF1BBCACD500D11592 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
 		288731E21BBCACD500D11592 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288731E01BBCACD500D11592 /* FBSDKLoginKit.framework */; settings = {ASSET_TAGS = (); }; };
+		28B571541BC20A2900CA61E2 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B571531BC20A2900CA61E2 /* CustomTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		286F40D71B9085FE008B012D /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		288731DF1BBCACD500D11592 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = FacebookSDK/FBSDKCoreKit.framework; sourceTree = SOURCE_ROOT; };
 		288731E01BBCACD500D11592 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = FacebookSDK/FBSDKLoginKit.framework; sourceTree = SOURCE_ROOT; };
+		28B571531BC20A2900CA61E2 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +223,7 @@
 				286F40C61B8BE2DD008B012D /* CustomTextField.swift */,
 				2828FA161B9C6F8900E9B813 /* LoadingScreen.swift */,
 				2828FA181B9DD13C00E9B813 /* ErrorDisplay.swift */,
+				28B571531BC20A2900CA61E2 /* CustomTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				28096DCB1B947BB00084982C /* JSONConvenience.swift in Sources */,
 				2864299B1BB0B94400363376 /* PreviewLinkViewController.swift in Sources */,
 				2828FA131B978FC300E9B813 /* ParseConvenience.swift in Sources */,
+				28B571541BC20A2900CA61E2 /* CustomTableViewCell.swift in Sources */,
 				286F40A91B8B4822008B012D /* LoginViewController.swift in Sources */,
 				2828FA191B9DD13C00E9B813 /* ErrorDisplay.swift in Sources */,
 				28096DC71B9475C70084982C /* StudentInformation.swift in Sources */,
