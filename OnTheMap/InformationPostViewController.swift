@@ -178,17 +178,26 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	
 	/* Calls PreviewLinkViewController to show the preview of the web page when the previewLinkButton is touched */
 	@IBAction func previewLinkButtonTouch(sender: AnyObject) {
-		let previewLinkViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PreviewLinkViewController") as! PreviewLinkViewController
 		
-		let url = NSURL(string: linkTextView.text)
-		let request = NSURLRequest(URL: url!)
-		previewLinkViewController.urlRequest = request
-		
-		let previewLinkNavigationController = UINavigationController()
-		previewLinkNavigationController.pushViewController(previewLinkViewController, animated: false)
-		
-		dispatch_async(dispatch_get_main_queue()) {
-			self.presentViewController(previewLinkNavigationController, animated: true, completion: nil)
+		if checkLink(linkTextView.text) {
+			let previewLinkViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PreviewLinkViewController") as! PreviewLinkViewController
+			
+			let url = NSURL(string: linkTextView.text)
+			let request = NSURLRequest(URL: url!)
+			previewLinkViewController.urlRequest = request
+			
+			let previewLinkNavigationController = UINavigationController()
+			previewLinkNavigationController.pushViewController(previewLinkViewController, animated: false)
+			
+			dispatch_async(dispatch_get_main_queue()) {
+				self.presentViewController(previewLinkNavigationController, animated: true, completion: nil)
+			}
+		} else {
+			if linkTextView.text == "Enter a Link to Share Here" {
+				ErrorDisplay.displayErrorWithTitle("Link not entered", errorDescription: "You should enter a link", inViewController: self, andDeactivatesLoadingScreen: nil)
+			} else {
+				ErrorDisplay.displayErrorWithTitle("Invalid Link", errorDescription: "Invalid link. Include http(s)://", inViewController: self, andDeactivatesLoadingScreen: nil)
+			}
 		}
 	}
 	
@@ -209,20 +218,6 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 			
 			if textView.text == "" {
 				resetTextView(textView)
-			} else {
-				
-				/* Checks if it is in the Link Text View */
-				if textView == self.linkTextView {
-					if checkLink(self.linkTextView.text) {
-						previewLinkButton.setTitle("Tap to preview link", forState: .Normal)
-						previewLinkButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-						previewLinkButton.enabled = true
-					} else {
-						previewLinkButton.setTitle("Invalid Link", forState: .Normal)
-						previewLinkButton.setTitleColor(UIColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0), forState: .Normal)
-						previewLinkButton.enabled = false
-					}
-				}
 			}
 			
 			return false
@@ -240,8 +235,6 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 			/* Identifies which text view is being edited */
 			if textView == self.linkTextView {
 				self.linkTextView.text = "Enter a Link to Share Here"
-				self.previewLinkButton.setTitle("", forState: .Normal)
-				self.previewLinkButton.enabled = false
 			} else {
 				self.locationTextView.text = "Enter Your Location Here"
 			}
@@ -252,8 +245,6 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	/* Configures the UI to present the "location screen" */
 	func configureLocationUI() {
 		dispatch_async(dispatch_get_main_queue()) {
-			self.previewLinkButton.setTitle("", forState: .Normal)
-			self.previewLinkButton.enabled = false
 			
 			self.label1.alpha = 1.0
 			self.label2.alpha = 1.0
@@ -274,8 +265,6 @@ class InformationPostViewController: UIViewController, UITextViewDelegate, MKMap
 	/* Configures the UI to presente the "link screen" */
 	func configureLinkUI() {
 		dispatch_async(dispatch_get_main_queue()) {
-			self.previewLinkButton.setTitle("", forState: .Normal)
-			self.previewLinkButton.enabled = false
 			
 			self.label1.alpha = 0.0
 			self.label2.alpha = 0.0
