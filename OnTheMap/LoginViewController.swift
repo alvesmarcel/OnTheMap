@@ -61,6 +61,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 				self.completeLogin()
 			} else {
 				ErrorDisplay.displayErrorWithTitle("Login Failed", errorDescription: errorString as! String, inViewController: self, andDeactivatesLoadingScreen: self.loadingScreen)
+				
+				self.loginFailedAnimation()
 			}
 		}
 	}
@@ -87,6 +89,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 			
 			/* There was an error trying to log in with Facebook */
 			ErrorDisplay.displayErrorWithTitle("Login With Facebook Error", errorDescription: error.localizedDescription, inViewController: self, andDeactivatesLoadingScreen: nil)
+			
+			self.loginFailedAnimation()
 		} else if result.isCancelled {
 			// The login was cancelled - nothing need to be done
 		} else {
@@ -155,5 +159,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 		loginWithUdacityButton.titleLabel?.font = UIFont(name: "Roboto-Medium", size: 17.0)
 		loginWithUdacityButton.backgroundColor = UIColor(red: 1.0, green:0.4, blue:0.0, alpha: 1.0)
 		loginWithUdacityButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+	}
+	
+	/* Performs a shake animation in the screen if the login fails */
+	func loginFailedAnimation() {
+		dispatch_async(dispatch_get_main_queue()) {
+			let animation = CABasicAnimation(keyPath: "position")
+			animation.duration = 0.07
+			animation.repeatCount = 4
+			animation.autoreverses = true
+			animation.fromValue = NSValue(CGPoint: CGPointMake(self.view.center.x - 10, self.view.center.y))
+			animation.toValue = NSValue(CGPoint: CGPointMake(self.view.center.x + 10, self.view.center.y))
+			self.view.layer.addAnimation(animation, forKey: "position")
+		}
 	}
 }
